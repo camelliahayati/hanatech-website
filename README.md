@@ -90,3 +90,25 @@ npm run preview
 ├── vite.config.js
 └── package.json
 ```
+
+## Publish to GitHub
+
+1. Create an empty repository on GitHub (no README, no license, no `.gitignore`).
+2. Add your remote:
+
+```bash
+git remote add origin <YOUR_GITHUB_REPO_URL>
+```
+
+3. Push `main`:
+
+```bash
+git push -u origin main
+```
+
+If `origin` already exists:
+
+```bash
+git remote set-url origin <YOUR_GITHUB_REPO_URL>
+git push -u origin main
+```
