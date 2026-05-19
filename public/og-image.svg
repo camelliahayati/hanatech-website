@@ -1,0 +1,8 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#F5F8F4"/>
+  <circle cx="1020" cy="120" r="180" fill="#D7EFE0"/>
+  <circle cx="150" cy="520" r="220" fill="#B2DEC4"/>
+  <rect x="110" y="110" width="980" height="410" rx="28" fill="#103023"/>
+  <text x="170" y="270" fill="#EEF8F2" font-family="Arial, sans-serif" font-size="92" font-weight="700">HanaTech</text>
+  <text x="176" y="350" fill="#B2DEC4" font-family="Arial, sans-serif" font-size="38">Premium technology consulting</text>
+</svg>
