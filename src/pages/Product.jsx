@@ -29,7 +29,7 @@ const visionHighlights = [
 
 export default function Product({ id }) {
   return (
-    <section id={id} className="bg-pine-950 px-5 py-20 sm:px-8 sm:py-28">
+    <section id={id} className="page-section bg-pine-950 px-5 sm:px-8">
       <div className="mx-auto max-w-7xl">
         <SectionHeader
           eyebrow="HanaAI Platform"

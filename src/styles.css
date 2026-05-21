@@ -5,6 +5,11 @@
 :root {
   color: #e8f3ec;
   background: #03130d;
+  --navbar-height: 80px;
+  --section-top-space: 24px;
+  --section-top-space-sm: 32px;
+  --section-bottom-space: 80px;
+  --section-bottom-space-sm: 112px;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -27,7 +32,23 @@ body {
 }
 
 section {
-  scroll-margin-top: 96px;
+  scroll-margin-top: var(--navbar-height);
+}
+
+.site-main {
+  padding-top: var(--navbar-height);
+}
+
+.page-section {
+  padding-top: var(--section-top-space);
+  padding-bottom: var(--section-bottom-space);
+}
+
+@media (min-width: 640px) {
+  .page-section {
+    padding-top: var(--section-top-space-sm);
+    padding-bottom: var(--section-bottom-space-sm);
+  }
 }
 
 button,

@@ -9,7 +9,7 @@ export default function Layout({
   return (
     <div className="min-h-screen bg-mist text-ink">
       <Navbar pages={pages} ctaLabel={ctaLabel} />
-      <main className="pt-20">{children}</main>
+      <main className="site-main">{children}</main>
       <Footer />
     </div>
   );

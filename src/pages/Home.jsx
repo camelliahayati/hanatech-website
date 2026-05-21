@@ -6,7 +6,7 @@ export default function Home({ id }) {
   return (
     <section
       id={id}
-      className="relative isolate overflow-hidden px-5 pb-20 pt-8 sm:px-8 sm:pb-28 sm:pt-10 lg:pt-12"
+      className="page-section relative isolate overflow-hidden px-5 sm:px-8"
     >
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_16%_18%,rgba(68,184,107,0.22),transparent_32%),radial-gradient(circle_at_84%_16%,rgba(32,127,69,0.24),transparent_24%),linear-gradient(140deg,#03130d_0%,#052016_46%,#03190f_100%)]" />
       <div className="absolute right-0 top-20 -z-10 h-72 w-72 rounded-full bg-pine-500/20 blur-3xl" />

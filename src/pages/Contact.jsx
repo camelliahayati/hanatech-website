@@ -10,7 +10,7 @@ const contactItems = [
 
 export default function Contact({ id }) {
   return (
-    <section id={id} className="bg-pine-950 px-5 py-20 sm:px-8 sm:py-28">
+    <section id={id} className="page-section bg-pine-950 px-5 sm:px-8">
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
         <div>
           <SectionHeader
