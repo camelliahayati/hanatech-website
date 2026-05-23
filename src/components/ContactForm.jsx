@@ -1,15 +1,79 @@
 import { Send } from 'lucide-react';
+import { useState } from 'react';
 
 const fieldClass =
   'w-full rounded-[8px] border border-pine-200/10 bg-pine-950/75 px-4 py-3 text-sm text-pine-100 outline-none transition placeholder:text-pine-200/45 focus:border-pine-400 focus:ring-4 focus:ring-pine-900';
 
+const FORM_ACTION = 'https://formsubmit.co/camelliahayati@hanatech.se';
+const FORM_AJAX_ACTION = 'https://formsubmit.co/ajax/camelliahayati@hanatech.se';
+
 export default function ContactForm() {
+  const [submitState, setSubmitState] = useState('idle');
+  const [feedbackMessage, setFeedbackMessage] = useState('');
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    setSubmitState('submitting');
+    setFeedbackMessage('');
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(FORM_AJAX_ACTION, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+        },
+        body: formData,
+      });
+      const result = await response.json().catch(() => null);
+
+      if (!response.ok || result?.success === false) {
+        throw new Error('FormSubmit request failed.');
+      }
+
+      form.reset();
+      setSubmitState('success');
+      setFeedbackMessage('Thank you. Your message has been sent successfully.');
+    } catch {
+      setSubmitState('error');
+      setFeedbackMessage(
+        'Unable to send right now. Please try again or email camelliahayati@hanatech.se directly.',
+      );
+    }
+  };
+
   return (
-    <form className="rounded-[8px] border border-pine-200/10 bg-pine-900/55 p-5 shadow-soft sm:p-8">
+    <form
+      action={FORM_ACTION}
+      method="POST"
+      encType="multipart/form-data"
+      className="rounded-[8px] border border-pine-200/10 bg-pine-900/55 p-5 shadow-soft sm:p-8"
+      onSubmit={handleSubmit}
+    >
+      <input type="hidden" name="_captcha" value="false" />
+      <input
+        type="hidden"
+        name="_subject"
+        value="New HanaTech Contact Form Submission"
+      />
+      <input type="hidden" name="_template" value="table" />
+
       <div className="grid gap-5 sm:grid-cols-2">
         <label className="grid gap-2 text-sm font-medium text-pine-100/85">
           Name
-          <input className={fieldClass} name="name" placeholder="Your name" />
+          <input
+            className={fieldClass}
+            name="name"
+            placeholder="Your name"
+            required
+          />
         </label>
         <label className="grid gap-2 text-sm font-medium text-pine-100/85">
           Email
@@ -18,6 +82,7 @@ export default function ContactForm() {
             type="email"
             name="email"
             placeholder="you@company.com"
+            required
           />
         </label>
       </div>
@@ -84,6 +149,7 @@ export default function ContactForm() {
           className={`${fieldClass} min-h-36 resize-y`}
           name="message"
           placeholder="Tell us about your business goals, technical context, and expected outcomes."
+          required
         />
       </label>
       <div className="mt-5 rounded-[8px] border border-pine-200/10 bg-pine-950/75 p-4 text-sm text-pine-100/75">
@@ -91,12 +157,26 @@ export default function ContactForm() {
         available time slots for a 45-minute strategy session.
       </div>
       <button
-        className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-pine-500 px-5 py-3 text-sm font-semibold text-pine-950 transition hover:-translate-y-0.5 hover:bg-pine-400 sm:w-auto"
+        className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-pine-500 px-5 py-3 text-sm font-semibold text-pine-950 transition hover:-translate-y-0.5 hover:bg-pine-400 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0 sm:w-auto"
         type="submit"
+        disabled={submitState === 'submitting'}
       >
-        Send inquiry and request consultation
+        {submitState === 'submitting'
+          ? 'Sending inquiry...'
+          : 'Send inquiry and request consultation'}
         <Send className="h-4 w-4" aria-hidden="true" />
       </button>
+      {feedbackMessage ? (
+        <p
+          className={`mt-4 text-sm ${
+            submitState === 'success' ? 'text-pine-200' : 'text-rose-300'
+          }`}
+          role="status"
+          aria-live="polite"
+        >
+          {feedbackMessage}
+        </p>
+      ) : null}
     </form>
   );
 }
