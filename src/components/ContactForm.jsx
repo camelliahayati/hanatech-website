@@ -1,52 +1,47 @@
 import { Send } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const fieldClass =
   'w-full rounded-[8px] border border-pine-200/10 bg-pine-950/75 px-4 py-3 text-sm text-pine-100 outline-none transition placeholder:text-pine-200/45 focus:border-pine-400 focus:ring-4 focus:ring-pine-900';
 
 const FORM_ACTION = 'https://formsubmit.co/camelliahayati@hanatech.se';
-const FORM_AJAX_ACTION = 'https://formsubmit.co/ajax/camelliahayati@hanatech.se';
 
 export default function ContactForm() {
-  const [submitState, setSubmitState] = useState('idle');
-  const [feedbackMessage, setFeedbackMessage] = useState('');
+  const [nextUrl, setNextUrl] = useState('');
+  const [hasSuccessState, setHasSuccessState] = useState(false);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const currentUrl = new URL(window.location.href);
+    const didSubmit = currentUrl.searchParams.get('submitted') === '1';
+    setHasSuccessState(didSubmit);
+
+    const redirectUrl = new URL(currentUrl.origin + currentUrl.pathname);
+    redirectUrl.searchParams.set('submitted', '1');
+    redirectUrl.hash = 'contact';
+    setNextUrl(redirectUrl.toString());
+  }, []);
+
+  const handleSubmitDebug = (event) => {
     const form = event.currentTarget;
 
+    console.info('[HanaTech ContactForm] Submit triggered', {
+      action: form.action,
+      method: form.method,
+      isValid: form.checkValidity(),
+      timestamp: new Date().toISOString(),
+    });
+
     if (!form.checkValidity()) {
+      console.warn('[HanaTech ContactForm] Browser validation blocked submit');
       form.reportValidity();
       return;
     }
 
-    setSubmitState('submitting');
-    setFeedbackMessage('');
-
-    try {
-      const formData = new FormData(form);
-      const response = await fetch(FORM_AJAX_ACTION, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-        },
-        body: formData,
-      });
-      const result = await response.json().catch(() => null);
-
-      if (!response.ok || result?.success === false) {
-        throw new Error('FormSubmit request failed.');
-      }
-
-      form.reset();
-      setSubmitState('success');
-      setFeedbackMessage('Thank you. Your message has been sent successfully.');
-    } catch {
-      setSubmitState('error');
-      setFeedbackMessage(
-        'Unable to send right now. Please try again or email camelliahayati@hanatech.se directly.',
-      );
-    }
+    console.info('[HanaTech ContactForm] Browser will POST to FormSubmit now');
   };
 
   return (
@@ -55,15 +50,22 @@ export default function ContactForm() {
       method="POST"
       encType="multipart/form-data"
       className="rounded-[8px] border border-pine-200/10 bg-pine-900/55 p-5 shadow-soft sm:p-8"
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmitDebug}
     >
       <input type="hidden" name="_captcha" value="false" />
-      <input
-        type="hidden"
-        name="_subject"
-        value="New HanaTech Contact Form Submission"
-      />
+      <input type="hidden" name="_subject" value="New HanaTech Contact Submission" />
       <input type="hidden" name="_template" value="table" />
+      {nextUrl ? <input type="hidden" name="_next" value={nextUrl} /> : null}
+
+      {hasSuccessState ? (
+        <p
+          className="mb-6 rounded-[8px] border border-pine-200/15 bg-pine-950/70 px-4 py-3 text-sm text-pine-100"
+          role="status"
+          aria-live="polite"
+        >
+          Thank you. Your inquiry was sent successfully.
+        </p>
+      ) : null}
 
       <div className="grid gap-5 sm:grid-cols-2">
         <label className="grid gap-2 text-sm font-medium text-pine-100/85">
@@ -157,26 +159,12 @@ export default function ContactForm() {
         available time slots for a 45-minute strategy session.
       </div>
       <button
-        className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-pine-500 px-5 py-3 text-sm font-semibold text-pine-950 transition hover:-translate-y-0.5 hover:bg-pine-400 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0 sm:w-auto"
+        className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-pine-500 px-5 py-3 text-sm font-semibold text-pine-950 transition hover:-translate-y-0.5 hover:bg-pine-400 sm:w-auto"
         type="submit"
-        disabled={submitState === 'submitting'}
       >
-        {submitState === 'submitting'
-          ? 'Sending inquiry...'
-          : 'Send inquiry and request consultation'}
+        Send inquiry and request consultation
         <Send className="h-4 w-4" aria-hidden="true" />
       </button>
-      {feedbackMessage ? (
-        <p
-          className={`mt-4 text-sm ${
-            submitState === 'success' ? 'text-pine-200' : 'text-rose-300'
-          }`}
-          role="status"
-          aria-live="polite"
-        >
-          {feedbackMessage}
-        </p>
-      ) : null}
     </form>
   );
 }
