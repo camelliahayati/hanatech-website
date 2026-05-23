@@ -1,30 +1,12 @@
 import { Send } from 'lucide-react';
-import { useEffect, useState } from 'react';
 
 const fieldClass =
   'w-full rounded-[8px] border border-pine-200/10 bg-pine-950/75 px-4 py-3 text-sm text-pine-100 outline-none transition placeholder:text-pine-200/45 focus:border-pine-400 focus:ring-4 focus:ring-pine-900';
 
 const FORM_ACTION = 'https://formsubmit.co/camelliahayati@hanatech.se';
+const SUCCESS_REDIRECT_URL = 'https://hanatech.se/contact?success=true';
 
 export default function ContactForm() {
-  const [nextUrl, setNextUrl] = useState('');
-  const [hasSuccessState, setHasSuccessState] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    const currentUrl = new URL(window.location.href);
-    const didSubmit = currentUrl.searchParams.get('submitted') === '1';
-    setHasSuccessState(didSubmit);
-
-    const redirectUrl = new URL(currentUrl.origin + currentUrl.pathname);
-    redirectUrl.searchParams.set('submitted', '1');
-    redirectUrl.hash = 'contact';
-    setNextUrl(redirectUrl.toString());
-  }, []);
-
   const handleSubmitDebug = (event) => {
     const form = event.currentTarget;
 
@@ -55,17 +37,7 @@ export default function ContactForm() {
       <input type="hidden" name="_captcha" value="false" />
       <input type="hidden" name="_subject" value="New HanaTech Contact Submission" />
       <input type="hidden" name="_template" value="table" />
-      {nextUrl ? <input type="hidden" name="_next" value={nextUrl} /> : null}
-
-      {hasSuccessState ? (
-        <p
-          className="mb-6 rounded-[8px] border border-pine-200/15 bg-pine-950/70 px-4 py-3 text-sm text-pine-100"
-          role="status"
-          aria-live="polite"
-        >
-          Thank you. Your inquiry was sent successfully.
-        </p>
-      ) : null}
+      <input type="hidden" name="_next" value={SUCCESS_REDIRECT_URL} />
 
       <div className="grid gap-5 sm:grid-cols-2">
         <label className="grid gap-2 text-sm font-medium text-pine-100/85">

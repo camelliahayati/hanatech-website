@@ -1,4 +1,5 @@
 import { Mail, MapPin, Phone } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import ContactForm from '../components/ContactForm.jsx';
 import SectionHeader from '../components/SectionHeader.jsx';
 
@@ -9,10 +10,43 @@ const contactItems = [
 ];
 
 export default function Contact({ id }) {
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const url = new URL(window.location.href);
+    const normalizedPath = url.pathname.replace(/\/+$/, '');
+    const onContactPage = normalizedPath === '/contact';
+    const isSuccess = url.searchParams.get('success') === 'true';
+
+    setShowSuccess(onContactPage && isSuccess);
+
+    if (onContactPage) {
+      const section = document.getElementById(id);
+      if (section) {
+        requestAnimationFrame(() => {
+          section.scrollIntoView({ block: 'start' });
+        });
+      }
+    }
+  }, [id]);
+
   return (
     <section id={id} className="page-section bg-pine-950 px-5 sm:px-8">
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
         <div>
+          {showSuccess ? (
+            <p
+              className="mb-6 rounded-[8px] border border-pine-200/15 bg-pine-950/70 px-4 py-3 text-sm text-pine-100"
+              role="status"
+              aria-live="polite"
+            >
+              Thank you. Your inquiry was sent successfully.
+            </p>
+          ) : null}
           <SectionHeader
             eyebrow="Contact"
             title="Let’s design your next technology advantage"
