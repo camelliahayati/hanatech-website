@@ -5,7 +5,9 @@ const fieldClass =
   'w-full rounded-[8px] border border-pine-200/10 bg-pine-950/75 px-4 py-3 text-sm text-pine-100 outline-none transition placeholder:text-pine-200/45 focus:border-pine-400 focus:ring-4 focus:ring-pine-900';
 
 const FORM_ACTION = 'https://api.web3forms.com/submit';
-const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ?? '';
+const WEB3FORMS_ACCESS_KEY =
+  import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ??
+  '9f8751f9-3924-4320-86c5-dd06296da40c';
 
 export default function ContactForm() {
   const [submitState, setSubmitState] = useState('idle');
