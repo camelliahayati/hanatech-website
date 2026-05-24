@@ -7,7 +7,7 @@ const fieldClass =
 const FORM_ACTION = 'https://api.web3forms.com/submit';
 const WEB3FORMS_ACCESS_KEY =
   import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ??
-  '9f8751f9-3924-4320-86c5-dd06296da40c';
+  '767df093-4738-47ce-b5aa-fc39470f24d5';
 
 export default function ContactForm() {
   const [submitState, setSubmitState] = useState('idle');
