@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Survey Response #{{ response.id }} | HanaTech{% endblock %}
+{% block header_actions %}
+  <div class="actions">
+    <a class="button button-secondary" href="/admin/dental-survey">Back to Dashboard</a>
+    <form method="post" action="/admin/logout">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+      <button class="button button-secondary" type="submit">Logout</button>
+    </form>
+  </div>
+{% endblock %}
+{% block content %}
+  <section class="hero">
+    <h1>Response #{{ response.id }}</h1>
+    <p>Submitted {{ response.created_at.strftime("%Y-%m-%d %H:%M") }}</p>
+  </section>
+
+  <section class="card">
+    <h2 class="section-title">Full Survey Response</h2>
+    <div class="detail-grid">
+      <div class="detail-item"><h4>Full Name</h4><div>{{ response.full_name }}</div></div>
+      <div class="detail-item"><h4>Email</h4><div>{{ response.email }}</div></div>
+      <div class="detail-item"><h4>Phone</h4><div>{{ response.phone or "-" }}</div></div>
+      <div class="detail-item"><h4>Country</h4><div>{{ response.country }}</div></div>
+      <div class="detail-item"><h4>City</h4><div>{{ response.city }}</div></div>
+      <div class="detail-item"><h4>Clinic Name</h4><div>{{ response.clinic_name }}</div></div>
+      <div class="detail-item"><h4>Role</h4><div>{{ response.role }}</div></div>
+      <div class="detail-item"><h4>Role Other</h4><div>{{ response.role_other or "-" }}</div></div>
+      <div class="detail-item"><h4>Clinic Type</h4><div>{{ response.clinic_type }}</div></div>
+      <div class="detail-item"><h4>Number of Dentists</h4><div>{{ response.number_of_dentists }}</div></div>
+      <div class="detail-item"><h4>Monthly Treatment Volume</h4><div>{{ response.monthly_treatment_volume }}</div></div>
+      <div class="detail-item"><h4>Specialization</h4><div>{{ ", ".join(response.specialization) }}</div></div>
+      <div class="detail-item"><h4>Contact Frequency</h4><div>{{ response.contact_frequency }}</div></div>
+      <div class="detail-item"><h4>Problematic Treatments</h4><div>{{ ", ".join(response.problematic_treatments) }}</div></div>
+      <div class="detail-item"><h4>Weekly Follow-up Time</h4><div>{{ response.weekly_followup_time }}</div></div>
+      <div class="detail-item"><h4>Communication Channels</h4><div>{{ ", ".join(response.communication_channels) }}</div></div>
+      <div class="detail-item"><h4>Current Software</h4><div>{{ response.current_software }}</div></div>
+      <div class="detail-item"><h4>Workflow Satisfaction</h4><div>{{ response.workflow_satisfaction }}</div></div>
+      <div class="detail-item"><h4>Delayed Complication Experience</h4><div>{{ response.delayed_complication_experience }}</div></div>
+      <div class="detail-item"><h4>Problem Severity Score</h4><div>{{ response.problem_severity_score }}</div></div>
+      <div class="detail-item"><h4>Biggest Challenge</h4><div>{{ response.biggest_challenge }}</div></div>
+      <div class="detail-item"><h4>AI Interest Score</h4><div>{{ response.ai_interest_score }}</div></div>
+      <div class="detail-item"><h4>Valuable AI Features</h4><div>{{ ", ".join(response.valuable_ai_features) }}</div></div>
+      <div class="detail-item"><h4>Concerns</h4><div>{{ ", ".join(response.concerns) }}</div></div>
+      <div class="detail-item"><h4>Monthly Price Expectation</h4><div>{{ response.monthly_price_expectation }}</div></div>
+      <div class="detail-item"><h4>Pilot Interest</h4><div>{{ ", ".join(response.pilot_interest) }}</div></div>
+      <div class="detail-item"><h4>Consent Contact</h4><div>{{ response.consent_contact }}</div></div>
+      <div class="detail-item"><h4>Consent Research</h4><div>{{ response.consent_research }}</div></div>
+      <div class="detail-item"><h4>Privacy Accepted</h4><div>{{ response.privacy_accepted }}</div></div>
+      <div class="detail-item"><h4>IP Address</h4><div>{{ response.ip_address }}</div></div>
+      <div class="detail-item"><h4>User Agent</h4><div>{{ response.user_agent }}</div></div>
+      <div class="detail-item"><h4>Created At</h4><div>{{ response.created_at.isoformat() }}</div></div>
+      <div class="detail-item"><h4>Updated At</h4><div>{{ response.updated_at.isoformat() }}</div></div>
+    </div>
+  </section>
+{% endblock %}

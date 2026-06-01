@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Admin Login | HanaTech Dental Survey{% endblock %}
+{% block content %}
+  <section class="card" style="max-width: 460px; margin: 2rem auto;">
+    <h1>Admin Login</h1>
+    <p class="meta">Authorized users only.</p>
+    {% if error %}
+      <div class="errors" role="alert">{{ error }}</div>
+    {% endif %}
+    <form method="post" action="/admin/login">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+      <input type="hidden" name="next" value="{{ next }}" />
+      <label class="field">Username
+        <input type="text" name="username" autocomplete="username" required />
+      </label>
+      <label class="field">Password
+        <input type="password" name="password" autocomplete="current-password" required />
+      </label>
+      <div class="actions">
+        <button class="button" type="submit">Sign in</button>
+      </div>
+    </form>
+  </section>
+{% endblock %}
+

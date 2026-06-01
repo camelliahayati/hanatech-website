@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% block title %}Dental Survey Admin | HanaTech{% endblock %}
+{% block header_actions %}
+  <form method="post" action="/admin/logout">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+    <button class="button button-secondary" type="submit">Logout</button>
+  </form>
+{% endblock %}
+{% block content %}
+  <section class="hero">
+    <h1>Dental Survey Admin Dashboard</h1>
+    <p>Signed in as {{ admin_username or "admin" }}.</p>
+  </section>
+
+  <section class="card section-card">
+    <h2 class="section-title">Analytics Snapshot</h2>
+    <div class="analytics-grid">
+      <article class="metric-card">
+        <span class="meta">Total Responses</span>
+        <span class="metric-value">{{ analytics.total_responses }}</span>
+      </article>
+      <article class="metric-card">
+        <span class="meta">Pilot Interest Rate</span>
+        <span class="metric-value">{{ analytics.pilot_interest_rate }}%</span>
+      </article>
+      <article class="metric-card">
+        <span class="meta">Average AI Interest Score</span>
+        <span class="metric-value">{{ analytics.average_ai_interest_score }}</span>
+      </article>
+      <article class="metric-card">
+        <span class="meta">Average Problem Severity</span>
+        <span class="metric-value">{{ analytics.average_problem_severity_score }}</span>
+      </article>
+      <article class="metric-card">
+        <span class="meta">Responses By Country</span>
+        <ul class="list-inline">
+          {% for country, count in analytics.responses_by_country[:6] %}
+            <li>{{ country }}: {{ count }}</li>
+          {% else %}
+            <li>No data</li>
+          {% endfor %}
+        </ul>
+      </article>
+      <article class="metric-card">
+        <span class="meta">Top Requested AI Features</span>
+        <ul class="list-inline">
+          {% for feature, count in analytics.top_requested_ai_features[:6] %}
+            <li>{{ feature }}: {{ count }}</li>
+          {% else %}
+            <li>No data</li>
+          {% endfor %}
+        </ul>
+      </article>
+      <article class="metric-card">
+        <span class="meta">Most Common Concerns</span>
+        <ul class="list-inline">
+          {% for concern, count in analytics.most_common_concerns[:6] %}
+            <li>{{ concern }}: {{ count }}</li>
+          {% else %}
+            <li>No data</li>
+          {% endfor %}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="card section-card">
+    <h2 class="section-title">Search & Filters</h2>
+    <form method="get" action="/admin/dental-survey" class="admin-filters">
+      <label class="field">Country
+        <select name="country">
+          <option value="">All</option>
+          {% for option in filter_options.countries %}
+            <option value="{{ option }}" {% if selected_filters.country == option %}selected{% endif %}>{{ option }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="field">Role
+        <select name="role">
+          <option value="">All</option>
+          {% for option in filter_options.roles %}
+            <option value="{{ option }}" {% if selected_filters.role == option %}selected{% endif %}>{{ option }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="field">Clinic Type
+        <select name="clinic_type">
+          <option value="">All</option>
+          {% for option in filter_options.clinic_types %}
+            <option value="{{ option }}" {% if selected_filters.clinic_type == option %}selected{% endif %}>{{ option }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="field">Pilot Interest
+        <select name="pilot_interest">
+          <option value="">All</option>
+          {% for option in filter_options.pilot_interests %}
+            <option value="{{ option }}" {% if selected_filters.pilot_interest == option %}selected{% endif %}>{{ option }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="field">Sort
+        <select name="sort">
+          <option value="newest" {% if selected_filters.sort != "oldest" %}selected{% endif %}>Newest First</option>
+          <option value="oldest" {% if selected_filters.sort == "oldest" %}selected{% endif %}>Oldest First</option>
+        </select>
+      </label>
+      <label class="field">Page Size
+        <select name="page_size">
+          {% for size in [25, 50, 100, 200] %}
+            <option value="{{ size }}" {% if pagination.page_size == size %}selected{% endif %}>{{ size }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <div class="actions">
+        <button class="button" type="submit">Apply Filters</button>
+        <a
+          class="button button-secondary"
+          href="/admin/dental-survey/export.csv?country={{ selected_filters.country }}&role={{ selected_filters.role }}&clinic_type={{ selected_filters.clinic_type }}&pilot_interest={{ selected_filters.pilot_interest }}&sort={{ selected_filters.sort }}"
+        >
+          Export CSV
+        </a>
+      </div>
+    </form>
+  </section>
+
+  <section class="card section-card">
+    <div class="admin-toolbar">
+      <h2 class="section-title">Responses</h2>
+      <span class="meta">
+        Showing page {{ pagination.page }} of {{ pagination.total_pages }} ({{ pagination.total }} total)
+      </span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Submission ID</th>
+            <th>Name</th>
+            <th>Clinic</th>
+            <th>Country</th>
+            <th>Role</th>
+            <th>AI Interest Score</th>
+            <th>Pilot Interest</th>
+            <th>Created Date</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in responses %}
+            <tr>
+              <td>{{ item.id }}</td>
+              <td>{{ item.full_name }}</td>
+              <td>{{ item.clinic_name }}</td>
+              <td>{{ item.country }}</td>
+              <td>{{ item.role }}</td>
+              <td>{{ item.ai_interest_score }}</td>
+              <td>{{ ", ".join(item.pilot_interest) }}</td>
+              <td>{{ item.created_at.strftime("%Y-%m-%d %H:%M") }}</td>
+              <td><a href="/admin/dental-survey/{{ item.id }}">View</a></td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="9">No responses found for the selected filters.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="actions">
+      {% set prev_page = pagination.page - 1 %}
+      {% set next_page = pagination.page + 1 %}
+      {% if pagination.page > 1 %}
+        <a
+          class="button button-secondary"
+          href="/admin/dental-survey?country={{ selected_filters.country }}&role={{ selected_filters.role }}&clinic_type={{ selected_filters.clinic_type }}&pilot_interest={{ selected_filters.pilot_interest }}&sort={{ selected_filters.sort }}&page_size={{ pagination.page_size }}&page={{ prev_page }}"
+        >
+          Previous
+        </a>
+      {% endif %}
+      {% if pagination.page < pagination.total_pages %}
+        <a
+          class="button button-secondary"
+          href="/admin/dental-survey?country={{ selected_filters.country }}&role={{ selected_filters.role }}&clinic_type={{ selected_filters.clinic_type }}&pilot_interest={{ selected_filters.pilot_interest }}&sort={{ selected_filters.sort }}&page_size={{ pagination.page_size }}&page={{ next_page }}"
+        >
+          Next
+        </a>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,320 @@
+{% extends "base.html" %}
+{% block title %}Dental AI Survey | HanaTech{% endblock %}
+{% block content %}
+  <section class="hero">
+    <h1>AI-Powered Post-Treatment Dental Monitoring Research Survey</h1>
+    <p>
+      Help us shape the future of dental care by sharing your experience with
+      post-treatment patient monitoring.
+    </p>
+    <span class="time-estimate">Estimated completion time: 5-10 minutes</span>
+  </section>
+
+  {% if errors %}
+    <div class="errors" role="alert" aria-live="polite">
+      <strong>We could not submit your survey.</strong>
+      <ul>
+        {% for error in errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <form class="card" method="post" action="/dental-ai-survey" id="survey-form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+    <label class="sr-only" for="website">Leave this field blank</label>
+    <input
+      class="sr-only"
+      id="website"
+      name="website"
+      type="text"
+      tabindex="-1"
+      autocomplete="off"
+    />
+
+    <section class="section-card">
+      <h2 class="section-title">Section 1: Personal Information</h2>
+      <p class="section-description">Tell us about your professional profile.</p>
+      <div class="grid grid-2">
+        <label class="field">Full Name
+          <input type="text" name="full_name" required value="{{ form_values.full_name or '' }}" />
+        </label>
+        <label class="field">Email Address
+          <input type="email" name="email" required value="{{ form_values.email or '' }}" />
+        </label>
+        <label class="field">Phone Number (Optional)
+          <input type="tel" name="phone" value="{{ form_values.phone or '' }}" />
+        </label>
+        <label class="field">Country
+          <select name="country" required>
+            <option value="">Select country</option>
+            {% for country in target_countries %}
+              <option value="{{ country }}" {% if form_values.country == country %}selected{% endif %}>
+                {{ country }}
+              </option>
+            {% endfor %}
+          </select>
+        </label>
+        <label class="field">City
+          <input type="text" name="city" required value="{{ form_values.city or '' }}" />
+        </label>
+        <label class="field">Clinic Name
+          <input type="text" name="clinic_name" required value="{{ form_values.clinic_name or '' }}" />
+        </label>
+      </div>
+      <div class="grid grid-2">
+        <label class="field">Role
+          <select name="role" id="role-select" required>
+            <option value="">Select role</option>
+            {% for option in role_options %}
+              <option value="{{ option }}" {% if form_values.role == option %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <label class="field {% if form_values.role != 'Other' %}hidden{% endif %}" id="role-other-wrap">Role Other
+          <input type="text" name="role_other" id="role-other-input" value="{{ form_values.role_other or '' }}" />
+        </label>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <h2 class="section-title">Section 2: Clinic Information</h2>
+      <div class="grid grid-2">
+        <label class="field">Clinic Type
+          <select name="clinic_type" required>
+            <option value="">Select option</option>
+            {% for option in clinic_type_options %}
+              <option value="{{ option }}" {% if form_values.clinic_type == option %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <label class="field">Number of Dentists
+          <select name="number_of_dentists" required>
+            <option value="">Select option</option>
+            {% for option in number_of_dentists_options %}
+              <option value="{{ option }}" {% if form_values.number_of_dentists == option %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <label class="field">Monthly Treatment Volume
+          <select name="monthly_treatment_volume" required>
+            <option value="">Select option</option>
+            {% for option in monthly_treatment_volume_options %}
+              <option value="{{ option }}" {% if form_values.monthly_treatment_volume == option %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+          </select>
+        </label>
+      </div>
+      <fieldset>
+        <legend>Specialization</legend>
+        <div class="choices">
+          {% for option in specialization_options %}
+            <label class="checkbox">
+              <input type="checkbox" name="specialization" value="{{ option }}" {% if option in form_values.specialization %}checked{% endif %} />
+              {{ option }}
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+    </section>
+
+    <section class="section-card">
+      <h2 class="section-title">Section 3: Current Workflow</h2>
+      <fieldset>
+        <legend>Q1. How often do patients contact your clinic after treatment?</legend>
+        <div class="inline-scale">
+          {% for score, label in contact_frequency_labels.items() %}
+            <label class="radio">
+              <input type="radio" name="contact_frequency" value="{{ score }}" {% if form_values.contact_frequency|string == score|string %}checked{% endif %} required />
+              {{ score }} - {{ label }}
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Q2. Which treatments generate the most follow-up concerns?</legend>
+        <div class="choices">
+          {% for option in problematic_treatment_options %}
+            <label class="checkbox">
+              <input type="checkbox" name="problematic_treatments" value="{{ option }}" {% if option in form_values.problematic_treatments %}checked{% endif %} />
+              {{ option }}
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+      <label class="field">Q3. Staff time spent weekly on post-treatment concerns
+        <select name="weekly_followup_time" required>
+          <option value="">Select option</option>
+          {% for option in weekly_followup_time_options %}
+            <option value="{{ option }}" {% if form_values.weekly_followup_time == option %}selected{% endif %}>{{ option }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <fieldset>
+        <legend>Q4. Which communication channels do patients use?</legend>
+        <div class="choices">
+          {% for option in communication_channel_options %}
+            <label class="checkbox">
+              <input type="checkbox" name="communication_channels" value="{{ option }}" {% if option in form_values.communication_channels %}checked{% endif %} />
+              {{ option }}
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+      <label class="field">Q5. Which dental software do you currently use?
+        <input type="text" name="current_software" required value="{{ form_values.current_software or '' }}" />
+      </label>
+      <fieldset>
+        <legend>Q6. How satisfied are you with your current follow-up workflow? (1-10)</legend>
+        <div class="inline-scale">
+          {% for score in range(1, 11) %}
+            <label class="radio">
+              <input type="radio" name="workflow_satisfaction" value="{{ score }}" {% if form_values.workflow_satisfaction|string == score|string %}checked{% endif %} required />
+              {{ score }}
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+    </section>
+
+    <section class="section-card">
+      <h2 class="section-title">Section 4: Problem Validation</h2>
+      <fieldset>
+        <legend>Q7. Have you experienced delayed detection of complications because patients contacted the clinic too late?</legend>
+        <div class="inline-scale">
+          {% for option in delayed_complication_options %}
+            <label class="radio">
+              <input type="radio" name="delayed_complication_experience" value="{{ option }}" {% if form_values.delayed_complication_experience == option %}checked{% endif %} required />
+              {{ option }}
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Q8. How severe is this problem for your clinic? (1-10)</legend>
+        <div class="inline-scale">
+          {% for score in range(1, 11) %}
+            <label class="radio">
+              <input type="radio" name="problem_severity_score" value="{{ score }}" {% if form_values.problem_severity_score|string == score|string %}checked{% endif %} required />
+              {{ score }}
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+      <label class="field">Q9. Biggest post-treatment follow-up challenge
+        <textarea name="biggest_challenge" required>{{ form_values.biggest_challenge or '' }}</textarea>
+      </label>
+    </section>
+
+    <section class="section-card">
+      <h2 class="section-title">Section 5: AI Validation</h2>
+      <fieldset>
+        <legend>Q10. Interest in AI-assisted post-treatment monitoring (1-10)</legend>
+        <div class="inline-scale">
+          {% for score in range(1, 11) %}
+            <label class="radio">
+              <input type="radio" name="ai_interest_score" value="{{ score }}" {% if form_values.ai_interest_score|string == score|string %}checked{% endif %} required />
+              {{ score }}
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Q11. Most valuable AI capabilities</legend>
+        <div class="choices">
+          {% for option in valuable_ai_feature_options %}
+            <label class="checkbox">
+              <input type="checkbox" name="valuable_ai_features" value="{{ option }}" {% if option in form_values.valuable_ai_features %}checked{% endif %} />
+              {{ option }}
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Q12. What concerns do you have?</legend>
+        <div class="choices">
+          {% for option in concern_options %}
+            <label class="checkbox">
+              <input type="checkbox" name="concerns" value="{{ option }}" {% if option in form_values.concerns %}checked{% endif %} />
+              {{ option }}
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+    </section>
+
+    <section class="section-card">
+      <h2 class="section-title">Section 6: Commercial Validation</h2>
+      <label class="field">Q13. Reasonable monthly fee if workload drops by 30-50%
+        <select name="monthly_price_expectation" required>
+          <option value="">Select option</option>
+          {% for option in monthly_price_options %}
+            <option value="{{ option }}" {% if form_values.monthly_price_expectation == option %}selected{% endif %}>{{ option }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <fieldset>
+        <legend>Q14. Would you be interested in:</legend>
+        <div class="choices">
+          {% for option in pilot_interest_options %}
+            <label class="checkbox">
+              <input type="checkbox" name="pilot_interest" value="{{ option }}" {% if option in form_values.pilot_interest %}checked{% endif %} />
+              {{ option }}
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+    </section>
+
+    <section class="section-card">
+      <h2 class="section-title">GDPR &amp; Consent</h2>
+      <div class="choices">
+        <label class="checkbox">
+          <input type="checkbox" name="consent_contact" value="true" {% if form_values.consent_contact %}checked{% endif %} />
+          I consent to being contacted regarding this research.
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" name="consent_research" value="true" {% if form_values.consent_research %}checked{% endif %} />
+          I allow anonymous use of my responses for research and product development.
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" name="privacy_accepted" value="true" required {% if form_values.privacy_accepted %}checked{% endif %} />
+          I agree to the Privacy Policy.
+        </label>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button type="submit" class="button" id="submit-button">Submit Survey</button>
+      <span class="meta" id="loading-label" hidden>Submitting your survey...</span>
+    </div>
+  </form>
+
+  <script>
+    (function () {
+      const roleSelect = document.getElementById("role-select");
+      const roleOtherWrap = document.getElementById("role-other-wrap");
+      const roleOtherInput = document.getElementById("role-other-input");
+      const form = document.getElementById("survey-form");
+      const submitButton = document.getElementById("submit-button");
+      const loadingLabel = document.getElementById("loading-label");
+
+      function toggleRoleOther() {
+        const isOther = roleSelect.value === "Other";
+        roleOtherWrap.classList.toggle("hidden", !isOther);
+        roleOtherInput.required = isOther;
+      }
+
+      roleSelect.addEventListener("change", toggleRoleOther);
+      toggleRoleOther();
+
+      form.addEventListener("submit", function () {
+        submitButton.disabled = true;
+        submitButton.textContent = "Submitting...";
+        loadingLabel.hidden = false;
+      });
+    })();
+  </script>
+{% endblock %}
+

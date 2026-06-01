@@ -2,6 +2,8 @@
 
 Production-ready company website for HanaTech, built with React, Vite, and Tailwind CSS.
 
+This repository also includes a Python/FastAPI healthcare survey backend module for the HanaTech Dental AI Validation Platform under [`backend/`](./backend/README.md).
+
 ## Tech Stack
 
 - React 19
