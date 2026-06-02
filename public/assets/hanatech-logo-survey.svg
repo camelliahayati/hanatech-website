@@ -1,31 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 100" role="img" aria-labelledby="title">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 88" role="img" aria-labelledby="title">
   <title id="title">HanaTech</title>
-  <rect width="330" height="100" fill="#ffffff"/>
+  <rect width="310" height="88" fill="#ffffff"/>
   <defs>
-    <linearGradient id="markGradient" x1="8" x2="78" y1="10" y2="86" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#5fbd55"/>
-      <stop offset="1" stop-color="#0c7c45"/>
+    <linearGradient id="markGradient" x1="20" x2="82" y1="8" y2="82" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#62bd55"/>
+      <stop offset="1" stop-color="#0d8050"/>
     </linearGradient>
   </defs>
-  <g fill="url(#markGradient)">
-    <path d="M13 14h23v29h31V14h22v72H67V57H36v29H13z"/>
-    <path d="M31 69c7-11 21-18 36-15 6 1 11 4 15 8v24H63c-3-8-9-13-18-15-6-1-11-1-14 0z" opacity=".96"/>
-    <path d="M47 75c8 0 14 3 18 11H47z" fill="#ffffff" opacity=".95"/>
-    <path d="M40 58c8-8 22-10 32-4" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="6"/>
-    <path d="M39 69c9-7 22-8 31-2" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="6"/>
-    <path d="M42 79c8-4 17-4 24 1" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="5"/>
-    <path d="M55 31V16h5v15z"/>
-    <path d="M60 18l13-12 4 4-14 13z"/>
-    <path d="M69 33l19-20 4 4-19 20z"/>
-    <path d="M72 43h21v5H72z"/>
-    <circle cx="57" cy="13" r="7" fill="#ffffff"/>
-    <circle cx="57" cy="13" r="4" fill="url(#markGradient)"/>
-    <circle cx="80" cy="8" r="7" fill="#ffffff"/>
-    <circle cx="80" cy="8" r="4" fill="url(#markGradient)"/>
-    <circle cx="95" cy="14" r="7" fill="#ffffff"/>
-    <circle cx="95" cy="14" r="4" fill="url(#markGradient)"/>
-    <circle cx="99" cy="45" r="7" fill="#ffffff"/>
-    <circle cx="99" cy="45" r="4" fill="url(#markGradient)"/>
+  <g aria-hidden="true">
+    <text
+      x="18"
+      y="75"
+      fill="url(#markGradient)"
+      font-family="Georgia, Times New Roman, serif"
+      font-size="86"
+      font-weight="700"
+      letter-spacing="-8"
+    >h</text>
+    <path
+      d="M34 50c8-9 24-12 36-5"
+      fill="none"
+      stroke="#ffffff"
+      stroke-linecap="round"
+      stroke-width="6"
+    />
+    <path
+      d="M34 60c9-7 23-8 34-1"
+      fill="none"
+      stroke="#ffffff"
+      stroke-linecap="round"
+      stroke-width="6"
+    />
+    <path
+      d="M37 69c8-4 17-3 24 2"
+      fill="none"
+      stroke="#ffffff"
+      stroke-linecap="round"
+      stroke-width="5"
+    />
+    <path
+      d="M57 35c8-4 17-2 24 6v31H68c-2-9-8-15-17-18-4-1-8-1-11 0 3-7 9-12 17-19z"
+      fill="#ffffff"
+      opacity=".96"
+    />
+    <path d="M59 23V9h4v14" fill="none" stroke="url(#markGradient)" stroke-linecap="round" stroke-width="4"/>
+    <path d="M64 22 76 9" fill="none" stroke="url(#markGradient)" stroke-linecap="round" stroke-width="4"/>
+    <path d="M72 31 89 14" fill="none" stroke="url(#markGradient)" stroke-linecap="round" stroke-width="4"/>
+    <path d="M76 42h18" fill="none" stroke="url(#markGradient)" stroke-linecap="round" stroke-width="4"/>
+    <circle cx="61" cy="8" r="5" fill="url(#markGradient)"/>
+    <circle cx="78" cy="8" r="5" fill="url(#markGradient)"/>
+    <circle cx="91" cy="13" r="5" fill="url(#markGradient)"/>
+    <circle cx="96" cy="42" r="5" fill="url(#markGradient)"/>
   </g>
-  <text x="118" y="63" fill="#172f39" font-family="Inter, Avenir Next, Arial, sans-serif" font-size="43" font-weight="800" letter-spacing="0">HanaTech</text>
+  <text
+    x="99"
+    y="57"
+    fill="#172f39"
+    font-family="Inter, Avenir Next, Arial, sans-serif"
+    font-size="38"
+    font-weight="800"
+    letter-spacing="-1"
+  >HanaTech</text>
 </svg>
