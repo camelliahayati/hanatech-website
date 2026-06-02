@@ -163,6 +163,7 @@ select {
   height: 100%;
   inset: 0;
   object-fit: cover;
+  object-position: right center;
   position: absolute;
   width: 100%;
 }
@@ -219,22 +220,22 @@ select {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.dental-form-grid label,
+.dental-form-grid > label,
 .dental-login-panel label {
   display: grid;
   gap: 7px;
 }
 
-.dental-form-grid label span,
+.dental-form-grid > label > span,
 .dental-login-panel label span {
   color: #284852;
   font-size: 0.9rem;
   font-weight: 750;
 }
 
-.dental-form-grid input,
-.dental-form-grid select,
-.dental-form-grid textarea,
+.dental-form-grid > label input,
+.dental-form-grid > label select,
+.dental-form-grid > label textarea,
 .dental-login-panel input {
   background: #f8fbfa;
   border: 1px solid #cadbd8;
@@ -293,31 +294,55 @@ select {
 
 .dental-answer-grid {
   display: grid;
-  gap: 10px;
+  align-items: stretch;
+  gap: 12px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.dental-choice-card {
+.dental-answer-grid .dental-choice-card,
+.dental-scale-grid .dental-choice-card {
   align-items: center;
   background: #f8fbfa;
   border: 1px solid #d7e6e3;
   border-radius: 8px;
   cursor: pointer;
   display: flex;
-  flex-direction: row;
-  gap: 10px;
-  min-height: 48px;
-  padding: 10px 12px;
+  gap: 14px;
+  line-height: 1.35;
+  min-height: 54px;
+  padding: 13px 14px;
+  transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
 }
 
-.dental-choice-card input {
-  min-height: auto;
-  width: auto;
+.dental-answer-grid .dental-choice-card:hover,
+.dental-scale-grid .dental-choice-card:hover {
+  background: #eef7f5;
+  border-color: #9bcfc9;
 }
 
-.dental-choice-card:has(input:checked) {
+.dental-answer-grid .dental-choice-card:has(input:checked),
+.dental-scale-grid .dental-choice-card:has(input:checked) {
   background: #e2f5f2;
   border-color: #0f9f95;
+  box-shadow: 0 0 0 1px rgba(15, 159, 149, 0.12);
+}
+
+.dental-answer-grid .dental-choice-card input,
+.dental-scale-grid .dental-choice-card input {
+  accent-color: #0f9f95;
+  flex: 0 0 auto;
+  height: 18px;
+  margin: 0;
+  min-height: auto;
+  padding: 0;
+  width: 18px;
+}
+
+.dental-answer-grid .dental-choice-card span,
+.dental-scale-grid .dental-choice-card span {
+  color: #17313a;
+  font-size: 0.95rem;
+  font-weight: 750;
 }
 
 .dental-scale-grid {
@@ -327,32 +352,15 @@ select {
   margin-top: 14px;
 }
 
-.dental-scale-choice {
-  cursor: pointer;
-}
-
-.dental-scale-choice input {
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-}
-
-.dental-scale-choice span {
-  align-items: center;
-  background: #f8fbfa;
-  border: 1px solid #d7e6e3;
-  border-radius: 8px;
-  color: #17313a;
-  display: flex;
-  font-weight: 850;
-  height: 42px;
+.dental-scale-grid .dental-scale-choice {
+  gap: 8px;
   justify-content: center;
+  min-height: 46px;
+  padding: 10px 8px;
 }
 
-.dental-scale-choice:has(input:checked) span {
-  background: #0f9f95;
-  border-color: #0f9f95;
-  color: white;
+.dental-scale-grid .dental-scale-choice span {
+  font-weight: 850;
 }
 
 .dental-question-textarea {

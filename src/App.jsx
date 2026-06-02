@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import Layout from './components/Layout.jsx';
 import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
@@ -51,16 +50,13 @@ export default function App() {
   const activeLanguage = 'en';
   const copy = labels[activeLanguage];
 
-  const pages = useMemo(
-    () => [
-      { id: 'home', label: copy.home, component: Home },
-      { id: 'services', label: copy.services, component: Services },
-      { id: 'product', label: copy.product, component: Product },
-      { id: 'about', label: copy.about, component: About },
-      { id: 'contact', label: copy.contact, component: Contact },
-    ],
-    [copy],
-  );
+  const pages = [
+    { id: 'home', label: copy.home, component: Home },
+    { id: 'services', label: copy.services, component: Services },
+    { id: 'product', label: copy.product, component: Product },
+    { id: 'about', label: copy.about, component: About },
+    { id: 'contact', label: copy.contact, component: Contact },
+  ];
 
   return (
     <Layout pages={pages} ctaLabel={copy.cta}>

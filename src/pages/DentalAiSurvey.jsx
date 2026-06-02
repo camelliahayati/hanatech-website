@@ -175,8 +175,12 @@ export function DentalSurveyLandingPage() {
       <main className="dental-landing">
         <img
           src="/assets/hanatech-dental-ai-hero.png"
-          alt=""
+          alt="AI-assisted dental monitoring platform for modern dental clinics"
           className="dental-landing-image"
+          width="1716"
+          height="916"
+          decoding="async"
+          fetchPriority="high"
         />
         <div className="dental-landing-content">
           <p className="dental-eyebrow">Dental AI systems for modern clinics</p>
@@ -329,10 +333,17 @@ function QuestionControl({ question, value, onChange }) {
     return (
       <div className="dental-scale-grid">
         {Array.from({ length: 10 }, (_, index) => String(index + 1)).map((option) => (
-          <label className="dental-scale-choice" key={option}>
-            <input type="radio" name={question.key} value={option} checked={value === option} onChange={onChange} />
-            <span>{option}</span>
-          </label>
+          <OptionCard
+            checked={value === option}
+            className="dental-scale-choice"
+            key={option}
+            name={question.key}
+            onChange={onChange}
+            type="radio"
+            value={option}
+          >
+            {option}
+          </OptionCard>
         ))}
       </div>
     );
@@ -343,19 +354,34 @@ function QuestionControl({ question, value, onChange }) {
       {question.options.map((option) => {
         const isMulti = question.type === 'multiselect';
         return (
-          <label className="dental-choice-card" key={option}>
-            <input
-              type={isMulti ? 'checkbox' : 'radio'}
-              name={question.key}
-              value={option}
-              checked={isMulti ? Array.isArray(value) && value.includes(option) : value === option}
-              onChange={onChange}
-            />
-            <span>{option}</span>
-          </label>
+          <OptionCard
+            checked={isMulti ? Array.isArray(value) && value.includes(option) : value === option}
+            key={option}
+            name={question.key}
+            onChange={onChange}
+            type={isMulti ? 'checkbox' : 'radio'}
+            value={option}
+          >
+            {option}
+          </OptionCard>
         );
       })}
     </div>
+  );
+}
+
+function OptionCard({ checked, children, className = '', name, onChange, type, value }) {
+  return (
+    <label className={`dental-choice-card ${className}`.trim()}>
+      <input
+        type={type}
+        name={name}
+        value={value}
+        checked={checked}
+        onChange={onChange}
+      />
+      <span>{children}</span>
+    </label>
   );
 }
 
