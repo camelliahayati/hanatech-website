@@ -157,7 +157,7 @@ function SurveyShell({ children }) {
     <div className="dental-app-shell">
       <header className="dental-header">
         <a className="dental-brand" href="/">
-          <img src="/assets/hanatech-logo-navbar-clean.png" alt="HanaTech" />
+          <img src="/assets/hanatech-logo-survey.svg" alt="HanaTech" />
         </a>
         <nav>
           <a href="/dental-ai-survey">Survey</a>
