@@ -2,6 +2,7 @@ import Layout from './components/Layout.jsx';
 import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 import Home from './pages/Home.jsx';
+import HanaTechBygg from './pages/HanaTechBygg.jsx';
 import Product from './pages/Product.jsx';
 import Services from './pages/Services.jsx';
 import {
@@ -41,6 +42,8 @@ const labels = {
 
 export default function App() {
   const path = window.location.pathname;
+  const host = window.location.hostname;
+  if (host === 'bygg.hanatech.se' || path === '/bygg') return <HanaTechBygg />;
   if (path === '/dental-ai-survey') return <DentalSurveyLandingPage />;
   if (path === '/dental-ai-survey/start') return <DentalSurveyPage />;
   if (path === '/dental-ai-survey/thank-you') return <DentalSurveyThankYouPage />;

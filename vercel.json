@@ -19,6 +19,14 @@
     {
       "source": "/admin/:path*",
       "destination": "/index.html"
+    },
+    {
+      "source": "/bygg/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/bygg",
+      "destination": "/index.html"
     }
   ]
 }

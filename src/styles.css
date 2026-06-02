@@ -499,3 +499,516 @@ select {
     background: linear-gradient(180deg, rgba(246, 250, 249, 0.98) 0%, rgba(246, 250, 249, 0.86) 58%, rgba(246, 250, 249, 0.34) 100%);
   }
 }
+
+.bygg-site {
+  background: #f4f6f7;
+  color: #102a3b;
+  min-height: 100vh;
+}
+
+.bygg-header {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid rgba(16, 42, 59, 0.1);
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  min-height: 76px;
+  padding: 0 clamp(18px, 4vw, 56px);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+.bygg-brand {
+  align-items: center;
+  color: #102a3b;
+  display: inline-flex;
+  font-size: 1.12rem;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.bygg-brand span {
+  align-items: center;
+  background: #102a3b;
+  border-radius: 8px;
+  color: #d09a5c;
+  display: inline-flex;
+  font-weight: 900;
+  height: 42px;
+  justify-content: center;
+  width: 42px;
+}
+
+.bygg-header nav {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(10px, 2vw, 20px);
+  justify-content: flex-end;
+}
+
+.bygg-header nav a {
+  color: #2c4656;
+  font-size: 0.92rem;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.bygg-header nav a:hover {
+  color: #9b6532;
+}
+
+.bygg-nav-cta {
+  background: #102a3b;
+  border-radius: 8px;
+  color: white !important;
+  padding: 10px 14px;
+}
+
+.bygg-hero {
+  min-height: calc(100vh - 76px);
+  overflow: hidden;
+  position: relative;
+}
+
+.bygg-hero img {
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  object-position: right center;
+  position: absolute;
+  width: 100%;
+}
+
+.bygg-hero-overlay {
+  background:
+    linear-gradient(90deg, rgba(12, 30, 44, 0.95) 0%, rgba(12, 30, 44, 0.82) 36%, rgba(12, 30, 44, 0.16) 72%),
+    linear-gradient(180deg, rgba(12, 30, 44, 0.18), rgba(12, 30, 44, 0.12));
+  inset: 0;
+  position: absolute;
+}
+
+.bygg-hero-content {
+  display: grid;
+  min-height: calc(100vh - 76px);
+  padding: clamp(56px, 10vw, 112px) clamp(20px, 6vw, 84px);
+  place-content: center start;
+  position: relative;
+  width: min(760px, 94vw);
+  z-index: 1;
+}
+
+.bygg-eyebrow {
+  color: #d09a5c;
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+}
+
+.bygg-hero h1,
+.bygg-section-heading h2,
+.bygg-contact h2,
+.bygg-coverage h2 {
+  letter-spacing: 0;
+  line-height: 1.02;
+  margin: 0;
+}
+
+.bygg-hero h1 {
+  color: white;
+  font-size: clamp(2.9rem, 7vw, 5.8rem);
+  max-width: 760px;
+}
+
+.bygg-hero p:not(.bygg-eyebrow) {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: clamp(1.02rem, 2vw, 1.25rem);
+  line-height: 1.65;
+  margin: 24px 0 0;
+  max-width: 690px;
+}
+
+.bygg-hero-actions,
+.bygg-contact-links,
+.bygg-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.bygg-hero-actions {
+  margin-top: 32px;
+}
+
+.bygg-primary-button,
+.bygg-secondary-button {
+  align-items: center;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: 850;
+  gap: 9px;
+  justify-content: center;
+  min-height: 48px;
+  padding: 13px 18px;
+  text-decoration: none;
+}
+
+.bygg-primary-button {
+  background: #c47f3d;
+  color: white;
+}
+
+.bygg-primary-button:hover {
+  background: #a9662f;
+}
+
+.bygg-secondary-button {
+  background: rgba(255, 255, 255, 0.92);
+  color: #102a3b;
+}
+
+.bygg-section {
+  padding: clamp(56px, 8vw, 98px) clamp(18px, 5vw, 64px);
+}
+
+.bygg-section-heading {
+  margin: 0 auto 34px;
+  max-width: 780px;
+  text-align: center;
+}
+
+.bygg-section-heading h2,
+.bygg-contact h2,
+.bygg-coverage h2 {
+  color: #102a3b;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+}
+
+.bygg-section-heading p:not(.bygg-eyebrow),
+.bygg-contact p,
+.bygg-project-body p,
+.bygg-service-card p,
+.bygg-benefit-card p {
+  color: #5a6a74;
+  line-height: 1.62;
+}
+
+.bygg-card-grid,
+.bygg-project-grid,
+.bygg-process-grid {
+  display: grid;
+  gap: 18px;
+  margin: 0 auto;
+  max-width: 1180px;
+}
+
+.bygg-card-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.bygg-service-card,
+.bygg-benefit-card,
+.bygg-project-card,
+.bygg-process-step,
+.bygg-contact-panel {
+  background: white;
+  border: 1px solid rgba(16, 42, 59, 0.08);
+  border-radius: 8px;
+  box-shadow: 0 18px 48px rgba(16, 42, 59, 0.08);
+}
+
+.bygg-service-card,
+.bygg-benefit-card {
+  display: grid;
+  gap: 12px;
+  padding: 24px;
+}
+
+.bygg-service-card h3,
+.bygg-benefit-card h3,
+.bygg-project-card h3,
+.bygg-process-step h3 {
+  color: #102a3b;
+  font-size: 1.12rem;
+  margin: 0;
+}
+
+.bygg-service-card p,
+.bygg-benefit-card p,
+.bygg-project-body p {
+  margin: 0;
+}
+
+.bygg-card-icon {
+  align-items: center;
+  background: #f3e6d7;
+  border-radius: 8px;
+  color: #9b6532;
+  display: inline-flex;
+  height: 44px;
+  justify-content: center;
+  width: 44px;
+}
+
+.bygg-service-card a {
+  align-items: center;
+  color: #9b6532;
+  display: inline-flex;
+  font-weight: 850;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.bygg-gallery-section {
+  background: #e9eef1;
+}
+
+.bygg-project-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.bygg-project-card {
+  overflow: hidden;
+}
+
+.bygg-before-after {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.bygg-image-placeholder,
+.bygg-before-after img {
+  aspect-ratio: 4 / 3;
+  min-height: 150px;
+  width: 100%;
+}
+
+.bygg-before-after img {
+  display: block;
+  object-fit: cover;
+}
+
+.bygg-image-placeholder {
+  align-items: center;
+  background:
+    linear-gradient(135deg, rgba(16, 42, 59, 0.08), rgba(196, 127, 61, 0.12)),
+    #f8fafb;
+  border-bottom: 1px solid rgba(16, 42, 59, 0.08);
+  color: #60717d;
+  display: grid;
+  font-weight: 800;
+  gap: 8px;
+  justify-items: center;
+  padding: 18px;
+  text-align: center;
+}
+
+.bygg-image-placeholder + .bygg-image-placeholder {
+  border-left: 1px solid rgba(16, 42, 59, 0.08);
+}
+
+.bygg-project-body {
+  display: grid;
+  gap: 9px;
+  padding: 20px;
+}
+
+.bygg-project-body > span {
+  color: #9b6532;
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.bygg-project-body small {
+  align-items: center;
+  color: #60717d;
+  display: inline-flex;
+  gap: 5px;
+}
+
+.bygg-process {
+  background: white;
+}
+
+.bygg-process-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.bygg-process-step {
+  display: grid;
+  gap: 16px;
+  padding: 22px;
+}
+
+.bygg-process-step span {
+  align-items: center;
+  background: #102a3b;
+  border-radius: 8px;
+  color: #d09a5c;
+  display: inline-flex;
+  font-size: 1.2rem;
+  font-weight: 900;
+  height: 42px;
+  justify-content: center;
+  width: 42px;
+}
+
+.bygg-coverage {
+  align-items: center;
+  display: grid;
+  gap: 28px;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  margin: 0 auto;
+  max-width: 1180px;
+}
+
+.bygg-area-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.bygg-area-list span {
+  background: white;
+  border: 1px solid rgba(16, 42, 59, 0.08);
+  border-radius: 999px;
+  color: #2c4656;
+  font-weight: 800;
+  padding: 10px 14px;
+}
+
+.bygg-contact {
+  background: #102a3b;
+}
+
+.bygg-contact-panel {
+  display: grid;
+  gap: clamp(28px, 5vw, 56px);
+  grid-template-columns: minmax(260px, 0.75fr) minmax(0, 1.25fr);
+  margin: 0 auto;
+  max-width: 1180px;
+  padding: clamp(22px, 5vw, 42px);
+}
+
+.bygg-contact-panel > div:first-child {
+  align-content: start;
+  display: grid;
+  gap: 16px;
+}
+
+.bygg-contact-links a {
+  align-items: center;
+  background: #eef2f4;
+  border-radius: 8px;
+  color: #102a3b;
+  display: inline-flex;
+  font-weight: 800;
+  gap: 8px;
+  padding: 11px 13px;
+  text-decoration: none;
+}
+
+.bygg-quote-form {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.bygg-quote-form label {
+  display: grid;
+  gap: 7px;
+}
+
+.bygg-quote-form span {
+  color: #2c4656;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.bygg-quote-form input,
+.bygg-quote-form select,
+.bygg-quote-form textarea {
+  background: #f8fafb;
+  border: 1px solid #ccd7dd;
+  border-radius: 8px;
+  color: #102a3b;
+  min-height: 46px;
+  padding: 11px 12px;
+  width: 100%;
+}
+
+.bygg-quote-form textarea {
+  resize: vertical;
+}
+
+.bygg-upload-field input {
+  cursor: pointer;
+  padding: 12px;
+}
+
+.bygg-form-note {
+  background: #eef7f0;
+  border: 1px solid #b7d9be;
+  border-radius: 8px;
+  color: #225c35;
+  font-weight: 750;
+  margin: 0;
+  padding: 12px 14px;
+}
+
+.bygg-full-span {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 920px) {
+  .bygg-header {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-bottom: 16px;
+    padding-top: 16px;
+  }
+
+  .bygg-header nav {
+    justify-content: flex-start;
+  }
+
+  .bygg-card-grid,
+  .bygg-project-grid,
+  .bygg-process-grid,
+  .bygg-coverage,
+  .bygg-contact-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .bygg-hero-overlay {
+    background: linear-gradient(180deg, rgba(12, 30, 44, 0.94) 0%, rgba(12, 30, 44, 0.84) 48%, rgba(12, 30, 44, 0.42) 100%);
+  }
+
+  .bygg-hero-content {
+    min-height: calc(100vh - 126px);
+    padding-top: 48px;
+  }
+}
+
+@media (max-width: 620px) {
+  .bygg-quote-form,
+  .bygg-before-after {
+    grid-template-columns: 1fr;
+  }
+
+  .bygg-image-placeholder + .bygg-image-placeholder {
+    border-left: 0;
+    border-top: 1px solid rgba(16, 42, 59, 0.08);
+  }
+
+  .bygg-hero h1 {
+    font-size: clamp(2.45rem, 14vw, 3.4rem);
+  }
+}
