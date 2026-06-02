@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, Check, ClipboardList, Lock, LogOut } from 'lucide-react';
+import { Check, ClipboardList, Lock, LogOut } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
@@ -170,7 +170,6 @@ function SurveyShell({ children }) {
 }
 
 export function DentalSurveyPage() {
-  const [step, setStep] = useState(1);
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState({ loading: false, error: '' });
 
@@ -194,13 +193,6 @@ export function DentalSurveyPage() {
         [name]: nextValue,
       },
     });
-  }
-
-  function nextStep(event) {
-    event.preventDefault();
-    if (!event.currentTarget.reportValidity()) return;
-    setStep(2);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   async function submit(event) {
@@ -229,60 +221,43 @@ export function DentalSurveyPage() {
             <p className="dental-muted">
               Help HanaTech validate an AI-assisted post-treatment monitoring platform for dental clinics.
             </p>
-            <div className="dental-step-meter" aria-label={`Step ${step} of 2`}>
-              <span className={step === 1 ? 'active' : 'complete'}>1</span>
-              <span className={step === 2 ? 'active' : ''}>2</span>
-            </div>
           </div>
-          <form className="dental-panel dental-form-grid" onSubmit={step === 1 ? nextStep : submit}>
-            {step === 1 ? (
-              <>
-                <div className="dental-section-title dental-full-span">
-                  <p className="dental-eyebrow">Page 1 of 2</p>
-                  <h2>Clinic information</h2>
-                </div>
-                <Input label="Clinic name" name="clinic_name" value={form.clinic_name} onChange={updateField} required />
-                <Input label="Contact name" name="contact_name" value={form.contact_name} onChange={updateField} required />
-                <Input label="Email" type="email" name="email" value={form.email} onChange={updateField} required />
-                <Input label="Phone" name="phone" value={form.phone} onChange={updateField} />
-                <Input label="Role" name="role" value={form.role} onChange={updateField} />
-                <Select label="Clinic size" name="clinic_size" value={form.clinic_size} onChange={updateField} options={['1-3 providers', '4-8 providers', '9+ providers', 'Multi-location']} />
-                <Input label="Current software" name="current_software" value={form.current_software} onChange={updateField} />
-                <Select label="AI priority" name="ai_priority" value={form.ai_priority} onChange={updateField} options={['Patient communication', 'Scheduling efficiency', 'Diagnostic support', 'Revenue intelligence', 'Clinical documentation']} />
-                <Select label="Timeline" name="timeline" value={form.timeline} onChange={updateField} options={['This quarter', 'Next 6 months', 'This year', 'Exploring only']} />
-                <button className="dental-primary-button dental-full-span">
-                  Continue to questions <ArrowRight size={18} />
-                </button>
-              </>
-            ) : (
-              <>
-                <div className="dental-section-title dental-full-span">
-                  <p className="dental-eyebrow">Page 2 of 2</p>
-                  <h2>Questions and answers</h2>
-                </div>
-                {surveyQuestions.map((question) => (
-                  <fieldset className="dental-question-block dental-full-span" key={question.key}>
-                    {question.section && <p className="dental-question-section">{question.section}</p>}
-                    <legend>{question.label}</legend>
-                    {question.helper && <p className="dental-question-helper">{question.helper}</p>}
-                    <QuestionControl question={question} value={form.survey_answers[question.key]} onChange={updateSurveyAnswer} />
-                  </fieldset>
-                ))}
-                <label className="dental-full-span">
-                  <span>Additional notes</span>
-                  <textarea name="notes" value={form.notes} onChange={updateField} rows="5" />
-                </label>
-                {status.error && <p className="dental-error dental-full-span">{status.error}</p>}
-                <div className="dental-form-actions dental-full-span">
-                  <button type="button" className="dental-secondary-button" onClick={() => setStep(1)}>
-                    <ArrowLeft size={18} /> Back
-                  </button>
-                  <button className="dental-primary-button" disabled={status.loading}>
-                    {status.loading ? 'Submitting...' : 'Submit survey'} <ClipboardList size={18} />
-                  </button>
-                </div>
-              </>
-            )}
+          <form className="dental-panel dental-form-grid" onSubmit={submit}>
+            <div className="dental-section-title dental-full-span">
+              <p className="dental-eyebrow">Survey</p>
+              <h2>Clinic information</h2>
+            </div>
+            <Input label="Clinic name" name="clinic_name" value={form.clinic_name} onChange={updateField} required />
+            <Input label="Contact name" name="contact_name" value={form.contact_name} onChange={updateField} required />
+            <Input label="Email" type="email" name="email" value={form.email} onChange={updateField} required />
+            <Input label="Phone" name="phone" value={form.phone} onChange={updateField} />
+            <Input label="Role" name="role" value={form.role} onChange={updateField} />
+            <Select label="Clinic size" name="clinic_size" value={form.clinic_size} onChange={updateField} options={['1-3 providers', '4-8 providers', '9+ providers', 'Multi-location']} />
+            <Input label="Current software" name="current_software" value={form.current_software} onChange={updateField} />
+            <Select label="AI priority" name="ai_priority" value={form.ai_priority} onChange={updateField} options={['Patient communication', 'Scheduling efficiency', 'Diagnostic support', 'Revenue intelligence', 'Clinical documentation']} />
+            <Select label="Timeline" name="timeline" value={form.timeline} onChange={updateField} options={['This quarter', 'Next 6 months', 'This year', 'Exploring only']} />
+            <div className="dental-section-title dental-full-span">
+              <p className="dental-eyebrow">Validation questions</p>
+              <h2>Questions and answers</h2>
+            </div>
+            {surveyQuestions.map((question) => (
+              <fieldset className="dental-question-block dental-full-span" key={question.key}>
+                {question.section && <p className="dental-question-section">{question.section}</p>}
+                <legend>{question.label}</legend>
+                {question.helper && <p className="dental-question-helper">{question.helper}</p>}
+                <QuestionControl question={question} value={form.survey_answers[question.key]} onChange={updateSurveyAnswer} />
+              </fieldset>
+            ))}
+            <label className="dental-full-span">
+              <span>Additional notes</span>
+              <textarea name="notes" value={form.notes} onChange={updateField} rows="5" />
+            </label>
+            {status.error && <p className="dental-error dental-full-span">{status.error}</p>}
+            <div className="dental-form-actions dental-full-span">
+              <button className="dental-primary-button" disabled={status.loading}>
+                {status.loading ? 'Submitting...' : 'Submit survey'} <ClipboardList size={18} />
+              </button>
+            </div>
           </form>
         </section>
       </main>

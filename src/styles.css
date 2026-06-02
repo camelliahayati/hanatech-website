@@ -145,13 +145,6 @@ select {
   margin: 0;
 }
 
-.dental-step-meter {
-  display: flex;
-  gap: 10px;
-  margin-top: 26px;
-}
-
-.dental-step-meter span,
 .dental-icon-pill,
 .dental-success-icon {
   align-items: center;
@@ -163,12 +156,6 @@ select {
   height: 40px;
   justify-content: center;
   width: 40px;
-}
-
-.dental-step-meter .active,
-.dental-step-meter .complete {
-  background: #0f9f95;
-  color: white;
 }
 
 .dental-panel {
