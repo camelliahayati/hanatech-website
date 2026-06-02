@@ -2,6 +2,11 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 
 
 @dataclass(frozen=True)
@@ -17,6 +22,7 @@ class Settings:
     rate_limit_window_minutes: int
     rate_limit_max_submissions: int
     duplicate_window_hours: int
+    frontend_origin: str
 
 
 def _get_env(name: str, *, default: str | None = None) -> str:
@@ -45,5 +51,5 @@ def load_settings() -> Settings:
         rate_limit_window_minutes=int(os.getenv("RATE_LIMIT_WINDOW_MINUTES", "10")),
         rate_limit_max_submissions=int(os.getenv("RATE_LIMIT_MAX_SUBMISSIONS", "3")),
         duplicate_window_hours=int(os.getenv("DUPLICATE_WINDOW_HOURS", "24")),
+        frontend_origin=os.getenv("FRONTEND_ORIGIN", "http://127.0.0.1:5173"),
     )
-

@@ -5,6 +5,12 @@ import Contact from './pages/Contact.jsx';
 import Home from './pages/Home.jsx';
 import Product from './pages/Product.jsx';
 import Services from './pages/Services.jsx';
+import {
+  AdminDentalSurveyPage,
+  AdminLoginPage,
+  DentalSurveyPage,
+  DentalSurveyThankYouPage,
+} from './pages/DentalAiSurvey.jsx';
 
 const labels = {
   en: {
@@ -34,6 +40,12 @@ const labels = {
 };
 
 export default function App() {
+  const path = window.location.pathname;
+  if (path === '/dental-ai-survey') return <DentalSurveyPage />;
+  if (path === '/dental-ai-survey/thank-you') return <DentalSurveyThankYouPage />;
+  if (path === '/admin/login') return <AdminLoginPage />;
+  if (path === '/admin/dental-survey') return <AdminDentalSurveyPage />;
+
   const activeLanguage = 'en';
   const copy = labels[activeLanguage];
 

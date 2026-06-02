@@ -25,3 +25,8 @@ pnpm-debug.log*
 # Python artifacts
 __pycache__/
 *.pyc
+.venv/
+backend/.venv/
+*.db
+*.sqlite
+*.sqlite3

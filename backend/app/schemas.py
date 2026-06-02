@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from typing import Any
 from typing import Annotated
 
 from pydantic import BaseModel, EmailStr, Field, field_validator, model_validator
@@ -291,3 +292,33 @@ class SurveyAnalyticsOut(BaseModel):
     top_requested_ai_features: list[tuple[str, int]]
     most_common_concerns: list[tuple[str, int]]
 
+
+class DentalAiSurveySubmissionIn(BaseModel):
+    clinic_name: Annotated[str, Field(min_length=2, max_length=160)]
+    contact_name: Annotated[str, Field(min_length=2, max_length=160)]
+    email: EmailStr
+    phone: Annotated[str | None, Field(max_length=80)] = None
+    role: Annotated[str | None, Field(max_length=120)] = None
+    clinic_size: Annotated[str | None, Field(max_length=80)] = None
+    current_software: Annotated[str | None, Field(max_length=180)] = None
+    ai_priority: Annotated[str, Field(min_length=2, max_length=120)]
+    timeline: Annotated[str | None, Field(max_length=80)] = None
+    survey_answers: dict[str, Any] = Field(default_factory=dict)
+    notes: Annotated[str | None, Field(max_length=3000)] = None
+
+
+class DentalAiSurveySubmissionOut(DentalAiSurveySubmissionIn):
+    id: int
+    created_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
+class ApiAdminLoginIn(BaseModel):
+    username: str
+    password: str
+
+
+class ApiAdminTokenOut(BaseModel):
+    access_token: str
+    token_type: str = "bearer"

@@ -68,3 +68,388 @@ select {
     transition-duration: 0.01ms !important;
   }
 }
+
+.dental-app-shell {
+  min-height: 100vh;
+  background: #f6faf9;
+  color: #17313a;
+}
+
+.dental-header {
+  align-items: center;
+  background: rgba(246, 250, 249, 0.96);
+  border-bottom: 1px solid rgba(23, 49, 58, 0.1);
+  display: flex;
+  gap: 24px;
+  height: 76px;
+  justify-content: space-between;
+  padding: 0 clamp(18px, 4vw, 56px);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.dental-brand img {
+  display: block;
+  height: 50px;
+  object-fit: contain;
+  width: auto;
+}
+
+.dental-header nav {
+  display: flex;
+  gap: clamp(14px, 3vw, 28px);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.dental-page-shell,
+.dental-center-page {
+  padding: clamp(32px, 6vw, 72px) clamp(18px, 5vw, 64px);
+}
+
+.dental-center-page {
+  display: grid;
+  min-height: calc(100vh - 76px);
+  place-items: center;
+}
+
+.dental-form-layout {
+  display: grid;
+  gap: clamp(28px, 6vw, 72px);
+  grid-template-columns: minmax(240px, 0.85fr) minmax(0, 1.45fr);
+  margin: 0 auto;
+  max-width: 1180px;
+}
+
+.dental-eyebrow {
+  color: #0a8079;
+  font-size: 0.78rem;
+  font-weight: 800;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+}
+
+.dental-form-layout h1,
+.dental-admin-head h1,
+.dental-login-panel h1,
+.dental-success-panel h1 {
+  color: #102a32;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1;
+  margin: 0 0 24px;
+}
+
+.dental-muted {
+  color: #587077;
+  margin: 0;
+}
+
+.dental-step-meter {
+  display: flex;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.dental-step-meter span,
+.dental-icon-pill,
+.dental-success-icon {
+  align-items: center;
+  background: #dce9e7;
+  border-radius: 8px;
+  color: #45656d;
+  display: inline-flex;
+  font-weight: 850;
+  height: 40px;
+  justify-content: center;
+  width: 40px;
+}
+
+.dental-step-meter .active,
+.dental-step-meter .complete {
+  background: #0f9f95;
+  color: white;
+}
+
+.dental-panel {
+  background: white;
+  border: 1px solid rgba(23, 49, 58, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 18px 50px rgba(19, 50, 59, 0.08);
+  padding: clamp(20px, 4vw, 34px);
+}
+
+.dental-form-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.dental-form-grid label,
+.dental-login-panel label {
+  display: grid;
+  gap: 7px;
+}
+
+.dental-form-grid label span,
+.dental-login-panel label span {
+  color: #284852;
+  font-size: 0.9rem;
+  font-weight: 750;
+}
+
+.dental-form-grid input,
+.dental-form-grid select,
+.dental-form-grid textarea,
+.dental-login-panel input {
+  background: #f8fbfa;
+  border: 1px solid #cadbd8;
+  border-radius: 8px;
+  color: #17313a;
+  min-height: 44px;
+  padding: 10px 12px;
+  width: 100%;
+}
+
+.dental-form-grid textarea {
+  resize: vertical;
+}
+
+.dental-full-span {
+  grid-column: 1 / -1;
+}
+
+.dental-section-title {
+  border-bottom: 1px solid #e1edeb;
+  padding-bottom: 4px;
+}
+
+.dental-section-title h2 {
+  color: #17313a;
+  font-size: 1.4rem;
+  margin: 0 0 12px;
+}
+
+.dental-question-block {
+  border: 1px solid #d7e6e3;
+  border-radius: 8px;
+  margin: 0;
+  padding: 18px;
+}
+
+.dental-question-block legend {
+  color: #17313a;
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 0 8px;
+}
+
+.dental-question-section {
+  color: #0a8079;
+  font-size: 0.78rem;
+  font-weight: 850;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+.dental-question-helper {
+  color: #587077;
+  margin: 8px 0 14px;
+}
+
+.dental-answer-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.dental-choice-card {
+  align-items: center;
+  background: #f8fbfa;
+  border: 1px solid #d7e6e3;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  min-height: 48px;
+  padding: 10px 12px;
+}
+
+.dental-choice-card input {
+  min-height: auto;
+  width: auto;
+}
+
+.dental-choice-card:has(input:checked) {
+  background: #e2f5f2;
+  border-color: #0f9f95;
+}
+
+.dental-scale-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  margin-top: 14px;
+}
+
+.dental-scale-choice {
+  cursor: pointer;
+}
+
+.dental-scale-choice input {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.dental-scale-choice span {
+  align-items: center;
+  background: #f8fbfa;
+  border: 1px solid #d7e6e3;
+  border-radius: 8px;
+  color: #17313a;
+  display: flex;
+  font-weight: 850;
+  height: 42px;
+  justify-content: center;
+}
+
+.dental-scale-choice:has(input:checked) span {
+  background: #0f9f95;
+  border-color: #0f9f95;
+  color: white;
+}
+
+.dental-question-textarea {
+  margin-top: 14px;
+}
+
+.dental-primary-button,
+.dental-secondary-button {
+  align-items: center;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: 800;
+  gap: 9px;
+  justify-content: center;
+  min-height: 46px;
+  padding: 12px 18px;
+  text-decoration: none;
+}
+
+.dental-primary-button {
+  background: #0f9f95;
+  color: white;
+}
+
+.dental-secondary-button {
+  background: #e4efed;
+  color: #17313a;
+}
+
+.dental-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.dental-error {
+  color: #b22d42;
+  font-weight: 700;
+  margin: 0;
+}
+
+.dental-login-panel,
+.dental-success-panel {
+  display: grid;
+  gap: 16px;
+  max-width: 460px;
+  width: min(460px, 100%);
+}
+
+.dental-success-panel {
+  justify-items: center;
+  text-align: center;
+}
+
+.dental-success-icon,
+.dental-icon-pill {
+  background: #dff4f1;
+  color: #0a8079;
+}
+
+.dental-admin-head {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto 22px;
+  max-width: 1180px;
+}
+
+.dental-page-shell > .dental-panel {
+  margin: 0 auto;
+  max-width: 1180px;
+}
+
+.dental-table-wrap {
+  overflow-x: auto;
+}
+
+.dental-table-wrap table {
+  border-collapse: collapse;
+  min-width: 980px;
+  width: 100%;
+}
+
+.dental-table-wrap th,
+.dental-table-wrap td {
+  border-bottom: 1px solid #e3eeee;
+  color: #17313a;
+  padding: 13px 12px;
+  text-align: left;
+}
+
+.dental-table-wrap th {
+  color: #426068;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+}
+
+.dental-answer-list {
+  display: grid;
+  gap: 6px;
+  margin: 10px 0 0;
+  min-width: 260px;
+}
+
+.dental-answer-list dt {
+  color: #45656d;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.dental-answer-list dd {
+  margin: 0 0 8px;
+}
+
+@media (max-width: 820px) {
+  .dental-form-layout,
+  .dental-form-grid,
+  .dental-answer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dental-scale-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .dental-admin-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+}

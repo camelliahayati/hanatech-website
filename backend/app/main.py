@@ -3,17 +3,26 @@ from __future__ import annotations
 from pathlib import Path
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
 
 from .config import load_settings
-from .routers import admin, survey
+from .routers import admin, api_survey, survey
 
 settings = load_settings()
 BASE_DIR = Path(__file__).resolve().parent
 
 app = FastAPI(title=settings.app_name)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[settings.frontend_origin, "http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.add_middleware(
     SessionMiddleware,
@@ -28,6 +37,7 @@ app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 
 app.include_router(survey.router)
 app.include_router(admin.router)
+app.include_router(api_survey.router)
 
 
 @app.get("/", include_in_schema=False)
@@ -38,4 +48,3 @@ def index_redirect():
 @app.get("/healthz", include_in_schema=False)
 def health_check():
     return JSONResponse({"status": "ok"})
-

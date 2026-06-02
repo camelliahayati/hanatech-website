@@ -7,7 +7,7 @@ from sqlalchemy import engine_from_config, pool
 
 from backend.app.config import load_settings
 from backend.app.database import Base
-from backend.app.models import DentalSurveyResponse  # noqa: F401
+from backend.app.models import DentalAiSurveySubmission, DentalSurveyResponse  # noqa: F401
 
 config = context.config
 
@@ -51,4 +51,3 @@ if context.is_offline_mode():
     run_migrations_offline()
 else:
     run_migrations_online()
-

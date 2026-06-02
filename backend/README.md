@@ -14,6 +14,8 @@ Production-ready FastAPI survey module for validating HanaTech's AI-powered post
 
 - Public survey page: `/dental-ai-survey`
 - Thank-you page: `/dental-ai-survey/thank-you`
+- JSON survey API: `/api/survey`
+- JSON admin API: `/api/admin/login`, `/api/admin/surveys`
 - Protected admin dashboard: `/admin/dental-survey`
 - Admin response detail page
 - Filtered CSV export
@@ -35,10 +37,18 @@ Production-ready FastAPI survey module for validating HanaTech's AI-powered post
 Set these before running:
 
 ```bash
-DATABASE_URL=postgresql+psycopg://user:password@localhost:5432/hanatech
+DATABASE_URL=sqlite:///./hanatech_local.db
 SECRET_KEY=your_random_long_secret
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD_HASH=your_bcrypt_hash
+FRONTEND_ORIGIN=http://127.0.0.1:5173
+```
+
+For production on `hanatech.se`, use PostgreSQL:
+
+```bash
+DATABASE_URL=postgresql+psycopg://user:password@host:5432/hanatech
+FRONTEND_ORIGIN=https://hanatech.se
 ```
 
 Optional:
@@ -87,4 +97,3 @@ print(CryptContext(schemes=["bcrypt"], deprecated="auto").hash("your_password"))
 - Survey requires privacy policy acceptance.
 - Admin routes redirect unauthorized users to `/admin/login`.
 - CSV export filename format: `dental_survey_export_YYYY_MM_DD.csv`.
-

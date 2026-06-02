@@ -33,14 +33,22 @@ def upgrade() -> None:
         sa.Column("clinic_type", sa.String(length=128), nullable=False),
         sa.Column("number_of_dentists", sa.String(length=32), nullable=False),
         sa.Column("monthly_treatment_volume", sa.String(length=32), nullable=False),
-        sa.Column("specialization", postgresql.ARRAY(sa.Text()), nullable=False),
+        sa.Column(
+            "specialization",
+            postgresql.ARRAY(sa.Text()).with_variant(sa.JSON(), "sqlite"),
+            nullable=False,
+        ),
         sa.Column("contact_frequency", sa.Integer(), nullable=False),
         sa.Column(
-            "problematic_treatments", postgresql.ARRAY(sa.Text()), nullable=False
+            "problematic_treatments",
+            postgresql.ARRAY(sa.Text()).with_variant(sa.JSON(), "sqlite"),
+            nullable=False,
         ),
         sa.Column("weekly_followup_time", sa.String(length=64), nullable=False),
         sa.Column(
-            "communication_channels", postgresql.ARRAY(sa.Text()), nullable=False
+            "communication_channels",
+            postgresql.ARRAY(sa.Text()).with_variant(sa.JSON(), "sqlite"),
+            nullable=False,
         ),
         sa.Column("current_software", sa.Text(), nullable=False),
         sa.Column("workflow_satisfaction", sa.Integer(), nullable=False),
@@ -50,10 +58,22 @@ def upgrade() -> None:
         sa.Column("problem_severity_score", sa.Integer(), nullable=False),
         sa.Column("biggest_challenge", sa.Text(), nullable=False),
         sa.Column("ai_interest_score", sa.Integer(), nullable=False),
-        sa.Column("valuable_ai_features", postgresql.ARRAY(sa.Text()), nullable=False),
-        sa.Column("concerns", postgresql.ARRAY(sa.Text()), nullable=False),
+        sa.Column(
+            "valuable_ai_features",
+            postgresql.ARRAY(sa.Text()).with_variant(sa.JSON(), "sqlite"),
+            nullable=False,
+        ),
+        sa.Column(
+            "concerns",
+            postgresql.ARRAY(sa.Text()).with_variant(sa.JSON(), "sqlite"),
+            nullable=False,
+        ),
         sa.Column("monthly_price_expectation", sa.String(length=64), nullable=False),
-        sa.Column("pilot_interest", postgresql.ARRAY(sa.Text()), nullable=False),
+        sa.Column(
+            "pilot_interest",
+            postgresql.ARRAY(sa.Text()).with_variant(sa.JSON(), "sqlite"),
+            nullable=False,
+        ),
         sa.Column("consent_contact", sa.Boolean(), nullable=False),
         sa.Column("consent_research", sa.Boolean(), nullable=False),
         sa.Column("privacy_accepted", sa.Boolean(), nullable=False),
@@ -105,4 +125,3 @@ def downgrade() -> None:
     op.drop_index("ix_dental_survey_country", table_name="dental_survey_responses")
     op.drop_index("ix_dental_survey_created_at", table_name="dental_survey_responses")
     op.drop_table("dental_survey_responses")
-
