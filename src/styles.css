@@ -92,6 +92,7 @@ select {
 .dental-brand img {
   display: block;
   height: 62px;
+  max-width: none;
   object-fit: contain;
   width: auto;
 }
