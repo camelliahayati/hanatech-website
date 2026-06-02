@@ -17,7 +17,8 @@ This repository also includes a Python/FastAPI healthcare survey backend module 
 - Services
 - About
 - Contact
-- Dental AI Survey: `/dental-ai-survey`
+- Dental AI Survey start page: `/dental-ai-survey`
+- Dental AI Survey form: `/dental-ai-survey/start`
 - Dental AI Survey thank-you: `/dental-ai-survey/thank-you`
 - Survey admin login: `/admin/login`
 - Survey admin dashboard: `/admin/dental-survey`
@@ -97,6 +98,7 @@ python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
 Then open:
 
 - `http://127.0.0.1:5173/dental-ai-survey`
+- `http://127.0.0.1:5173/dental-ai-survey/start`
 - `http://127.0.0.1:5173/dental-ai-survey/thank-you`
 - `http://127.0.0.1:5173/admin/login`
 - `http://127.0.0.1:5173/admin/dental-survey`
@@ -107,6 +109,7 @@ Then open:
 This project is prepared for deployment under the existing `hanatech.se` domain, without subdomains:
 
 - `https://hanatech.se/dental-ai-survey`
+- `https://hanatech.se/dental-ai-survey/start`
 - `https://hanatech.se/dental-ai-survey/thank-you`
 - `https://hanatech.se/admin/login`
 - `https://hanatech.se/admin/dental-survey`

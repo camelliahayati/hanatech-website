@@ -8,6 +8,7 @@ import Services from './pages/Services.jsx';
 import {
   AdminDentalSurveyPage,
   AdminLoginPage,
+  DentalSurveyLandingPage,
   DentalSurveyPage,
   DentalSurveyThankYouPage,
 } from './pages/DentalAiSurvey.jsx';
@@ -41,7 +42,8 @@ const labels = {
 
 export default function App() {
   const path = window.location.pathname;
-  if (path === '/dental-ai-survey') return <DentalSurveyPage />;
+  if (path === '/dental-ai-survey') return <DentalSurveyLandingPage />;
+  if (path === '/dental-ai-survey/start') return <DentalSurveyPage />;
   if (path === '/dental-ai-survey/thank-you') return <DentalSurveyThankYouPage />;
   if (path === '/admin/login') return <AdminLoginPage />;
   if (path === '/admin/dental-survey') return <AdminDentalSurveyPage />;

@@ -1,4 +1,4 @@
-import { Check, ClipboardList, Lock, LogOut } from 'lucide-react';
+import { ArrowRight, Check, ClipboardList, Lock, LogOut } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
@@ -166,6 +166,31 @@ function SurveyShell({ children }) {
       </header>
       {children}
     </div>
+  );
+}
+
+export function DentalSurveyLandingPage() {
+  return (
+    <SurveyShell>
+      <main className="dental-landing">
+        <img
+          src="/assets/hanatech-dental-ai-hero.png"
+          alt=""
+          className="dental-landing-image"
+        />
+        <div className="dental-landing-content">
+          <p className="dental-eyebrow">Dental AI systems for modern clinics</p>
+          <h1>HanaTech</h1>
+          <p>
+            Intelligent workflow, patient insight, and operational analytics for
+            clinics ready to move with more precision.
+          </p>
+          <a className="dental-primary-button" href="/dental-ai-survey/start">
+            Start survey <ArrowRight size={18} />
+          </a>
+        </div>
+      </main>
+    </SurveyShell>
   );
 }
 

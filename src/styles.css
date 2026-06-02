@@ -145,6 +145,52 @@ select {
   margin: 0;
 }
 
+.dental-landing {
+  min-height: calc(100vh - 76px);
+  overflow: hidden;
+  position: relative;
+}
+
+.dental-landing::after {
+  background: linear-gradient(90deg, rgba(246, 250, 249, 0.97) 0%, rgba(246, 250, 249, 0.83) 39%, rgba(246, 250, 249, 0.2) 73%);
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+
+.dental-landing-image {
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  position: absolute;
+  width: 100%;
+}
+
+.dental-landing-content {
+  display: grid;
+  min-height: calc(100vh - 76px);
+  padding: clamp(36px, 8vw, 92px) clamp(20px, 6vw, 84px);
+  place-content: center start;
+  position: relative;
+  width: min(760px, 92vw);
+  z-index: 1;
+}
+
+.dental-landing-content h1 {
+  color: #102a32;
+  font-size: clamp(3.4rem, 8vw, 6.2rem);
+  line-height: 0.95;
+  margin: 0 0 24px;
+}
+
+.dental-landing-content p:not(.dental-eyebrow) {
+  color: #17313a;
+  font-size: clamp(1.08rem, 2vw, 1.32rem);
+  line-height: 1.55;
+  margin: 0 0 30px;
+  max-width: 650px;
+}
+
 .dental-icon-pill,
 .dental-success-icon {
   align-items: center;
@@ -438,5 +484,9 @@ select {
     align-items: flex-start;
     flex-direction: column;
     gap: 14px;
+  }
+
+  .dental-landing::after {
+    background: linear-gradient(180deg, rgba(246, 250, 249, 0.98) 0%, rgba(246, 250, 249, 0.86) 58%, rgba(246, 250, 249, 0.34) 100%);
   }
 }
