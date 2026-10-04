@@ -2,7 +2,7 @@ import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const links = [
-  { label: 'HanaVoya', href: '#hanavoya' },
+  { label: 'Products', href: '#products' },
   { label: 'Ventures', href: '#ventures' },
   { label: 'Selected work', href: '#work' },
   { label: 'About', href: '#about' },
@@ -11,7 +11,7 @@ const links = [
 function Brand() {
   return (
     <a className="brand" href="#top" aria-label="HanaTech home">
-      <span className="brand-mark" aria-hidden="true"><i /><i /><i /></span>
+      <img className="brand-mark" src="/assets/hanatech-logo-mark-dark-tight.png" alt="" width="176" height="176" />
       <span>HanaTech</span>
     </a>
   );

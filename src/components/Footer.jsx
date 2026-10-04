@@ -9,7 +9,7 @@ export default function Footer() {
           <p>Product engineering and AI-assisted experiences, built with care in Stockholm.</p>
         </div>
         <div className="footer-links">
-          <div><h3>Explore</h3><a href="#hanavoya">HanaVoya</a><a href="#work">Selected work</a><a href="#about">About</a></div>
+          <div><h3>Explore</h3><a href="#products">Products</a><a href="#work">Selected work</a><a href="#about">About</a></div>
           <div><h3>Ventures</h3><a href="#hanavoya">HanaVoya</a><a href="/bygg">HanaTech Bygg</a></div>
           <div><h3>Contact</h3><a href="mailto:camelliahayati@hanatech.se">camelliahayati@hanatech.se</a><span>Stockholm, Sweden</span></div>
         </div>

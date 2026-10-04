@@ -1,4 +1,16 @@
-import { Check, MapPin, Search } from 'lucide-react';
+import {
+  BrainCircuit,
+  CloudCog,
+  Code2,
+  Languages,
+  MapPin,
+  MapPinned,
+  MessageCircleHeart,
+  Search,
+  ShieldCheck,
+  Sparkles,
+  Volume2,
+} from 'lucide-react';
 import { useEffect } from 'react';
 import Button from '../components/Button.jsx';
 
@@ -22,6 +34,24 @@ function RouteMap({ compact = false }) {
 
 function Badge({ children }) {
   return <span className="status-badge">{children}</span>;
+}
+
+function BrandSystemVisual() {
+  return (
+    <div className="brand-system" aria-label="HanaTech engineering capabilities">
+      <div className="orbit orbit-one"><i /><i /><i /></div>
+      <div className="orbit orbit-two"><i /><i /></div>
+      <div className="brand-core">
+        <span>BUILT BY</span>
+        <img src="/assets/hanatech-logo-mark-dark-tight.png" alt="HanaTech icon" width="176" height="176" />
+        <strong>HanaTech</strong>
+      </div>
+      <div className="floating-skill skill-code"><Code2 /><span>Product<br />engineering</span></div>
+      <div className="floating-skill skill-ai"><BrainCircuit /><span>Applied<br />AI</span></div>
+      <div className="floating-skill skill-quality"><ShieldCheck /><span>Quality<br />engineering</span></div>
+      <div className="floating-skill skill-cloud"><CloudCog /><span>Cloud &amp;<br />delivery</span></div>
+    </div>
+  );
 }
 
 function ProductPreview({ hero = false }) {
@@ -52,9 +82,15 @@ const capabilities = [
   ['03', 'Multilingual experiences', 'Accessible interfaces, RTL support and content systems designed for international audiences.'],
 ];
 
+const trustPoints = [
+  { icon: <Code2 size={15} />, label: 'Senior engineering judgment' },
+  { icon: <Languages size={15} />, label: 'Multilingual by design' },
+  { icon: <ShieldCheck size={15} />, label: 'Product discipline from idea to release' },
+];
+
 const work = [
-  { status: 'BETA / PREVIEW', title: 'HanaVoya', summary: 'Multilingual discovery for Stockholm events, places and hidden gems.', meta: '9 languages · RTL · Search · Map · Saved', href: hanavoyaUrl, link: 'Explore product', kind: 'map' },
   { status: 'PROTOTYPE', title: 'PULSE AI', summary: 'AI-assisted document extraction that turns complex PDFs into structured, reviewable data.', meta: 'Document parsing · Structured output · Review workflow', href: '#contact', link: 'Discuss the prototype', kind: 'document' },
+  { status: 'VALIDATION PLATFORM', title: 'Dental AI Survey', summary: 'A secure research workflow for collecting structured professional feedback on AI-assisted dental diagnostics.', meta: 'FastAPI · Secure admin · Structured research data', href: '/dental-ai-survey', link: 'View platform', kind: 'dental' },
 ];
 
 export default function Home() {
@@ -85,7 +121,7 @@ export default function Home() {
             <h1>Engineering products with a human sense of place.</h1>
             <p className="hero-lead">HanaTech turns ambitious ideas into reliable digital products—combining 16+ years in software engineering with careful product design.</p>
             <div className="hero-actions">
-              <Button href={hanavoyaUrl} external>Explore HanaVoya</Button>
+              <Button href="#products">Explore our products</Button>
               <Button href="#work" variant="dark">See selected work</Button>
             </div>
             <div className="hero-metrics">
@@ -94,31 +130,62 @@ export default function Home() {
               <div><strong>Product · AI · Web</strong><span>end-to-end delivery</span></div>
             </div>
           </div>
-          <div className="reveal reveal-delay"><ProductPreview hero /></div>
+          <div className="reveal reveal-delay"><BrandSystemVisual /></div>
         </div>
       </section>
 
       <section className="trust-strip">
         <div className="shell trust-grid">
-          {['Senior engineering judgment', 'Multilingual by design', 'Product discipline from idea to release'].map((item) => (
-            <div key={item}><span><Check size={14} /></span>{item}</div>
+          {trustPoints.map(({ icon, label }) => (
+            <div key={label}><span>{icon}</span>{label}</div>
           ))}
         </div>
       </section>
 
-      <section id="hanavoya" className="product-section section-light">
-        <div className="shell product-grid">
-          <div className="reveal product-visual"><ProductPreview /></div>
-          <div className="product-copy reveal reveal-delay">
-            <Badge>BETA / PREVIEW</Badge>
-            <h2>Discover Stockholm in your own language.</h2>
-            <p>HanaVoya helps tourists, immigrants and international residents find events, places and hidden gems—without losing context in translation.</p>
-            <ul>
-              <li><i />9 languages with complete Persian and Arabic RTL</li>
-              <li><i />Search, filters and a map-ready exploration flow</li>
-              <li><i />Saved favourites, profiles and browser-based audio guides</li>
-            </ul>
-            <Button href={hanavoyaUrl} variant="light" external>Explore HanaVoya</Button>
+      <section id="products" className="product-section section-light">
+        <div className="shell">
+          <div className="section-heading light reveal">
+            <div><p className="eyebrow blue">PRODUCTS BY HANATECH</p><h2>Two products. One engineering standard.</h2></div>
+            <p>HanaTech creates focused digital products that make complex technology feel useful, human and clear.</p>
+          </div>
+          <div className="products-grid">
+            <article className="product-card hanaai-card reveal">
+              <div className="product-card-copy">
+                <div className="product-card-top"><span className="product-icon"><BrainCircuit /></span><Badge>PRODUCT VISION</Badge></div>
+                <p className="product-owner">A HANATECH PRODUCT</p>
+                <h3>HanaAI Platform</h3>
+                <p>A multilingual conversational AI experience designed to understand context, mood and everyday needs.</p>
+                <div className="product-features">
+                  <span><MessageCircleHeart />Natural conversation</span>
+                  <span><Languages />Multilingual by design</span>
+                  <span><Sparkles />Context-aware guidance</span>
+                </div>
+                <Button href="#contact" variant="light">Discuss HanaAI</Button>
+              </div>
+              <div className="hanaai-preview" aria-label="HanaAI conversational product preview">
+                <div className="ai-preview-head"><span><BrainCircuit /> HanaAI</span><i>AI companion</i></div>
+                <div className="chat-bubble ai">How can I make today feel lighter?</div>
+                <div className="chat-bubble user">I have two hours and want something calm.</div>
+                <div className="chat-bubble ai">Let’s plan a quiet walk, coffee and one small priority.</div>
+                <div className="thinking-line"><i /><i /><i /><span>Context, language and mood</span></div>
+              </div>
+            </article>
+
+            <article className="product-card hanavoya-card reveal" style={{ '--delay': '100ms' }}>
+              <div className="product-card-copy">
+                <div className="product-card-top"><span className="product-icon coral-icon"><MapPinned /></span><Badge>BETA / PREVIEW</Badge></div>
+                <p className="product-owner">A HANATECH PRODUCT</p>
+                <h3>HanaVoya</h3>
+                <p>Discover Stockholm events, places and hidden gems in your own language—with context that travels.</p>
+                <div className="product-features">
+                  <span><Languages />9 languages and RTL</span>
+                  <span><Search />Search and filters</span>
+                  <span><Volume2 />Saved items and audio</span>
+                </div>
+                <Button href={hanavoyaUrl} variant="light" external>Explore HanaVoya</Button>
+              </div>
+              <ProductPreview />
+            </article>
           </div>
         </div>
       </section>
@@ -149,7 +216,9 @@ export default function Home() {
             {work.map((item, index) => (
               <article className="work-card reveal" style={{ '--delay': `${index * 100}ms` }} key={item.title}>
                 <div className={`work-visual ${item.kind}`}>
-                  {item.kind === 'map' ? <RouteMap compact /> : (
+                  {item.kind === 'dental' ? (
+                    <div className="dental-work-preview"><ShieldCheck /><span>Dental AI Validation</span><strong>Structured professional research</strong><div><i>01</i><i>02</i><i>03</i><i>04</i></div></div>
+                  ) : (
                     <div className="document-ui">
                       <div className="document-page"><span /><span /><span /><span /></div>
                       <div className="extraction-panel"><small>EXTRACTED DATA</small><b>Property value</b><strong>4,850,000 SEK</strong><b>Review status</b><em>Human verified</em></div>
