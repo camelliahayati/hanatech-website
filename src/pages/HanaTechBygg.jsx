@@ -20,7 +20,7 @@ const services = [
 const projects = [
   { title: 'Residential renovation', location: 'Stockholm', text: 'Interior renovation and decoration work with coordinated carpentry, finishing and installation.' },
   { title: 'Dental clinic interiors', location: 'Solna', text: 'Custom wooden equipment, cabinets, tables and seating built for a professional environment.' },
-  { title: 'Doors & wooden windows', location: 'Stockholm area', text: 'Replacement and adjustment work focused on fit, function, durability and a clean finish.' },
+  { title: 'Wooden Doors & Windows', location: 'Stockholm Area', text: 'Replacement and adjustment of wooden doors and wooden windows, with precise fitting, reliable function and a clean finish.' },
 ];
 
 const benefits = [
@@ -71,7 +71,7 @@ function ByggHeader() {
 
 function ByggHero() {
   return (
-    <section id="home" className="bygg-studio-hero section-dark"><div className="shell bygg-hero-grid"><div className="bygg-hero-copy"><p className="eyebrow coral">STOCKHOLM · BUILDING · RENOVATION</p><h1>Craftsmanship with a clear plan.</h1><p>Professional renovation, carpentry and installation services for homes and businesses across Stockholm.</p><div className="hero-actions"><a className="button button-primary" href="#quote">Request a free quote</a><a className="button button-dark" href="tel:+46766519272"><Phone /> Call +46 76 651 92 72</a></div><div className="bygg-proof"><span>Clear quotations</span><span>Reliable scheduling</span><span>Professional finish</span></div></div><div className="bygg-hero-mark"><div className="bygg-logo-orbit" /><img src="/assets/hanabygg-logo.png" alt="Hana Bygg wooden house mark" width="700" height="700" /><small>A HANA VENTURE</small></div></div></section>
+    <section id="home" className="bygg-studio-hero section-dark"><div className="shell bygg-hero-grid"><div className="bygg-hero-copy"><p className="eyebrow coral">STOCKHOLM · BUILDING · RENOVATION</p><h1>Craftsmanship with a clear plan.</h1><p>Professional renovation, carpentry and installation services for homes and businesses across Stockholm.</p><div className="hero-actions"><a className="button button-primary" href="#quote">Request a free quote</a><a className="button button-dark" href="tel:+46766519272"><Phone /> Call +46 76 651 92 72</a></div><div className="bygg-proof"><span>Clear quotations</span><span>Reliable scheduling</span><span>Professional finish</span></div></div><div className="bygg-hero-visual"><img className="bygg-hero-photo" src="/assets/hanabygg-carpentry.webp" alt="Carpenter precisely fitting a wooden window frame in a Stockholm home" width="1136" height="1026" /><div className="bygg-hero-logo-badge"><span className="bygg-logo-ring" aria-hidden="true" /><img src="/assets/hanabygg-logo.png" alt="Hana Bygg" width="420" height="420" /></div><small>PRECISION IN EVERY DETAIL</small></div></div></section>
   );
 }
 
@@ -84,7 +84,7 @@ function ByggServiceCard({ icon, title, description }) {
 }
 
 function ByggProjects() {
-  return <section id="projects" className="content-section section-dark"><div className="shell"><div className="section-heading"><div><p className="eyebrow coral">SELECTED WORK</p><h2>Practical work. Honest descriptions.</h2></div><p>Completed and current project categories. Photos can be added as each project portfolio is approved.</p></div><div className="bygg-project-grid">{projects.map((item, index) => <article key={item.title}><span>0{index + 1}</span><div className="bygg-project-icon"><Hammer /></div><small><MapPin />{item.location}</small><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></div></section>;
+  return <section id="projects" className="content-section section-dark"><div className="shell"><div className="section-heading"><div><p className="eyebrow coral">SELECTED WORK</p><h2>Practical work. Honest descriptions.</h2></div><p>A selection of our completed and ongoing projects in renovation, bespoke carpentry, and wooden door and window replacement.</p></div><div className="bygg-project-grid">{projects.map((item, index) => <article key={item.title}><span>0{index + 1}</span><div className="bygg-project-icon"><Hammer /></div><small><MapPin />{item.location}</small><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></div></section>;
 }
 
 function ByggAbout() {
