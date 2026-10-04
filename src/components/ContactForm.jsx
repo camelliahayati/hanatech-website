@@ -1,5 +1,6 @@
 import { Send } from 'lucide-react';
 import { useState } from 'react';
+import { useLanguage } from '../i18n.jsx';
 
 const fieldClass = 'studio-field';
 
@@ -7,6 +8,7 @@ const FORM_ACTION = 'https://api.web3forms.com/submit';
 const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ?? '';
 
 export default function ContactForm() {
+  const { t } = useLanguage();
   const [submitState, setSubmitState] = useState('idle');
   const [feedbackMessage, setFeedbackMessage] = useState('');
 
@@ -30,7 +32,7 @@ export default function ContactForm() {
     if (!WEB3FORMS_ACCESS_KEY) {
       setSubmitState('error');
       setFeedbackMessage(
-        'Web3Forms access key is missing. Add VITE_WEB3FORMS_ACCESS_KEY and redeploy.',
+        t('Web3Forms access key is missing. Add VITE_WEB3FORMS_ACCESS_KEY and redeploy.'),
       );
       return;
     }
@@ -60,7 +62,7 @@ export default function ContactForm() {
       if (response.ok && result?.success) {
         form.reset();
         setSubmitState('success');
-        setFeedbackMessage('Thank you. Your inquiry was sent successfully.');
+        setFeedbackMessage(t('Thank you. Your inquiry was sent successfully.'));
         return;
       }
 
@@ -69,7 +71,7 @@ export default function ContactForm() {
       console.error('[HanaTech ContactForm] Web3Forms error', error);
       setSubmitState('error');
       setFeedbackMessage(
-        'Unable to send right now. Please try again or email camelliahayati@hanatech.se directly.',
+        t('Unable to send right now. Please try again or email camelliahayati@hanatech.se directly.'),
       );
     }
   };
@@ -88,16 +90,16 @@ export default function ContactForm() {
 
       <div className="form-row">
         <label className="contact-field">
-          Name
+          {t('Name')}
           <input
             className={fieldClass}
             name="name"
-            placeholder="Your name"
+            placeholder={t('Your name')}
             required
           />
         </label>
         <label className="contact-field">
-          Email
+          {t('Email')}
           <input
             className={fieldClass}
             type="email"
@@ -108,74 +110,56 @@ export default function ContactForm() {
         </label>
       </div>
       <label className="contact-field">
-        Company
-        <input className={fieldClass} name="company" placeholder="Company name" />
+        {t('Company')}
+        <input className={fieldClass} name="company" placeholder={t('Company name')} />
       </label>
       <label className="contact-field">
-        Inquiry type
+        {t('Inquiry type')}
         <select className={fieldClass} name="inquiryType" defaultValue="">
           <option value="" disabled>
-            Select inquiry type
+            {t('Select inquiry type')}
           </option>
-          <option>Business inquiry</option>
-          <option>Project collaboration</option>
-          <option>Strategic partnership</option>
-          <option>Investment and media</option>
+          {['Business inquiry', 'Project collaboration', 'Strategic partnership', 'Investment and media'].map((item) => <option key={item} value={item}>{t(item)}</option>)}
         </select>
       </label>
       <label className="contact-field">
-        Project type
+        {t('Project type')}
         <select className={fieldClass} name="projectType" defaultValue="">
           <option value="" disabled>
-            Select project type
+            {t('Select project type')}
           </option>
-          <option>AI consulting and automation</option>
-          <option>Cloud and AWS infrastructure</option>
-          <option>Backend and API development</option>
-          <option>DevOps and CI/CD modernization</option>
-          <option>HanaMood Platform partnership</option>
+          {['AI consulting and automation', 'Cloud and AWS infrastructure', 'Backend and API development', 'DevOps and CI/CD modernization', 'HanaMood Platform partnership'].map((item) => <option key={item} value={item}>{t(item)}</option>)}
         </select>
       </label>
       <label className="contact-field">
-        What can we help with?
+        {t('What can we help with?')}
         <select className={fieldClass} name="service" defaultValue="">
           <option value="" disabled>
-            Select a service
+            {t('Select a service')}
           </option>
-          <option>AI Consulting</option>
-          <option>Cloud / AWS Infrastructure</option>
-          <option>Backend & API Development</option>
-          <option>Data Analysis</option>
-          <option>Network Solutions</option>
-          <option>DevOps / CI-CD</option>
-          <option>HanaMood Product</option>
-          <option>Technical Consulting</option>
+          {['AI Consulting', 'Cloud / AWS Infrastructure', 'Backend & API Development', 'Data Analysis', 'Network Solutions', 'DevOps / CI-CD', 'HanaMood Product', 'Technical Consulting'].map((item) => <option key={item} value={item}>{t(item)}</option>)}
         </select>
       </label>
       <label className="contact-field">
-        Preferred timeline
+        {t('Preferred timeline')}
         <select className={fieldClass} name="timeline" defaultValue="">
           <option value="" disabled>
-            Select timeline
+            {t('Select timeline')}
           </option>
-          <option>Immediate (0-1 month)</option>
-          <option>Near term (1-3 months)</option>
-          <option>Planned initiative (3-6 months)</option>
-          <option>Long-term planning (6+ months)</option>
+          {['Immediate (0-1 month)', 'Near term (1-3 months)', 'Planned initiative (3-6 months)', 'Long-term planning (6+ months)'].map((item) => <option key={item} value={item}>{t(item)}</option>)}
         </select>
       </label>
       <label className="contact-field">
-        Message
+        {t('Message')}
         <textarea
           className={`${fieldClass} studio-textarea`}
           name="message"
-          placeholder="Tell us about your business goals, technical context, and expected outcomes."
+          placeholder={t('Tell us about your business goals, technical context, and expected outcomes.')}
           required
         />
       </label>
       <div className="form-note">
-        Prefer a direct planning call? Request a consultation and we will send
-        available time slots for a 45-minute strategy session.
+        {t('Prefer a direct planning call? Request a consultation and we will send available time slots for a 45-minute strategy session.')}
       </div>
       <button
         className="form-submit"
@@ -183,8 +167,8 @@ export default function ContactForm() {
         disabled={submitState === 'submitting'}
       >
         {submitState === 'submitting'
-          ? 'Sending inquiry...'
-          : 'Send inquiry and request consultation'}
+          ? t('Sending inquiry...')
+          : t('Send inquiry and request consultation')}
         <Send className="h-4 w-4" aria-hidden="true" />
       </button>
       {feedbackMessage ? (

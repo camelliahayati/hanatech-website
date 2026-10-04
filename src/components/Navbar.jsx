@@ -1,17 +1,17 @@
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { LanguageSwitcher, useLanguage } from '../i18n.jsx';
 
 const links = [
-  { label: 'Home', href: '#home' },
-  { label: 'Services', href: '#services' },
-  { label: 'Products', href: '#product' },
-  { label: 'About', href: '#about' },
+  { label: 'Home', href: '#home' }, { label: 'Services', href: '#services' },
+  { label: 'Products', href: '#product' }, { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ];
 
 function Brand() {
+  const { t } = useLanguage();
   return (
-    <a className="brand" href="#home" aria-label="HanaTech home">
+    <a className="brand" href="#home" aria-label={t('HanaTech home')}>
       <img className="brand-mark" src="/assets/hanatech-logo-mark-dark-tight.png" alt="" width="176" height="176" />
       <span>HanaTech</span>
     </a>
@@ -21,6 +21,7 @@ function Brand() {
 export { Brand };
 
 export default function Navbar() {
+  const { t } = useLanguage();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -40,22 +41,20 @@ export default function Navbar() {
 
   return (
     <header className={`studio-header ${scrolled ? 'is-scrolled' : ''}`}>
-      <nav className="studio-nav" aria-label="Main navigation">
+      <nav className="studio-nav" aria-label={t('Main navigation')}>
         <Brand />
         <div className="desktop-links">
-          {links.map((link) => <a key={link.href} href={link.href}>{link.label}</a>)}
+          {links.map((link) => <a key={link.href} href={link.href}>{t(link.label)}</a>)}
         </div>
-        <a className="nav-cta" href="#contact">
-          Book consultation <ArrowUpRight size={16} aria-hidden="true" />
-        </a>
-        <button className="menu-button" type="button" aria-label={open ? 'Close navigation' : 'Open navigation'} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
+        <div className="nav-actions"><LanguageSwitcher /><a className="nav-cta" href="#contact">{t('Book consultation')} <ArrowUpRight size={16} aria-hidden="true" /></a></div>
+        <button className="menu-button" type="button" aria-label={t(open ? 'Close navigation' : 'Open navigation')} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
           {open ? <X /> : <Menu />}
         </button>
       </nav>
       {open && (
         <div className="mobile-menu">
-          {links.map((link) => <a key={link.href} href={link.href} onClick={close}>{link.label}</a>)}
-          <a className="button button-primary" href="#contact" onClick={close}>Book consultation</a>
+          {links.map((link) => <a key={link.href} href={link.href} onClick={close}>{t(link.label)}</a>)}
+          <a className="button button-primary" href="#contact" onClick={close}>{t('Book consultation')}</a>
         </div>
       )}
     </header>
