@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { useEffect } from 'react';
 import Button from '../components/Button.jsx';
+import { aiVision, industries, whyHanaTech } from '../data/services.js';
 
 const hanavoyaUrl = 'https://lovable.dev/preview/YL0o7LzqBK57FdmZAsyVV6G0he0m3ezH';
 
@@ -93,7 +94,7 @@ const work = [
   { status: 'VALIDATION PLATFORM', title: 'Dental AI Survey', summary: 'A secure research workflow for collecting structured professional feedback on AI-assisted dental diagnostics.', meta: 'FastAPI · Secure admin · Structured research data', href: '/dental-ai-survey', link: 'View platform', kind: 'dental' },
 ];
 
-export default function Home() {
+export default function Home({ id = 'home' }) {
   useEffect(() => {
     const items = document.querySelectorAll('.reveal');
     if (!('IntersectionObserver' in window)) {
@@ -114,14 +115,14 @@ export default function Home() {
 
   return (
     <>
-      <section id="top" className="hero section-dark">
+      <section id={id} className="hero section-dark">
         <div className="shell hero-grid">
           <div className="hero-copy reveal is-visible">
             <p className="eyebrow"><span /> STOCKHOLM · PRODUCT ENGINEERING · AI</p>
             <h1>Engineering products with a human sense of place.</h1>
             <p className="hero-lead">HanaTech turns ambitious ideas into reliable digital products—combining 16+ years in software engineering with careful product design.</p>
             <div className="hero-actions">
-              <Button href="#products">Explore our products</Button>
+              <Button href="#product">Explore our products</Button>
               <Button href="#work" variant="dark">See selected work</Button>
             </div>
             <div className="hero-metrics">
@@ -142,7 +143,23 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="products" className="product-section section-light">
+      <section className="home-foundations section-dark">
+        <div className="shell">
+          <div className="section-heading reveal">
+            <div><p className="eyebrow coral">WHY HANATECH</p><h2>Premium execution for AI and infrastructure transformation.</h2></div>
+            <p>We connect product goals, architecture and delivery decisions so technology creates measurable business value.</p>
+          </div>
+          <div className="capability-grid">
+            {whyHanaTech.map((item, index) => <article className="capability-card reveal" style={{ '--delay': `${index * 90}ms` }} key={item.title}><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}
+          </div>
+          <div className="foundation-panels">
+            <article className="foundation-panel reveal"><p className="eyebrow blue">INDUSTRIES WE HELP</p><h3>AI and infrastructure for complex business environments.</h3><p>We support scaling companies and enterprise teams across regulated, operationally demanding, and product-intensive industries.</p><div className="industry-list">{industries.map((item) => <span key={item}>{item}</span>)}</div></article>
+            <article className="foundation-panel reveal reveal-delay"><p className="eyebrow coral">AI VISION</p><h3>Human-centered AI with infrastructure-grade reliability.</h3><div className="vision-list">{aiVision.map((item) => <p key={item}>{item}</p>)}</div></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="product-overview" className="product-section section-light">
         <div className="shell">
           <div className="section-heading light reveal">
             <div><p className="eyebrow blue">PRODUCTS BY HANATECH</p><h2>Two products. One engineering standard.</h2></div>
@@ -153,17 +170,17 @@ export default function Home() {
               <div className="product-card-copy">
                 <div className="product-card-top"><span className="product-icon"><BrainCircuit /></span><Badge>PRODUCT VISION</Badge></div>
                 <p className="product-owner">A HANATECH PRODUCT</p>
-                <h3>HanaAI Platform</h3>
+                <h3>HanaMood</h3>
                 <p>A multilingual conversational AI experience designed to understand context, mood and everyday needs.</p>
                 <div className="product-features">
                   <span><MessageCircleHeart />Natural conversation</span>
                   <span><Languages />Multilingual by design</span>
                   <span><Sparkles />Context-aware guidance</span>
                 </div>
-                <Button href="#contact" variant="light">Discuss HanaAI</Button>
+                <Button href="#contact" variant="light">Discuss HanaMood</Button>
               </div>
-              <div className="hanaai-preview" aria-label="HanaAI conversational product preview">
-                <div className="ai-preview-head"><span><BrainCircuit /> HanaAI</span><i>AI companion</i></div>
+              <div className="hanaai-preview" aria-label="HanaMood conversational product preview">
+                <div className="ai-preview-head"><span><BrainCircuit /> HanaMood</span><i>Mood-aware companion</i></div>
                 <div className="chat-bubble ai">How can I make today feel lighter?</div>
                 <div className="chat-bubble user">I have two hours and want something calm.</div>
                 <div className="chat-bubble ai">Let’s plan a quiet walk, coffee and one small priority.</div>
@@ -190,7 +207,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="about" className="capabilities section-dark">
+      <section id="studio-preview" className="capabilities section-dark">
         <div className="shell">
           <div className="section-heading reveal">
             <div><p className="eyebrow coral">HOW HANATECH WORKS</p><h2>Senior engineering, product thinking and restrained design.</h2></div>
@@ -235,7 +252,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="closing-cta section-dark">
+      <section className="closing-cta section-dark">
         <div className="shell reveal">
           <p className="eyebrow coral">A SMALL STUDIO WITH SENIOR DEPTH</p>
           <h2>Build something useful.</h2>

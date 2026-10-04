@@ -2,15 +2,16 @@ import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const links = [
-  { label: 'Products', href: '#products' },
-  { label: 'Ventures', href: '#ventures' },
-  { label: 'Selected work', href: '#work' },
+  { label: 'Home', href: '#home' },
+  { label: 'Services', href: '#services' },
+  { label: 'Products', href: '#product' },
   { label: 'About', href: '#about' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 function Brand() {
   return (
-    <a className="brand" href="#top" aria-label="HanaTech home">
+    <a className="brand" href="#home" aria-label="HanaTech home">
       <img className="brand-mark" src="/assets/hanatech-logo-mark-dark-tight.png" alt="" width="176" height="176" />
       <span>HanaTech</span>
     </a>
@@ -45,7 +46,7 @@ export default function Navbar() {
           {links.map((link) => <a key={link.href} href={link.href}>{link.label}</a>)}
         </div>
         <a className="nav-cta" href="#contact">
-          Start a conversation <ArrowUpRight size={16} aria-hidden="true" />
+          Book consultation <ArrowUpRight size={16} aria-hidden="true" />
         </a>
         <button className="menu-button" type="button" aria-label={open ? 'Close navigation' : 'Open navigation'} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
           {open ? <X /> : <Menu />}
@@ -54,7 +55,7 @@ export default function Navbar() {
       {open && (
         <div className="mobile-menu">
           {links.map((link) => <a key={link.href} href={link.href} onClick={close}>{link.label}</a>)}
-          <a className="button button-primary" href="#contact" onClick={close}>Start a conversation</a>
+          <a className="button button-primary" href="#contact" onClick={close}>Book consultation</a>
         </div>
       )}
     </header>

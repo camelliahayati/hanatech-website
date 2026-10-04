@@ -1,4 +1,4 @@
-import { Globe2, MessageCircleHeart, Sparkles } from 'lucide-react';
+import { Globe2, Languages, MapPin, MapPinned, MessageCircleHeart, Search, Sparkles, Volume2 } from 'lucide-react';
 import Button from '../components/Button.jsx';
 import SectionHeader from '../components/SectionHeader.jsx';
 import { productFeatures } from '../data/services.js';
@@ -27,14 +27,35 @@ const visionHighlights = [
   'Future-ready platform architecture',
 ];
 
+const hanavoyaUrl = 'https://lovable.dev/preview/YL0o7LzqBK57FdmZAsyVV6G0he0m3ezH';
+
+function HanaVoyaPreview() {
+  return (
+    <div className="product-preview">
+      <div className="preview-title"><h3>Stockholm today</h3><span className="status-badge">LIVE PREVIEW</span></div>
+      <div className="preview-search"><Search size={15} /><span>Search events, food and hidden places</span></div>
+      <div className="route-map is-compact">
+        <svg viewBox="0 0 480 300" role="img" aria-label="Animated Stockholm discovery route">
+          <path className="map-grid" d="M0 54H480M0 112H480M0 170H480M0 228H480M72 0V300M154 0V300M236 0V300M318 0V300M400 0V300" />
+          <path className="water-line" d="M-12 240C86 208 80 125 170 136S272 232 330 180 386 68 500 58" />
+          <path className="route-line" d="M72 230C120 182 145 206 190 151S265 118 315 91 374 112 418 55" />
+          <circle className="route-point-light" cx="72" cy="230" r="8" /><circle className="route-point-blue" cx="315" cy="91" r="9" /><circle className="route-point-light" cx="418" cy="55" r="8" />
+        </svg>
+        <span className="map-label label-one"><MapPin size={11} /> Södermalm</span><span className="map-label label-two"><MapPin size={11} /> Djurgården</span>
+      </div>
+      <div className="filter-row"><span className="active">Today</span><span>Free</span><span>Culture</span><span>Food</span></div>
+    </div>
+  );
+}
+
 export default function Product({ id }) {
   return (
     <section id={id} className="page-section bg-pine-950 px-5 sm:px-8">
       <div className="mx-auto max-w-7xl">
         <SectionHeader
-          eyebrow="HanaAI Platform"
+          eyebrow="HanaMood"
           title="Talk to AI like a friend."
-          text="Our conversational AI platform understands your mood, needs, and context and offers personalized suggestions for food, daily routines, drinks, activities, and much more."
+          text="HanaMood is a conversational AI companion that recognizes mood, needs, and context, then offers personalized ideas for routines, food, drinks, activities, focus, and everyday wellbeing."
           tone="dark"
         />
 
@@ -53,7 +74,7 @@ export default function Product({ id }) {
 
             <div className="mt-8 rounded-[8px] border border-pine-200/10 bg-pine-900/55 p-5">
               <p className="text-sm leading-7 text-pine-100/80">
-                HanaAI is built as a companion experience, designed for natural
+                HanaMood is built as a companion experience, designed for natural
                 conversation, emotional context awareness, and multilingual
                 dialogue. The long-term roadmap includes a dedicated mobile app
                 vision for everyday personal assistance.
@@ -73,7 +94,7 @@ export default function Product({ id }) {
                 </span>
               </div>
               <Button href="#contact" className="mt-7">
-                Request product consultation
+                Discuss HanaMood
               </Button>
             </div>
           </div>
@@ -84,7 +105,7 @@ export default function Product({ id }) {
             </p>
             <div className="mt-4 rounded-[8px] border border-pine-200/10 bg-pine-950/70 p-4">
               <div className="mb-4 flex items-center justify-between">
-                <p className="text-sm font-semibold text-pine-100">HanaAI</p>
+                <p className="text-sm font-semibold text-pine-100">HanaMood</p>
                 <span className="rounded-full bg-pine-800 px-3 py-1 text-xs text-pine-100">
                   Active
                 </span>
@@ -113,7 +134,7 @@ export default function Product({ id }) {
 
         <div className="mt-16 rounded-[8px] border border-pine-200/10 bg-pine-900/55 p-6 shadow-soft sm:p-8">
           <SectionHeader
-            eyebrow="HanaAI Vision"
+            eyebrow="HanaMood Vision"
             title="Practical, human-centered conversational AI for everyday assistance"
             text="HanaTech is building a conversational AI experience focused on practical daily assistance, multilingual interaction, and human-centered AI communication."
             tone="dark"
@@ -127,6 +148,35 @@ export default function Product({ id }) {
                 <p className="text-sm font-semibold text-pine-100">{item}</p>
               </article>
             ))}
+          </div>
+        </div>
+
+        <div className="mt-16 border-t border-pine-200/10 pt-16">
+          <SectionHeader
+            eyebrow="HanaVoya · Beta / Preview"
+            title="Discover Stockholm in your own language."
+            text="HanaVoya helps tourists, immigrants, and international residents discover events, culture, food, and hidden places with multilingual context, audio support, maps, search, and saved favourites."
+            tone="dark"
+          />
+          <div className="mt-12 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {[
+                  [<Languages className="h-5 w-5 text-pine-300" aria-hidden="true" />, 'Nine languages with Persian and Arabic RTL'],
+                  [<Search className="h-5 w-5 text-pine-300" aria-hidden="true" />, 'Search and filters for events and places'],
+                  [<MapPinned className="h-5 w-5 text-pine-300" aria-hidden="true" />, 'Map-ready Stockholm exploration'],
+                  [<Volume2 className="h-5 w-5 text-pine-300" aria-hidden="true" />, 'Audio, saved favourites, profiles and interests'],
+                ].map(([icon, text]) => (
+                  <article key={text} className="rounded-[8px] border border-pine-200/10 bg-pine-900/50 p-4">
+                    {icon}
+                    <p className="mt-3 text-sm font-semibold leading-6 text-pine-100">{text}</p>
+                  </article>
+                ))}
+              </div>
+              <p className="mt-6 text-sm leading-7 text-pine-100/75">HanaVoya is a separate HanaTech product. It is currently a working beta and does not replace HanaMood or HanaTech’s engineering services.</p>
+              <Button href={hanavoyaUrl} className="mt-7" external>Explore HanaVoya</Button>
+            </div>
+            <HanaVoyaPreview />
           </div>
         </div>
       </div>

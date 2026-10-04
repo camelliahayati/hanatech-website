@@ -1,6 +1,10 @@
 import Layout from './components/Layout.jsx';
+import About from './pages/About.jsx';
+import Contact from './pages/Contact.jsx';
 import Home from './pages/Home.jsx';
 import HanaTechBygg from './pages/HanaTechBygg.jsx';
+import Product from './pages/Product.jsx';
+import Services from './pages/Services.jsx';
 import {
   AdminDentalSurveyPage,
   AdminLoginPage,
@@ -21,7 +25,11 @@ export default function App() {
 
   return (
     <Layout>
-      <Home />
+      <Home id="home" />
+      <Services id="services" />
+      <Product id="product" />
+      <About id="about" />
+      <Contact id="contact" />
     </Layout>
   );
 }
