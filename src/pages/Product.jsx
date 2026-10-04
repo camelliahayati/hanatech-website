@@ -1,8 +1,9 @@
-import { BrainCircuit, Languages, MapPin, MapPinned, MessageCircleHeart, Search, Sparkles, Volume2 } from 'lucide-react';
+import { BrainCircuit, Instagram, Languages, MapPin, MessageCircleHeart, Search, Sparkles, Volume2 } from 'lucide-react';
 import Button from '../components/Button.jsx';
 import { productFeatures } from '../data/services.js';
 
 const hanavoyaUrl = 'https://lovable.dev/preview/YL0o7LzqBK57FdmZAsyVV6G0he0m3ezH';
+const hanavoyaInstagram = 'https://www.instagram.com/hanavoya/';
 
 function Badge({ children }) { return <span className="status-badge">{children}</span>; }
 
@@ -56,14 +57,14 @@ export default function Product({ id }) {
 
           <article className="product-card reveal" style={{ '--delay': '100ms' }}>
             <div className="product-card-copy">
-              <div className="product-card-top"><span className="product-icon coral-icon"><MapPinned /></span><Badge>BETA / PREVIEW</Badge></div>
+              <div className="product-card-top"><a className="product-brand-logo" href={hanavoyaInstagram} target="_blank" rel="noreferrer" aria-label="Visit HanaVoya on Instagram"><img src="/assets/hanavoya-app-icon.png" alt="HanaVoya logo" width="1254" height="1254" /></a><Badge>BETA / PREVIEW</Badge></div>
               <p className="product-owner">A HANATECH PRODUCT</p><h3>HanaVoya</h3>
               <p>A multilingual discovery product for tourists, immigrants and international residents looking for Stockholm events, culture, food and hidden places.</p>
               <div className="product-features compact-features">
                 <span><Languages />Nine languages with Persian and Arabic RTL</span><span><Search />Search and category filters</span><span><Volume2 />Audio, saved favourites and profiles</span>
               </div>
               <div className="feature-cloud"><span>Events &amp; places</span><span>Map-ready discovery</span><span>Profile &amp; interests</span><span>Preview content</span></div>
-              <Button href={hanavoyaUrl} variant="light" external>Explore HanaVoya</Button>
+              <div className="product-actions"><Button href={hanavoyaUrl} variant="light" external>Explore HanaVoya</Button><a className="instagram-link" href={hanavoyaInstagram} target="_blank" rel="noreferrer"><Instagram /> Follow @hanavoya</a></div>
             </div>
             <HanaVoyaPreview />
           </article>

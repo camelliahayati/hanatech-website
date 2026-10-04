@@ -1,482 +1,117 @@
 import { createElement, useEffect, useState } from 'react';
 import {
-  ArrowRight,
-  Brush,
-  Building2,
-  CheckCircle2,
-  ClipboardCheck,
-  DoorOpen,
-  Hammer,
-  Home,
-  Mail,
-  MapPin,
-  Paintbrush,
-  Phone,
-  Plug,
-  Ruler,
-  ShieldCheck,
-  Sparkles,
-  Upload,
-  Wrench,
+  Brush, Building2, Check, ClipboardCheck, DoorOpen, Hammer, Home,
+  Mail, MapPin, Menu, Paintbrush, Phone, Plug, Ruler, ShieldCheck,
+  Sparkles, Wrench, X,
 } from 'lucide-react';
 
-const byggCopy = {
-  en: {
-    nav: ['Home', 'Services', 'Projects', 'About', 'Contact'],
-    quote: 'Request Quote',
-  },
-  sv: {
-    nav: ['Hem', 'Tjänster', 'Projekt', 'Om oss', 'Kontakt'],
-    quote: 'Begär offert',
-  },
-};
-
 const services = [
-  {
-    icon: DoorOpen,
-    title: 'Door Installation & Replacement',
-    description: 'Interior and exterior door fitting, adjustment, replacement, trim, and finishing.',
-  },
-  {
-    icon: Home,
-    title: 'Window Installation & Replacement',
-    description: 'Careful window replacement and installation with weather-conscious detailing.',
-  },
-  {
-    icon: Ruler,
-    title: 'Parquet & Flooring',
-    description: 'Parquet, wood flooring, subfloor preparation, thresholds, and precise finishing.',
-  },
-  {
-    icon: Hammer,
-    title: 'Professional Carpentry',
-    description: 'Custom carpentry, framing, trims, shelving, repairs, and detail work for homes and businesses.',
-  },
-  {
-    icon: Paintbrush,
-    title: 'Painting & Finishing',
-    description: 'Interior painting, surface preparation, touch-ups, and polished finishing work.',
-  },
-  {
-    icon: Wrench,
-    title: 'Plumbing Services',
-    description: 'Coordinated plumbing support for renovations, maintenance, and installation projects.',
-  },
-  {
-    icon: Plug,
-    title: 'Electrical Work',
-    description: 'Electrical project coordination for safe, compliant installation and renovation work.',
-  },
-  {
-    icon: Building2,
-    title: 'Renovation Projects',
-    description: 'Room upgrades, interior renovations, and project-managed improvements from start to finish.',
-  },
-  {
-    icon: Brush,
-    title: 'General Building Maintenance',
-    description: 'Reliable property maintenance, repairs, adjustments, and ongoing building support.',
-  },
+  { icon: DoorOpen, title: 'Door Installation & Replacement', description: 'Interior and exterior door fitting, adjustment, replacement, trim and finishing.' },
+  { icon: Home, title: 'Window Installation & Replacement', description: 'Careful window replacement and installation with weather-conscious detailing.' },
+  { icon: Ruler, title: 'Parquet & Flooring', description: 'Parquet, wood flooring, subfloor preparation, thresholds and precise finishing.' },
+  { icon: Hammer, title: 'Professional Carpentry', description: 'Custom carpentry, framing, trims, shelving, repairs and detail work.' },
+  { icon: Paintbrush, title: 'Painting & Finishing', description: 'Interior painting, surface preparation, touch-ups and polished finishing work.' },
+  { icon: Wrench, title: 'Plumbing Services', description: 'Coordinated plumbing support for renovations, maintenance and installations.' },
+  { icon: Plug, title: 'Electrical Work', description: 'Electrical project coordination for safe, compliant renovation work.' },
+  { icon: Building2, title: 'Renovation Projects', description: 'Room upgrades and project-managed improvements from start to finish.' },
+  { icon: Brush, title: 'Building Maintenance', description: 'Reliable property maintenance, repairs, adjustments and ongoing support.' },
 ];
 
-// Upload future project photos to public/assets/bygg-projects/ and replace
-// beforeImage / afterImage below with paths like:
-// "/assets/bygg-projects/door-stockholm-before.jpg".
 const projects = [
-  {
-    title: 'Door Replacement',
-    description: 'Modern interior door replacement with clean trim and careful adjustment.',
-    location: 'Stockholm',
-    serviceType: 'Doors',
-    beforeImage: '',
-    afterImage: '',
-  },
-  {
-    title: 'Window Installation',
-    description: 'Window installation prepared for a brighter, better insulated living space.',
-    location: 'Solna',
-    serviceType: 'Windows',
-    beforeImage: '',
-    afterImage: '',
-  },
-  {
-    title: 'Parquet Flooring',
-    description: 'Floor preparation and parquet installation with warm wood finishing.',
-    location: 'Sundbyberg',
-    serviceType: 'Flooring',
-    beforeImage: '',
-    afterImage: '',
-  },
-  {
-    title: 'Interior Renovation',
-    description: 'Coordinated interior refresh with carpentry, painting, and finishing details.',
-    location: 'Sollentuna',
-    serviceType: 'Renovation',
-    beforeImage: '',
-    afterImage: '',
-  },
-  {
-    title: 'Painting Project',
-    description: 'Surface preparation and professional painting for a clean, durable result.',
-    location: 'Täby',
-    serviceType: 'Painting',
-    beforeImage: '',
-    afterImage: '',
-  },
-  {
-    title: 'Carpentry Work',
-    description: 'Custom carpentry improvements with accurate measurements and tidy completion.',
-    location: 'Stockholm',
-    serviceType: 'Carpentry',
-    beforeImage: '',
-    afterImage: '',
-  },
+  { title: 'Residential renovation', location: 'Stockholm', text: 'Interior renovation and decoration work with coordinated carpentry, finishing and installation.' },
+  { title: 'Dental clinic interiors', location: 'Solna', text: 'Custom wooden equipment, cabinets, tables and seating built for a professional environment.' },
+  { title: 'Doors & wooden windows', location: 'Stockholm area', text: 'Replacement and adjustment work focused on fit, function, durability and a clean finish.' },
 ];
 
 const benefits = [
-  {
-    icon: ShieldCheck,
-    title: 'Experienced Team',
-    description: 'Skilled professionals with practical experience across building, renovation, and finishing work.',
-  },
-  {
-    icon: CheckCircle2,
-    title: 'Reliable Service',
-    description: 'Clear communication, tidy work sites, and dependable scheduling for every project.',
-  },
-  {
-    icon: Sparkles,
-    title: 'Quality Materials',
-    description: 'We focus on durable materials, precise installation, and details that hold up over time.',
-  },
-  {
-    icon: ClipboardCheck,
-    title: 'Transparent Pricing',
-    description: 'Straightforward quotes, realistic timelines, and no unnecessary surprises.',
-  },
+  { icon: ShieldCheck, title: 'Experienced team', text: 'Practical experience across renovation, carpentry and finishing work.' },
+  { icon: Check, title: 'Reliable service', text: 'Clear communication, tidy work sites and dependable scheduling.' },
+  { icon: Sparkles, title: 'Quality materials', text: 'Durable materials, precise installation and details that hold up.' },
+  { icon: ClipboardCheck, title: 'Transparent pricing', text: 'Straightforward quotes, realistic timelines and no unnecessary surprises.' },
 ];
 
-const processSteps = [
-  'Request a Quote',
-  'Site Visit & Measurements',
-  'Proposal & Timeline',
-  'Professional Completion',
-];
-
-const coverageAreas = [
-  'Stockholm',
-  'Solna',
-  'Sundbyberg',
-  'Sollentuna',
-  'Täby',
-  'Danderyd',
-  'Järfälla',
-  'Södertälje',
-];
+const process = ['Request a quote', 'Site visit & measurements', 'Proposal & timeline', 'Professional completion'];
+const coverage = ['Stockholm', 'Solna', 'Sundbyberg', 'Sollentuna', 'Täby', 'Danderyd', 'Järfälla', 'Södertälje'];
+const FORM_ACTION = 'https://api.web3forms.com/submit';
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ?? '';
 
 export default function HanaTechBygg() {
-  const copy = byggCopy.en;
-
   useEffect(() => {
-    const previousTitle = document.title;
-    const description = document.querySelector('meta[name="description"]');
-    const previousDescription = description?.getAttribute('content');
-
-    document.title = 'HanaTech Bygg | Building & Renovation Services in Stockholm';
-    description?.setAttribute(
-      'content',
-      'Professional renovation, carpentry, doors, windows, parquet flooring, painting, plumbing and electrical services in Stockholm and nearby areas.',
-    );
-
-    return () => {
-      document.title = previousTitle;
-      if (description && previousDescription) {
-        description.setAttribute('content', previousDescription);
-      }
-    };
+    const oldTitle = document.title;
+    document.title = 'Hana Bygg | Building & Renovation in Stockholm';
+    return () => { document.title = oldTitle; };
   }, []);
 
   return (
-    <div className="bygg-site">
-      <ByggHeader copy={copy} />
+    <div className="studio-site bygg-studio-site">
+      <ByggHeader />
       <main>
-        <ByggHome />
+        <ByggHero />
         <ByggServices />
-        <ByggGallery />
+        <ByggProjects />
         <ByggAbout />
         <ByggContact />
       </main>
+      <ByggFooter />
     </div>
   );
 }
 
-function ByggHeader({ copy }) {
+function ByggLogo({ compact = false }) {
+  return <a className={`bygg-studio-brand ${compact ? 'compact' : ''}`} href="#home"><img src="/assets/hanabygg-logo.png" alt="Hana Bygg logo" width="700" height="700" /><span><strong>Hana</strong> Bygg</span></a>;
+}
+
+function ByggHeader() {
+  const [open, setOpen] = useState(false);
+  const links = [['Home', '#home'], ['Services', '#services'], ['Projects', '#projects'], ['About', '#about'], ['Contact', '#contact']];
   return (
-    <header className="bygg-header">
-      <a className="bygg-brand" href="#home" aria-label="HanaTech Bygg home">
-        <span>H</span>
-        <strong>HanaTech Bygg</strong>
-      </a>
-      <nav aria-label="HanaTech Bygg navigation">
-        {copy.nav.map((item) => (
-          <a href={`#${item.toLowerCase().replace(' ', '-')}`} key={item}>
-            {item}
-          </a>
-        ))}
-        <a className="bygg-nav-cta" href="#request-quote">{copy.quote}</a>
-      </nav>
-    </header>
+    <header className="bygg-studio-header"><nav className="bygg-studio-nav"><ByggLogo compact /><div className="bygg-desktop-links">{links.map(([label, href]) => <a href={href} key={href}>{label}</a>)}</div><a className="nav-cta" href="#quote">Request quote</a><button type="button" className="menu-button" aria-label={open ? 'Close navigation' : 'Open navigation'} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button></nav>{open && <div className="mobile-menu">{links.map(([label, href]) => <a href={href} key={href} onClick={() => setOpen(false)}>{label}</a>)}<a className="button button-primary" href="#quote" onClick={() => setOpen(false)}>Request quote</a></div>}</header>
   );
 }
 
-export function ByggHome() {
+function ByggHero() {
   return (
-    <section className="bygg-hero" id="home">
-      <img
-        src="/assets/hanatech-bygg-hero.png"
-        alt="Professional renovation and carpentry work in a modern Stockholm home"
-        width="1641"
-        height="959"
-        decoding="async"
-        fetchPriority="high"
-      />
-      <div className="bygg-hero-overlay" />
-      <div className="bygg-hero-content">
-        <p className="bygg-eyebrow">HanaTech Bygg</p>
-        <h1>Professional Building & Renovation Services in Stockholm</h1>
-        <p>
-          From doors and windows to flooring, carpentry, painting, plumbing,
-          electrical work and renovation projects — HanaTech Bygg delivers
-          reliable craftsmanship for homes and businesses.
-        </p>
-        <div className="bygg-hero-actions">
-          <a className="bygg-primary-button" href="#request-quote">
-            Request Free Quote <ArrowRight size={18} />
-          </a>
-          <a className="bygg-secondary-button" href="tel:+46700000000">
-            <Phone size={18} /> Call Now
-          </a>
-        </div>
-      </div>
-    </section>
+    <section id="home" className="bygg-studio-hero section-dark"><div className="shell bygg-hero-grid"><div className="bygg-hero-copy"><p className="eyebrow coral">STOCKHOLM · BUILDING · RENOVATION</p><h1>Craftsmanship with a clear plan.</h1><p>Professional renovation, carpentry and installation services for homes and businesses across Stockholm.</p><div className="hero-actions"><a className="button button-primary" href="#quote">Request a free quote</a><a className="button button-dark" href="tel:+46766519272"><Phone /> Call +46 76 651 92 72</a></div><div className="bygg-proof"><span>Clear quotations</span><span>Reliable scheduling</span><span>Professional finish</span></div></div><div className="bygg-hero-mark"><div className="bygg-logo-orbit" /><img src="/assets/hanabygg-logo.png" alt="Hana Bygg wooden house mark" width="700" height="700" /><small>A HANA VENTURE</small></div></div></section>
   );
 }
 
-export function ByggServices() {
-  return (
-    <section className="bygg-section" id="services">
-      <div className="bygg-section-heading">
-        <p className="bygg-eyebrow">Services</p>
-        <h2>Building services for practical, lasting results</h2>
-        <p>
-          Choose focused craftsmanship for individual upgrades or coordinated
-          renovation support across several trades.
-        </p>
-      </div>
-      <div className="bygg-card-grid">
-        {services.map((service) => (
-          <ServiceCard key={service.title} {...service} />
-        ))}
-      </div>
-    </section>
-  );
+function ByggServices() {
+  return <section id="services" className="content-section section-light"><div className="shell"><div className="section-heading light"><div><p className="eyebrow blue">SERVICES</p><h2>Building services for practical, lasting results.</h2></div><p>Focused craftsmanship for individual upgrades or coordinated renovation work across several trades.</p></div><div className="services-grid">{services.map((service) => <ByggServiceCard key={service.title} {...service} />)}</div></div></section>;
 }
 
-function ServiceCard({ description, icon: Icon, title }) {
-  return (
-    <article className="bygg-service-card">
-      <span className="bygg-card-icon">{createElement(Icon, { size: 22 })}</span>
-      <h3>{title}</h3>
-      <p>{description}</p>
-      <a href="#request-quote">Learn more <ArrowRight size={16} /></a>
-    </article>
-  );
+function ByggServiceCard({ icon, title, description }) {
+  return <article className="service-studio-card"><div className="service-icon">{createElement(icon, { 'aria-hidden': true })}</div><h3>{title}</h3><p>{description}</p><a className="bygg-card-link" href="#quote">Request this service</a></article>;
 }
 
-export function ByggGallery() {
-  return (
-    <section className="bygg-section bygg-gallery-section" id="projects">
-      <div className="bygg-section-heading">
-        <p className="bygg-eyebrow">Projects / Gallery</p>
-        <h2>Before and after gallery placeholders</h2>
-        <p>
-          These project cards are ready for real photos when you want to add
-          completed work examples.
-        </p>
-      </div>
-      <div className="bygg-project-grid">
-        {projects.map((project) => (
-          <ProjectCard key={`${project.title}-${project.location}`} project={project} />
-        ))}
-      </div>
-    </section>
-  );
+function ByggProjects() {
+  return <section id="projects" className="content-section section-dark"><div className="shell"><div className="section-heading"><div><p className="eyebrow coral">SELECTED WORK</p><h2>Practical work. Honest descriptions.</h2></div><p>Completed and current project categories. Photos can be added as each project portfolio is approved.</p></div><div className="bygg-project-grid">{projects.map((item, index) => <article key={item.title}><span>0{index + 1}</span><div className="bygg-project-icon"><Hammer /></div><small><MapPin />{item.location}</small><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></div></section>;
 }
 
-function ProjectCard({ project }) {
-  return (
-    <article className="bygg-project-card">
-      <div className="bygg-before-after">
-        <ProjectImage label="Before Image" src={project.beforeImage} />
-        <ProjectImage label="After Image" src={project.afterImage} />
-      </div>
-      <div className="bygg-project-body">
-        <span>{project.serviceType}</span>
-        <h3>{project.title} — {project.location}</h3>
-        <p>{project.description}</p>
-        <small><MapPin size={14} /> {project.location}</small>
-      </div>
-    </article>
-  );
+function ByggAbout() {
+  return <section id="about" className="content-section section-light"><div className="shell"><div className="section-heading light"><div><p className="eyebrow blue">WHY HANA BYGG</p><h2>Reliable work with a professional finish.</h2></div><p>Clear communication and careful execution from the first visit through final completion.</p></div><div className="bygg-benefit-grid">{benefits.map((item) => <article key={item.title}><span>{createElement(item.icon, { 'aria-hidden': true })}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}</div><div className="bygg-process-panel"><div><p className="eyebrow coral">OUR PROCESS</p><h3>From first request to completed work.</h3></div><div className="bygg-process-grid">{process.map((step, index) => <article key={step}><span>0{index + 1}</span><strong>{step}</strong></article>)}</div></div><div className="bygg-coverage"><div><p className="eyebrow blue">COVERAGE</p><h3>Stockholm and nearby areas.</h3></div><div>{coverage.map((area) => <span key={area}>{area}</span>)}</div></div></div></section>;
 }
 
-function ProjectImage({ label, src }) {
-  if (src) {
-    return <img src={src} alt={label} loading="lazy" />;
-  }
-
-  return (
-    <div className="bygg-image-placeholder">
-      <Upload size={22} />
-      <span>{label}</span>
-    </div>
-  );
-}
-
-export function ByggAbout() {
-  return (
-    <>
-      <section className="bygg-section bygg-benefits" id="about">
-        <div className="bygg-section-heading">
-          <p className="bygg-eyebrow">Why Choose Us</p>
-          <h2>Reliable building support with a professional finish</h2>
-        </div>
-        <div className="bygg-card-grid bygg-benefit-grid">
-          {benefits.map((benefit) => {
-            const Icon = benefit.icon;
-            return (
-              <article className="bygg-benefit-card" key={benefit.title}>
-                <span className="bygg-card-icon">{createElement(Icon, { size: 22 })}</span>
-                <h3>{benefit.title}</h3>
-                <p>{benefit.description}</p>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="bygg-section bygg-process">
-        <div className="bygg-section-heading">
-          <p className="bygg-eyebrow">Process</p>
-          <h2>From first request to completed work</h2>
-        </div>
-        <div className="bygg-process-grid">
-          {processSteps.map((step, index) => (
-            <article className="bygg-process-step" key={step}>
-              <span>{index + 1}</span>
-              <h3>{step}</h3>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="bygg-section bygg-coverage">
-        <div>
-          <p className="bygg-eyebrow">Coverage Area</p>
-          <h2>Serving Stockholm and nearby areas</h2>
-        </div>
-        <div className="bygg-area-list">
-          {coverageAreas.map((area) => (
-            <span key={area}>{area}</span>
-          ))}
-        </div>
-      </section>
-    </>
-  );
-}
-
-export function ByggContact() {
-  return (
-    <section className="bygg-section bygg-contact" id="contact">
-      <div className="bygg-contact-panel">
-        <div>
-          <p className="bygg-eyebrow">Contact</p>
-          <h2>Tell us about your project</h2>
-          <p>
-            Share your city, service need, and a short description. Photos help
-            us understand the scope before a site visit.
-          </p>
-          <div className="bygg-contact-links">
-            <a href="tel:+46700000000"><Phone size={18} /> +46 70 000 00 00</a>
-            <a href="mailto:bygg@hanatech.se"><Mail size={18} /> bygg@hanatech.se</a>
-          </div>
-        </div>
-        <QuoteForm />
-      </div>
-    </section>
-  );
+function ByggContact() {
+  return <section id="contact" className="content-section section-dark"><div className="shell bygg-contact-grid"><div><p className="eyebrow coral">CONTACT</p><h2>Tell us about your project.</h2><p>Share your area, service need and a short description. Photos help us understand the scope before a site visit.</p><div className="bygg-contact-links"><a href="tel:+46766519272"><Phone />+46 76 651 92 72</a><a href="mailto:camelliahayati@hanatech.se"><Mail />camelliahayati@hanatech.se</a></div></div><QuoteForm /></div></section>;
 }
 
 function QuoteForm() {
-  const [submitted, setSubmitted] = useState(false);
-
-  function submitQuote(event) {
+  const [state, setState] = useState('idle');
+  async function submit(event) {
     event.preventDefault();
-    setSubmitted(true);
+    if (!WEB3FORMS_ACCESS_KEY) { setState('error'); return; }
+    setState('sending');
+    try {
+      const data = new FormData(event.currentTarget); data.set('access_key', WEB3FORMS_ACCESS_KEY);
+      const response = await fetch(FORM_ACTION, { method: 'POST', headers: { Accept: 'application/json' }, body: data });
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error('Submission failed');
+      event.currentTarget.reset(); setState('success');
+    } catch { setState('error'); }
   }
+  return <form id="quote" className="bygg-quote-form-new" onSubmit={submit}><input type="hidden" name="subject" value="New Hana Bygg quote request" /><input type="hidden" name="from_name" value="Hana Bygg Website" /><div className="form-row"><label className="contact-field">Full name<input className="studio-field" name="name" required /></label><label className="contact-field">Email<input className="studio-field" type="email" name="email" required /></label></div><div className="form-row"><label className="contact-field">Phone<input className="studio-field" type="tel" name="phone" /></label><label className="contact-field">City / area<input className="studio-field" name="city" /></label></div><label className="contact-field">Service needed<select className="studio-field" name="service" defaultValue="" required><option value="" disabled>Select a service</option>{services.map((item) => <option key={item.title}>{item.title}</option>)}</select></label><label className="contact-field">Project description<textarea className="studio-field studio-textarea" name="message" required /></label><button className="form-submit" type="submit" disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : 'Submit request'}</button>{state === 'success' && <p className="bygg-form-status success">Thank you. Your request was sent successfully.</p>}{state === 'error' && <p className="bygg-form-status error">Unable to send right now. Please email us directly.</p>}</form>;
+}
 
-  return (
-    <form className="bygg-quote-form" id="request-quote" onSubmit={submitQuote}>
-      <label>
-        <span>Full Name</span>
-        <input name="fullName" type="text" autoComplete="name" />
-      </label>
-      <label>
-        <span>Email</span>
-        <input name="email" type="email" autoComplete="email" />
-      </label>
-      <label>
-        <span>Phone</span>
-        <input name="phone" type="tel" autoComplete="tel" />
-      </label>
-      <label>
-        <span>City / Area</span>
-        <input name="city" type="text" autoComplete="address-level2" />
-      </label>
-      <label>
-        <span>Service Needed</span>
-        <select name="serviceNeeded" defaultValue="">
-          <option value="" disabled>Select a service</option>
-          {services.map((service) => (
-            <option key={service.title} value={service.title}>{service.title}</option>
-          ))}
-        </select>
-      </label>
-      <label>
-        <span>Preferred Contact Method</span>
-        <select name="preferredContact" defaultValue="Phone">
-          <option>Phone</option>
-          <option>Email</option>
-          <option>SMS</option>
-        </select>
-      </label>
-      <label className="bygg-full-span">
-        <span>Project Description</span>
-        <textarea name="projectDescription" rows="5" />
-      </label>
-      <label className="bygg-upload-field bygg-full-span">
-        <span>Upload Photos</span>
-        {/* TODO: Connect this file input to backend storage when quote submission backend is added. */}
-        <input name="projectPhotos" type="file" accept="image/*" multiple />
-      </label>
-      {submitted && (
-        <p className="bygg-form-note bygg-full-span">
-          Thank you. Your quote request is ready for backend submission integration.
-        </p>
-      )}
-      <button className="bygg-primary-button bygg-full-span" type="submit">
-        Submit Request <ArrowRight size={18} />
-      </button>
-    </form>
-  );
+function ByggFooter() {
+  return <footer className="studio-footer"><div className="footer-grid shell"><div className="footer-intro"><ByggLogo compact /><p>Building, renovation and carpentry services across Stockholm.</p></div><div className="footer-links"><div><h3>Explore</h3><a href="#services">Services</a><a href="#projects">Projects</a><a href="#about">About</a></div><div><h3>Hana</h3><a href="https://hanatech.se">HanaTech</a><a href="https://www.instagram.com/hanavoya/" target="_blank" rel="noreferrer">HanaVoya</a></div><div><h3>Contact</h3><a href="mailto:camelliahayati@hanatech.se">camelliahayati@hanatech.se</a><a href="tel:+46766519272">+46 76 651 92 72</a></div></div></div><div className="footer-legal shell"><span>© 2026 Hana Bygg. All rights reserved.</span><a href="#home">Back to top</a></div></footer>;
 }
