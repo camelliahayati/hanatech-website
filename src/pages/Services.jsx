@@ -1,41 +1,29 @@
-import SectionHeader from '../components/SectionHeader.jsx';
-import ServiceCard from '../components/ServiceCard.jsx';
 import { services, technologyStack } from '../data/services.js';
+import { createElement } from 'react';
 
 export default function Services({ id }) {
   return (
-    <section id={id} className="page-section bg-pine-950 px-5 sm:px-8">
-      <div className="mx-auto max-w-7xl">
-        <SectionHeader
-          eyebrow="Services"
-          title="Enterprise technology offerings built for scale"
-          text="HanaTech delivers applied AI, infrastructure, and engineering services that strengthen operational stability while accelerating innovation."
-          align="center"
-          tone="dark"
-        />
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, index) => (
-            <ServiceCard key={service.title} service={service} index={index} />
-          ))}
+    <section id={id} className="content-section services-section section-light">
+      <div className="shell">
+        <div className="section-heading light reveal">
+          <div><p className="eyebrow blue">SERVICES</p><h2>Enterprise technology offerings built for scale.</h2></div>
+          <p>Applied AI, infrastructure and engineering services that strengthen operational stability while accelerating innovation.</p>
         </div>
-
-        <div className="mt-16 rounded-[8px] border border-pine-200/10 bg-pine-900/55 p-6 shadow-soft sm:p-8">
-          <SectionHeader
-            eyebrow="Technology Stack"
-            title="Modern tools, pragmatic implementation"
-            text="Our delivery teams combine trusted open-source technologies and cloud-native patterns to build secure, maintainable systems."
-            tone="dark"
-          />
-          <div className="mt-8 flex flex-wrap gap-3">
-            {technologyStack.map((item) => (
-              <span
-                key={item}
-                className="rounded-full border border-pine-200/20 bg-pine-950/70 px-4 py-2 text-sm font-semibold text-pine-100"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
+        <div className="services-grid">
+          {services.map((service, index) => {
+            const icon = createElement(service.icon, { 'aria-hidden': true });
+            return (
+              <article className="service-studio-card reveal" style={{ '--delay': `${(index % 3) * 70}ms` }} key={service.title}>
+                <div className="service-icon">{icon}</div>
+                <h3>{service.title}</h3><p>{service.text}</p>
+                <ul>{service.highlights.map((item) => <li key={item}><i />{item}</li>)}</ul>
+              </article>
+            );
+          })}
+        </div>
+        <div className="technology-panel reveal">
+          <div><p className="eyebrow coral">TECHNOLOGY STACK</p><h3>Modern tools, pragmatic implementation.</h3><p>Trusted open-source technologies and cloud-native patterns for secure, maintainable systems.</p></div>
+          <div className="technology-list">{technologyStack.map((item) => <span key={item}>{item}</span>)}</div>
         </div>
       </div>
     </section>
