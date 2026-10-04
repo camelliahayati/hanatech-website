@@ -5,9 +5,7 @@ const fieldClass =
   'w-full rounded-[8px] border border-pine-200/10 bg-pine-950/75 px-4 py-3 text-sm text-pine-100 outline-none transition placeholder:text-pine-200/45 focus:border-pine-400 focus:ring-4 focus:ring-pine-900';
 
 const FORM_ACTION = 'https://api.web3forms.com/submit';
-const WEB3FORMS_ACCESS_KEY =
-  import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ??
-  '767df093-4738-47ce-b5aa-fc39470f24d5';
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ?? '';
 
 export default function ContactForm() {
   const [submitState, setSubmitState] = useState('idle');
@@ -136,7 +134,7 @@ export default function ContactForm() {
           <option>Cloud and AWS infrastructure</option>
           <option>Backend and API development</option>
           <option>DevOps and CI/CD modernization</option>
-          <option>HanaAI Platform partnership</option>
+          <option>HanaMood Platform partnership</option>
         </select>
       </label>
       <label className="mt-5 grid gap-2 text-sm font-medium text-pine-100/85">
@@ -151,7 +149,7 @@ export default function ContactForm() {
           <option>Data Analysis</option>
           <option>Network Solutions</option>
           <option>DevOps / CI-CD</option>
-          <option>HanaAI Product</option>
+          <option>HanaMood Product</option>
           <option>Technical Consulting</option>
         </select>
       </label>
