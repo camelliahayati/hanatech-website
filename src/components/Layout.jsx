@@ -1,15 +1,11 @@
 import Footer from './Footer.jsx';
 import Navbar from './Navbar.jsx';
 
-export default function Layout({
-  children,
-  pages,
-  ctaLabel,
-}) {
+export default function Layout({ children }) {
   return (
-    <div className="min-h-screen bg-mist text-ink">
-      <Navbar pages={pages} ctaLabel={ctaLabel} />
-      <main className="site-main">{children}</main>
+    <div className="studio-site">
+      <Navbar />
+      <main>{children}</main>
       <Footer />
     </div>
   );

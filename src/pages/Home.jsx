@@ -1,163 +1,179 @@
-import { CheckCircle2, ShieldCheck, Sparkles } from 'lucide-react';
+import { Check, MapPin, Search } from 'lucide-react';
+import { useEffect } from 'react';
 import Button from '../components/Button.jsx';
-import { aiVision, industries, metrics, whyHanaTech } from '../data/services.js';
 
-export default function Home({ id }) {
+const hanavoyaUrl = 'https://lovable.dev/preview/YL0o7LzqBK57FdmZAsyVV6G0he0m3ezH';
+
+function RouteMap({ compact = false }) {
   return (
-    <section
-      id={id}
-      className="page-section relative isolate overflow-hidden px-5 sm:px-8"
-    >
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_16%_18%,rgba(68,184,107,0.22),transparent_32%),radial-gradient(circle_at_84%_16%,rgba(32,127,69,0.24),transparent_24%),linear-gradient(140deg,#03130d_0%,#052016_46%,#03190f_100%)]" />
-      <div className="absolute right-0 top-20 -z-10 h-72 w-72 rounded-full bg-pine-500/20 blur-3xl" />
+    <div className={`route-map ${compact ? 'is-compact' : ''}`}>
+      <svg viewBox="0 0 562 290" role="img" aria-label="A route connecting places across Stockholm">
+        <path className="water-line" d="M0 72C101 35 141 96 226 48C318 -4 374 72 464 31C501 14 534 15 562 3" />
+        <g className="map-grid"><path d="M70 0V290M171 0V290M281 0V290M391 0V290M501 0V290M0 65H562M0 145H562M0 225H562" /></g>
+        <path className="route-line" d="M21 252C94 179 151 226 219 159C277 102 333 148 388 93C432 49 493 76 540 25" />
+        <circle className="route-point-light" cx="219" cy="159" r="17" />
+        <circle className="route-point-blue" cx="388" cy="93" r="17" />
+      </svg>
+      <span className="map-label label-one"><MapPin size={14} /> Södermalm</span>
+      <span className="map-label label-two"><MapPin size={14} /> Vasastan</span>
+    </div>
+  );
+}
 
-      <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1.04fr_0.96fr]">
-        <div className="animate-fade-up">
-          <div className="inline-flex items-center gap-2 rounded-full border border-pine-200/20 bg-pine-900/65 px-4 py-2 text-sm font-medium text-pine-200 shadow-sm backdrop-blur">
-            <Sparkles className="h-4 w-4" aria-hidden="true" />
-            Strategic engineering for modern teams
-          </div>
-          <h1 className="mt-8 max-w-4xl text-5xl font-semibold leading-[1.02] text-pine-50 sm:text-6xl lg:text-7xl">
-            HanaTech
-          </h1>
-          <p className="mt-6 max-w-2xl text-xl leading-9 text-pine-100/80">
-            A Stockholm AI startup and technology partner for organizations
-            building modern products, resilient infrastructure, and
-            intelligence-led operations.
-          </p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Button href="#contact">Start a conversation</Button>
-            <Button href="#product" variant="secondary">
-              Explore HanaAI Platform
-            </Button>
-          </div>
+function Badge({ children }) {
+  return <span className="status-badge">{children}</span>;
+}
 
-          <div className="mt-12 grid gap-4 sm:grid-cols-3">
-            {metrics.map((metric) => (
-              <div key={metric.label}>
-                <p className="text-3xl font-semibold text-pine-100">
-                  {metric.value}
-                </p>
-                <p className="mt-2 text-sm leading-6 text-pine-200/70">
-                  {metric.label}
-                </p>
-              </div>
-            ))}
-          </div>
+function ProductPreview({ hero = false }) {
+  return (
+    <div className={`product-preview ${hero ? 'hero-preview' : ''}`}>
+      <div className="preview-title"><h3>HanaVoya</h3><Badge>BETA / PREVIEW</Badge></div>
+      {hero ? (
+        <div className="preview-search"><Search size={21} /><span>What would you like to do in Stockholm?</span></div>
+      ) : (
+        <div className="preview-language"><span>Explore Stockholm</span><strong>FA · فارسی</strong></div>
+      )}
+      <RouteMap compact={hero} />
+      {hero ? (
+        <div className="mini-events">
+          <article><small>TODAY</small><strong>Culture night</strong><span>Free · Södermalm</span></article>
+          <article><small>WEEKEND</small><strong>Nordic food walk</strong><span>From 120 SEK</span></article>
         </div>
+      ) : (
+        <div className="filter-row"><span className="active">Today</span><span>Free</span><span>Culture</span><span>Hidden places</span></div>
+      )}
+    </div>
+  );
+}
 
-        <div className="relative animate-fade-up lg:pl-8">
-          <div className="rounded-[8px] border border-pine-200/10 bg-pine-950/65 p-3 shadow-soft backdrop-blur">
-            <div className="rounded-[8px] bg-pine-950 p-6 text-white sm:p-8">
-              <div className="flex items-center justify-between border-b border-white/10 pb-5">
-                <div>
-                  <p className="text-sm uppercase tracking-[0.2em] text-pine-300">
-                    Operating model
-                  </p>
-                  <h2 className="mt-2 text-2xl font-semibold">
-                    From idea to reliable platform
-                  </h2>
-                </div>
-                <ShieldCheck className="h-9 w-9 text-pine-300" />
-              </div>
-              <div className="mt-8 grid gap-4">
-                {[
-                  'AI opportunities mapped to measurable business value',
-                  'AWS foundations designed for security and scale',
-                  'Delivery systems with observability and automation built in',
-                ].map((item) => (
-                  <div
-                    key={item}
-                    className="flex gap-3 rounded-[8px] bg-white/[0.07] p-4"
-                  >
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-none text-pine-300" />
-                    <p className="text-sm leading-6 text-pine-50">{item}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-8 grid grid-cols-2 gap-4">
-                <div className="rounded-[8px] bg-pine-100 p-5 text-pine-950">
-                  <p className="text-3xl font-semibold">6 wks</p>
-                  <p className="mt-2 text-sm text-pine-900/75">
-                    from discovery to production blueprint
-                  </p>
-                </div>
-                <div className="rounded-[8px] bg-pine-800 p-5">
-                  <p className="text-3xl font-semibold">24/7</p>
-                  <p className="mt-2 text-sm text-pine-100/75">
-                    platform mindset for resilient services
-                  </p>
-                </div>
-              </div>
+const capabilities = [
+  ['01', 'Product engineering', 'Architecture, frontend systems and dependable delivery shaped by 16+ years in software engineering.'],
+  ['02', 'AI-assisted workflows', 'Useful AI for extraction, search and operational tools—with humans kept in control.'],
+  ['03', 'Multilingual experiences', 'Accessible interfaces, RTL support and content systems designed for international audiences.'],
+];
+
+const work = [
+  { status: 'BETA / PREVIEW', title: 'HanaVoya', summary: 'Multilingual discovery for Stockholm events, places and hidden gems.', meta: '9 languages · RTL · Search · Map · Saved', href: hanavoyaUrl, link: 'Explore product', kind: 'map' },
+  { status: 'PROTOTYPE', title: 'PULSE AI', summary: 'AI-assisted document extraction that turns complex PDFs into structured, reviewable data.', meta: 'Document parsing · Structured output · Review workflow', href: '#contact', link: 'Discuss the prototype', kind: 'document' },
+];
+
+export default function Home() {
+  useEffect(() => {
+    const items = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach((item) => item.classList.add('is-visible'));
+      return undefined;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    items.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <>
+      <section id="top" className="hero section-dark">
+        <div className="shell hero-grid">
+          <div className="hero-copy reveal is-visible">
+            <p className="eyebrow"><span /> STOCKHOLM · PRODUCT ENGINEERING · AI</p>
+            <h1>Engineering products with a human sense of place.</h1>
+            <p className="hero-lead">HanaTech turns ambitious ideas into reliable digital products—combining 16+ years in software engineering with careful product design.</p>
+            <div className="hero-actions">
+              <Button href={hanavoyaUrl} external>Explore HanaVoya</Button>
+              <Button href="#work" variant="dark">See selected work</Button>
+            </div>
+            <div className="hero-metrics">
+              <div><strong>16+ years</strong><span>in software engineering</span></div>
+              <div><strong>Stockholm</strong><span>built in Sweden</span></div>
+              <div><strong>Product · AI · Web</strong><span>end-to-end delivery</span></div>
             </div>
           </div>
+          <div className="reveal reveal-delay"><ProductPreview hero /></div>
         </div>
-      </div>
+      </section>
 
-      <div className="mx-auto mt-20 max-w-7xl space-y-12">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-pine-300">
-            Why HanaTech
-          </p>
-          <h2 className="mt-3 text-3xl font-semibold text-pine-50 sm:text-4xl">
-            Premium execution for AI and infrastructure transformation
-          </h2>
-        </div>
-
-        <div className="grid gap-5 md:grid-cols-3">
-          {whyHanaTech.map((item) => (
-            <article
-              key={item.title}
-              className="rounded-[8px] border border-pine-200/10 bg-pine-900/45 p-6 shadow-sm backdrop-blur"
-            >
-              <h2 className="text-xl font-semibold text-pine-50">{item.title}</h2>
-              <p className="mt-3 leading-7 text-pine-100/75">{item.text}</p>
-            </article>
+      <section className="trust-strip">
+        <div className="shell trust-grid">
+          {['Senior engineering judgment', 'Multilingual by design', 'Product discipline from idea to release'].map((item) => (
+            <div key={item}><span><Check size={14} /></span>{item}</div>
           ))}
         </div>
+      </section>
 
-        <div className="grid gap-10 rounded-[8px] border border-pine-200/10 bg-pine-950/60 p-6 shadow-soft md:grid-cols-[0.88fr_1.12fr] md:p-8">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-pine-300">
-              Industries We Help
-            </p>
-            <h2 className="mt-3 text-3xl font-semibold text-pine-50">
-              AI and infrastructure for complex business environments
-            </h2>
-            <p className="mt-4 leading-7 text-pine-100/75">
-              We support scaling companies and enterprise teams across
-              regulated, operationally demanding, and product-intensive
-              industries.
-            </p>
+      <section id="hanavoya" className="product-section section-light">
+        <div className="shell product-grid">
+          <div className="reveal product-visual"><ProductPreview /></div>
+          <div className="product-copy reveal reveal-delay">
+            <Badge>BETA / PREVIEW</Badge>
+            <h2>Discover Stockholm in your own language.</h2>
+            <p>HanaVoya helps tourists, immigrants and international residents find events, places and hidden gems—without losing context in translation.</p>
+            <ul>
+              <li><i />9 languages with complete Persian and Arabic RTL</li>
+              <li><i />Search, filters and a map-ready exploration flow</li>
+              <li><i />Saved favourites, profiles and browser-based audio guides</li>
+            </ul>
+            <Button href={hanavoyaUrl} variant="light" external>Explore HanaVoya</Button>
           </div>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {industries.map((industry) => (
-              <div
-                key={industry}
-                className="rounded-[8px] border border-pine-200/10 bg-pine-900/70 px-4 py-3 text-sm font-semibold text-pine-100"
-              >
-                {industry}
-              </div>
+        </div>
+      </section>
+
+      <section id="about" className="capabilities section-dark">
+        <div className="shell">
+          <div className="section-heading reveal">
+            <div><p className="eyebrow coral">HOW HANATECH WORKS</p><h2>Senior engineering, product thinking and restrained design.</h2></div>
+            <p>A focused studio for products where quality, clarity and technical judgment matter more than noise.</p>
+          </div>
+          <div className="capability-grid">
+            {capabilities.map(([number, title, text], index) => (
+              <article className="capability-card reveal" style={{ '--delay': `${index * 90}ms` }} key={number}>
+                <span>{number}</span><h3>{title}</h3><p>{text}</p>
+              </article>
             ))}
           </div>
         </div>
+      </section>
 
-        <div className="rounded-[8px] bg-pine-950 p-7 text-white shadow-soft sm:p-9">
-          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-pine-300">
-            AI Vision
-          </p>
-          <h2 className="mt-3 text-3xl font-semibold">
-            Human-centered AI with infrastructure-grade reliability
-          </h2>
-          <div className="mt-8 grid gap-4 lg:grid-cols-3">
-            {aiVision.map((point) => (
-              <div key={point} className="rounded-[8px] bg-white/[0.08] p-4">
-                <p className="text-sm leading-7 text-pine-100">{point}</p>
-              </div>
+      <section id="work" className="selected-work section-light">
+        <div className="shell">
+          <div className="section-heading light reveal">
+            <div><p className="eyebrow blue">SELECTED WORK</p><h2>Real products. Honest status. No invented case studies.</h2></div>
+            <p>A small portfolio that shows how HanaTech thinks, builds and learns in public.</p>
+          </div>
+          <div id="ventures" className="work-grid">
+            {work.map((item, index) => (
+              <article className="work-card reveal" style={{ '--delay': `${index * 100}ms` }} key={item.title}>
+                <div className={`work-visual ${item.kind}`}>
+                  {item.kind === 'map' ? <RouteMap compact /> : (
+                    <div className="document-ui">
+                      <div className="document-page"><span /><span /><span /><span /></div>
+                      <div className="extraction-panel"><small>EXTRACTED DATA</small><b>Property value</b><strong>4,850,000 SEK</strong><b>Review status</b><em>Human verified</em></div>
+                    </div>
+                  )}
+                </div>
+                <div className="work-content">
+                  <Badge>{item.status}</Badge><h3>{item.title}</h3><p>{item.summary}</p><small>{item.meta}</small>
+                  <a href={item.href} {...(item.href.startsWith('http') ? { target: '_blank', rel: 'noreferrer' } : {})}>{item.link} <span>↗</span></a>
+                </div>
+              </article>
             ))}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section id="contact" className="closing-cta section-dark">
+        <div className="shell reveal">
+          <p className="eyebrow coral">A SMALL STUDIO WITH SENIOR DEPTH</p>
+          <h2>Build something useful.</h2>
+          <p>Thoughtful engineering. A clear path to release.</p>
+          <Button href="mailto:camelliahayati@hanatech.se?subject=Let%E2%80%99s%20build%20something%20useful">Start a conversation</Button>
+        </div>
+      </section>
+    </>
   );
 }
