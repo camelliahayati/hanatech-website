@@ -16,7 +16,13 @@ import {
 export default function App() {
   const path = window.location.pathname;
   const host = window.location.hostname;
-  if (host === 'bygg.hanatech.se' || path === '/bygg') return <HanaTechBygg />;
+  const isHanaByggHost =
+    host === 'bygg.hanatech.se' ||
+    host === 'hanabygg.se' ||
+    host === 'www.hanabygg.se' ||
+    host.startsWith('hana-bygg');
+
+  if (isHanaByggHost || path === '/bygg') return <HanaTechBygg />;
   if (path === '/dental-ai-survey') return <DentalSurveyLandingPage />;
   if (path === '/dental-ai-survey/start') return <DentalSurveyPage />;
   if (path === '/dental-ai-survey/thank-you') return <DentalSurveyThankYouPage />;
