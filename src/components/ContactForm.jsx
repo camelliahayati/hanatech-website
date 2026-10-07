@@ -71,7 +71,7 @@ export default function ContactForm() {
       console.error('[HanaTech ContactForm] Web3Forms error', error);
       setSubmitState('error');
       setFeedbackMessage(
-        t('Unable to send right now. Please try again or email camelliahayati@hanatech.se directly.'),
+        t('Unable to send right now. Please try again or email info@hanatech.se directly.'),
       );
     }
   };
