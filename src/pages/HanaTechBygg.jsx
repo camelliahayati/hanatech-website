@@ -101,7 +101,7 @@ function ByggAbout() {
 
 function ByggContact() {
   const { t } = useLanguage();
-  return <section id="contact" className="content-section section-dark"><div className="shell bygg-contact-grid"><div><p className="eyebrow coral">{t('CONTACT')}</p><h2>{t('Tell us about your project.')}</h2><p>{t('Share your area, service need and a short description. Photos help us understand the scope before a site visit.')}</p><div className="bygg-contact-links"><a href="tel:+46766519272"><Phone />+46 76 651 92 72</a><a href="mailto:camelliahayati@hanatech.se"><Mail />camelliahayati@hanatech.se</a></div></div><QuoteForm /></div></section>;
+  return <section id="contact" className="content-section section-dark"><div className="shell bygg-contact-grid"><div><p className="eyebrow coral">{t('CONTACT')}</p><h2>{t('Tell us about your project.')}</h2><p>{t('Share your area, service need and a short description. Photos help us understand the scope before a site visit.')}</p><div className="bygg-contact-links"><a href="tel:+46766519272"><Phone />+46 76 651 92 72</a><a href="mailto:info@hanatech.se"><Mail />info@hanatech.se</a></div></div><QuoteForm /></div></section>;
 }
 
 function QuoteForm() {
@@ -124,5 +124,5 @@ function QuoteForm() {
 
 function ByggFooter() {
   const { t } = useLanguage();
-  return <footer className="studio-footer"><div className="footer-grid shell"><div className="footer-intro"><ByggLogo compact /><p>{t('Building, renovation and carpentry services across Stockholm.')}</p></div><div className="footer-links"><div><h3>{t('Explore')}</h3><a href="#services">{t('Services')}</a><a href="#projects">{t('Projects')}</a><a href="#about">{t('About')}</a></div><div><h3>{t('Contact')}</h3><a href="mailto:camelliahayati@hanatech.se">camelliahayati@hanatech.se</a><a href="tel:+46766519272">+46 76 651 92 72</a></div></div></div><div className="footer-legal shell"><span>{t('© 2026 Hana Bygg. All rights reserved.')}</span><a href="#home">{t('Back to top')}</a></div></footer>;
+  return <footer className="studio-footer"><div className="footer-grid shell"><div className="footer-intro"><ByggLogo compact /><p>{t('Building, renovation and carpentry services across Stockholm.')}</p></div><div className="footer-links"><div><h3>{t('Explore')}</h3><a href="#services">{t('Services')}</a><a href="#projects">{t('Projects')}</a><a href="#about">{t('About')}</a></div><div><h3>{t('Contact')}</h3><a href="mailto:info@hanatech.se">info@hanatech.se</a><a href="tel:+46766519272">+46 76 651 92 72</a></div></div></div><div className="footer-legal shell"><span>{t('© 2026 Hana Bygg. All rights reserved.')}</span><a href="#home">{t('Back to top')}</a></div></footer>;
 }
