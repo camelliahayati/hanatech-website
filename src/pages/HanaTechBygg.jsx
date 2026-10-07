@@ -1,6 +1,6 @@
 import { createElement, useEffect, useState } from 'react';
 import {
-  Brush, Building2, Check, ClipboardCheck, DoorOpen, Hammer, Home,
+  Brush, Building2, Check, ClipboardCheck, DoorOpen, Hammer,
   Mail, MapPin, Menu, Paintbrush, Phone, Plug, Ruler, ShieldCheck,
   Sparkles, Wrench, X,
 } from 'lucide-react';
