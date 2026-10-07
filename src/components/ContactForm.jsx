@@ -1,15 +1,14 @@
 import { Send } from 'lucide-react';
 import { useState } from 'react';
+import { useLanguage } from '../i18n.jsx';
 
-const fieldClass =
-  'w-full rounded-[8px] border border-pine-200/10 bg-pine-950/75 px-4 py-3 text-sm text-pine-100 outline-none transition placeholder:text-pine-200/45 focus:border-pine-400 focus:ring-4 focus:ring-pine-900';
+const fieldClass = 'studio-field';
 
 const FORM_ACTION = 'https://api.web3forms.com/submit';
-const WEB3FORMS_ACCESS_KEY =
-  import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ??
-  '767df093-4738-47ce-b5aa-fc39470f24d5';
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ?? '';
 
 export default function ContactForm() {
+  const { t } = useLanguage();
   const [submitState, setSubmitState] = useState('idle');
   const [feedbackMessage, setFeedbackMessage] = useState('');
 
@@ -33,7 +32,7 @@ export default function ContactForm() {
     if (!WEB3FORMS_ACCESS_KEY) {
       setSubmitState('error');
       setFeedbackMessage(
-        'Web3Forms access key is missing. Add VITE_WEB3FORMS_ACCESS_KEY and redeploy.',
+        t('Web3Forms access key is missing. Add VITE_WEB3FORMS_ACCESS_KEY and redeploy.'),
       );
       return;
     }
@@ -63,7 +62,7 @@ export default function ContactForm() {
       if (response.ok && result?.success) {
         form.reset();
         setSubmitState('success');
-        setFeedbackMessage('Thank you. Your inquiry was sent successfully.');
+        setFeedbackMessage(t('Thank you. Your inquiry was sent successfully.'));
         return;
       }
 
@@ -72,7 +71,7 @@ export default function ContactForm() {
       console.error('[HanaTech ContactForm] Web3Forms error', error);
       setSubmitState('error');
       setFeedbackMessage(
-        'Unable to send right now. Please try again or email camelliahayati@hanatech.se directly.',
+        t('Unable to send right now. Please try again or email camelliahayati@hanatech.se directly.'),
       );
     }
   };
@@ -82,25 +81,25 @@ export default function ContactForm() {
       action={FORM_ACTION}
       method="POST"
       encType="multipart/form-data"
-      className="rounded-[8px] border border-pine-200/10 bg-pine-900/55 p-5 shadow-soft sm:p-8"
+      className="contact-form"
       onSubmit={handleSubmit}
     >
       <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
       <input type="hidden" name="subject" value="New HanaTech Contact Submission" />
       <input type="hidden" name="from_name" value="HanaTech Website" />
 
-      <div className="grid gap-5 sm:grid-cols-2">
-        <label className="grid gap-2 text-sm font-medium text-pine-100/85">
-          Name
+      <div className="form-row">
+        <label className="contact-field">
+          {t('Name')}
           <input
             className={fieldClass}
             name="name"
-            placeholder="Your name"
+            placeholder={t('Your name')}
             required
           />
         </label>
-        <label className="grid gap-2 text-sm font-medium text-pine-100/85">
-          Email
+        <label className="contact-field">
+          {t('Email')}
           <input
             className={fieldClass}
             type="email"
@@ -110,91 +109,71 @@ export default function ContactForm() {
           />
         </label>
       </div>
-      <label className="mt-5 grid gap-2 text-sm font-medium text-pine-100/85">
-        Company
-        <input className={fieldClass} name="company" placeholder="Company name" />
+      <label className="contact-field">
+        {t('Company')}
+        <input className={fieldClass} name="company" placeholder={t('Company name')} />
       </label>
-      <label className="mt-5 grid gap-2 text-sm font-medium text-pine-100/85">
-        Inquiry type
+      <label className="contact-field">
+        {t('Inquiry type')}
         <select className={fieldClass} name="inquiryType" defaultValue="">
           <option value="" disabled>
-            Select inquiry type
+            {t('Select inquiry type')}
           </option>
-          <option>Business inquiry</option>
-          <option>Project collaboration</option>
-          <option>Strategic partnership</option>
-          <option>Investment and media</option>
+          {['Business inquiry', 'Project collaboration', 'Strategic partnership', 'Investment and media'].map((item) => <option key={item} value={item}>{t(item)}</option>)}
         </select>
       </label>
-      <label className="mt-5 grid gap-2 text-sm font-medium text-pine-100/85">
-        Project type
+      <label className="contact-field">
+        {t('Project type')}
         <select className={fieldClass} name="projectType" defaultValue="">
           <option value="" disabled>
-            Select project type
+            {t('Select project type')}
           </option>
-          <option>AI consulting and automation</option>
-          <option>Cloud and AWS infrastructure</option>
-          <option>Backend and API development</option>
-          <option>DevOps and CI/CD modernization</option>
-          <option>HanaAI Platform partnership</option>
+          {['AI consulting and automation', 'Cloud and AWS infrastructure', 'Backend and API development', 'DevOps and CI/CD modernization', 'HanaMood Platform partnership'].map((item) => <option key={item} value={item}>{t(item)}</option>)}
         </select>
       </label>
-      <label className="mt-5 grid gap-2 text-sm font-medium text-pine-100/85">
-        What can we help with?
+      <label className="contact-field">
+        {t('What can we help with?')}
         <select className={fieldClass} name="service" defaultValue="">
           <option value="" disabled>
-            Select a service
+            {t('Select a service')}
           </option>
-          <option>AI Consulting</option>
-          <option>Cloud / AWS Infrastructure</option>
-          <option>Backend & API Development</option>
-          <option>Data Analysis</option>
-          <option>Network Solutions</option>
-          <option>DevOps / CI-CD</option>
-          <option>HanaAI Product</option>
-          <option>Technical Consulting</option>
+          {['AI Consulting', 'Cloud / AWS Infrastructure', 'Backend & API Development', 'Data Analysis', 'Network Solutions', 'DevOps / CI-CD', 'HanaMood Product', 'Technical Consulting'].map((item) => <option key={item} value={item}>{t(item)}</option>)}
         </select>
       </label>
-      <label className="mt-5 grid gap-2 text-sm font-medium text-pine-100/85">
-        Preferred timeline
+      <label className="contact-field">
+        {t('Preferred timeline')}
         <select className={fieldClass} name="timeline" defaultValue="">
           <option value="" disabled>
-            Select timeline
+            {t('Select timeline')}
           </option>
-          <option>Immediate (0-1 month)</option>
-          <option>Near term (1-3 months)</option>
-          <option>Planned initiative (3-6 months)</option>
-          <option>Long-term planning (6+ months)</option>
+          {['Immediate (0-1 month)', 'Near term (1-3 months)', 'Planned initiative (3-6 months)', 'Long-term planning (6+ months)'].map((item) => <option key={item} value={item}>{t(item)}</option>)}
         </select>
       </label>
-      <label className="mt-5 grid gap-2 text-sm font-medium text-pine-100/85">
-        Message
+      <label className="contact-field">
+        {t('Message')}
         <textarea
-          className={`${fieldClass} min-h-36 resize-y`}
+          className={`${fieldClass} studio-textarea`}
           name="message"
-          placeholder="Tell us about your business goals, technical context, and expected outcomes."
+          placeholder={t('Tell us about your business goals, technical context, and expected outcomes.')}
           required
         />
       </label>
-      <div className="mt-5 rounded-[8px] border border-pine-200/10 bg-pine-950/75 p-4 text-sm text-pine-100/75">
-        Prefer a direct planning call? Request a consultation and we will send
-        available time slots for a 45-minute strategy session.
+      <div className="form-note">
+        {t('Prefer a direct planning call? Request a consultation and we will send available time slots for a 45-minute strategy session.')}
       </div>
       <button
-        className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-pine-500 px-5 py-3 text-sm font-semibold text-pine-950 transition hover:-translate-y-0.5 hover:bg-pine-400 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0 sm:w-auto"
+        className="form-submit"
         type="submit"
         disabled={submitState === 'submitting'}
       >
         {submitState === 'submitting'
-          ? 'Sending inquiry...'
-          : 'Send inquiry and request consultation'}
+          ? t('Sending inquiry...')
+          : t('Send inquiry and request consultation')}
         <Send className="h-4 w-4" aria-hidden="true" />
       </button>
       {feedbackMessage ? (
         <p
-          className={`mt-4 text-sm ${
-            submitState === 'success' ? 'text-pine-200' : 'text-rose-300'
-          }`}
+          className={`form-feedback ${submitState === 'success' ? 'success' : 'error'}`}
           role="status"
           aria-live="polite"
         >
