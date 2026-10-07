@@ -236,8 +236,8 @@ const sv = {
   'Sending inquiry...': 'Skickar förfrågan…',
   'Send inquiry and request consultation': 'Skicka förfrågan och begär konsultation',
   'Thank you. Your inquiry was sent successfully.': 'Tack. Din förfrågan har skickats.',
-  'Unable to send right now. Please try again or email camelliahayati@hanatech.se directly.': 'Det går inte att skicka just nu. Försök igen eller mejla camelliahayati@hanatech.se direkt.',
-  'Web3Forms access key is missing. Add VITE_WEB3FORMS_ACCESS_KEY and redeploy.': 'Formulärtjänsten är inte konfigurerad. Mejla oss direkt på camelliahayati@hanatech.se.',
+  'Unable to send right now. Please try again or email info@hanatech.se directly.': 'Det går inte att skicka just nu. Försök igen eller mejla info@hanatech.se direkt.',
+  'Web3Forms access key is missing. Add VITE_WEB3FORMS_ACCESS_KEY and redeploy.': 'Formulärtjänsten är inte konfigurerad. Mejla oss direkt på info@hanatech.se.',
 
   'AI, cloud, backend and product engineering—built with care in Stockholm.': 'AI, moln, backend och produktutveckling – omsorgsfullt byggt i Stockholm.',
   'Explore': 'Utforska',
