@@ -7,8 +7,7 @@ import {
 import { LanguageSwitcher, useLanguage } from '../i18n.jsx';
 
 const services = [
-  { icon: DoorOpen, title: 'Door Installation & Replacement', description: 'Interior and exterior door fitting, adjustment, replacement, trim and finishing.' },
-  { icon: Home, title: 'Window Installation & Replacement', description: 'Careful window replacement and installation with weather-conscious detailing.' },
+  { icon: DoorOpen, title: 'Wooden Doors & Windows — Installation & Replacement', description: 'Installation, replacement and adjustment of wooden doors and windows, including precise fitting, trims and clean finishing.' },
   { icon: Ruler, title: 'Parquet & Flooring', description: 'Parquet, wood flooring, subfloor preparation, thresholds and precise finishing.' },
   { icon: Hammer, title: 'Professional Carpentry', description: 'Custom carpentry, framing, trims, shelving, repairs and detail work.' },
   { icon: Paintbrush, title: 'Painting & Finishing', description: 'Interior painting, surface preparation, touch-ups and polished finishing work.' },
