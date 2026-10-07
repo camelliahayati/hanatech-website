@@ -13,7 +13,7 @@ export default function Footer() {
         <div className="footer-links">
           <div><h3>{t('Explore')}</h3><a href="#services">{t('Services')}</a><a href="#product">{t('Products')}</a><a href="#about">{t('About')}</a><a href="#contact">{t('Contact')}</a></div>
           <div><h3>{t('Products & ventures')}</h3><a href="#product">HanaVoya</a></div>
-          <div><h3>{t('Contact')}</h3><a href="mailto:camelliahayati@hanatech.se">camelliahayati@hanatech.se</a><a href="tel:+46766519272">+46 76 651 92 72</a><span>{t('Stockholm, Sweden')}</span></div>
+          <div><h3>{t('Contact')}</h3><a href="mailto:info@hanatech.se">info@hanatech.se</a><a href="tel:+46766519272">+46 76 651 92 72</a><span>{t('Stockholm, Sweden')}</span></div>
         </div>
       </div>
       <div className="footer-legal shell">
