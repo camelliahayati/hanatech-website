@@ -3,7 +3,7 @@ import ContactForm from '../components/ContactForm.jsx';
 import { useLanguage } from '../i18n.jsx';
 
 const items = [
-  { icon: <Mail />, label: 'Email', value: 'camelliahayati@hanatech.se', href: 'mailto:camelliahayati@hanatech.se' },
+  { icon: <Mail />, label: 'Email', value: 'info@hanatech.se', href: 'mailto:info@hanatech.se' },
   { icon: <Phone />, label: 'Phone', value: '+46 76 651 92 72', href: 'tel:+46766519272' },
   { icon: <MapPin />, label: 'Based in', value: 'Stockholm, Sweden' },
 ];
