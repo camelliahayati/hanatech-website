@@ -183,8 +183,8 @@ export const companyRoadmap = [
   },
   {
     phase: 'Next',
-    title: 'HanaAI Platform Expansion',
-    text: 'Extend HanaAI into a flexible companion platform with multilingual, contextual, and behavioral intelligence.',
+    title: 'HanaMood Platform Expansion',
+    text: 'Extend HanaMood into a flexible companion platform with multilingual, contextual, and behavioral intelligence.',
   },
   {
     phase: 'Future',
