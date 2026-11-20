@@ -1,3 +1,4 @@
+import { PortfolioGallery } from './ByggPortfolio.jsx';
 import { createElement, useEffect, useState } from 'react';
 import {
   Brush, Building2, Check, ClipboardCheck, DoorOpen, Hammer,
@@ -91,7 +92,7 @@ function ByggServiceCard({ icon, title, description }) {
 
 function ByggProjects() {
   const { t } = useLanguage();
-  return <section id="projects" className="content-section section-dark"><div className="shell"><div className="section-heading"><div><p className="eyebrow coral">{t('SELECTED WORK')}</p><h2>{t('Practical work. Honest descriptions.')}</h2></div><p>{t('A selection of our completed and ongoing projects in renovation, bespoke carpentry, and wooden door and window replacement.')}</p></div><div className="bygg-project-grid">{projects.map((item, index) => <article key={item.title}><span>0{index + 1}</span><div className="bygg-project-icon"><Hammer /></div><small><MapPin />{t(item.location)}</small><h3>{t(item.title)}</h3><p>{t(item.text)}</p></article>)}</div></div></section>;
+  return <section id="projects" className="content-section section-dark"><div className="shell"><div className="section-heading"><div><p className="eyebrow coral">{t('SELECTED WORK')}</p><h2>{t('Practical work. Honest descriptions.')}</h2></div><p>{t('A selection of our completed and ongoing projects in renovation, bespoke carpentry, and wooden door and window replacement.')}</p></div><div className="bygg-project-grid">{projects.map((item, index) => <article key={item.title}><span>0{index + 1}</span><div className="bygg-project-icon"><Hammer /></div><small><MapPin />{t(item.location)}</small><h3>{t(item.title)}</h3><p>{t(item.text)}</p></article>)}</div><PortfolioGallery /></div></section>;
 }
 
 function ByggAbout() {
