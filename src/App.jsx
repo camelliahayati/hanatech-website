@@ -1,3 +1,4 @@
+import { PortfolioAdmin } from './pages/ByggPortfolio.jsx';
 import Layout from './components/Layout.jsx';
 import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
@@ -22,6 +23,7 @@ export default function App() {
     host === 'www.hanabygg.se' ||
     host.startsWith('hana-bygg');
 
+  if (path === '/admin/bygg-projects') return <PortfolioAdmin />;
   if (isHanaByggHost || path === '/bygg') return <HanaTechBygg />;
   if (path === '/dental-ai-survey') return <DentalSurveyLandingPage />;
   if (path === '/dental-ai-survey/start') return <DentalSurveyPage />;

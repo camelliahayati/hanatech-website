@@ -1,3 +1,4 @@
+import { usePortfolioProjects, ProjectPhotoModal } from './ByggPortfolio.jsx';
 import { createElement, useEffect, useState } from 'react';
 import {
   Brush, Building2, Check, ClipboardCheck, DoorOpen, Hammer,
@@ -90,8 +91,40 @@ function ByggServiceCard({ icon, title, description }) {
 }
 
 function ByggProjects() {
-  const { t } = useLanguage();
-  return <section id="projects" className="content-section section-dark"><div className="shell"><div className="section-heading"><div><p className="eyebrow coral">{t('SELECTED WORK')}</p><h2>{t('Practical work. Honest descriptions.')}</h2></div><p>{t('A selection of our completed and ongoing projects in renovation, bespoke carpentry, and wooden door and window replacement.')}</p></div><div className="bygg-project-grid">{projects.map((item, index) => <article key={item.title}><span>0{index + 1}</span><div className="bygg-project-icon"><Hammer /></div><small><MapPin />{t(item.location)}</small><h3>{t(item.title)}</h3><p>{t(item.text)}</p></article>)}</div></div></section>;
+  const { t, language } = useLanguage();
+  const uploaded = usePortfolioProjects();
+  const [selected, setSelected] = useState(null);
+  const existingSlugs = ['residential-renovation','dental-clinic-interiors','wooden-doors-windows'];
+  const cards = [
+    ...projects.map((item,index) => {
+      const saved = uploaded.find(row => row.slug === existingSlugs[index]);
+      return { ...item, ...saved,
+        title: language === 'sv' && saved?.title_sv ? saved.title_sv : t(item.title),
+        text: language === 'sv' && saved?.description_sv ? saved.description_sv : (saved?.description_en || t(item.text)),
+        location: saved?.location || item.location,
+        photos: saved?.photos || [],
+        key: existingSlugs[index]
+      };
+    }),
+    ...uploaded.filter(item => !existingSlugs.includes(item.slug)).map(item => ({
+      ...item, key: item.id,
+      title: language === 'sv' && item.title_sv ? item.title_sv : item.title_en,
+      text: language === 'sv' && item.description_sv ? item.description_sv : item.description_en,
+      photos: item.photos || [],
+    }))
+  ];
+  return <section id="projects" className="content-section section-dark"><div className="shell">
+    <div className="section-heading"><div><p className="eyebrow coral">{t('SELECTED WORK')}</p><h2>{t('Practical work. Honest descriptions.')}</h2></div><p>{t('A selection of our completed and ongoing projects in renovation, bespoke carpentry, and wooden door and window replacement.')}</p></div>
+    <div className="bygg-project-grid">{cards.map((item,index) => <article key={item.key}>
+      {item.photos?.length ? <button type="button" aria-label={'View photos: '+item.title} onClick={()=>setSelected(item)} style={{display:'block',width:'100%',border:0,padding:0,background:'none',cursor:'pointer',textAlign:'inherit'}}>
+        <img src={item.photos[0]} loading="lazy" alt={item.title} style={{width:'100%',height:230,objectFit:'cover',borderRadius:12}} />
+      </button> : <><span>{String(index+1).padStart(2,'0')}</span><div className="bygg-project-icon"><Hammer /></div></>}
+      <small><MapPin />{t(item.location || '')}</small>
+      <h3>{item.title}</h3><p>{item.text}</p>
+      {item.photos?.length > 0 && <button type="button" onClick={()=>setSelected(item)} className="bygg-card-link" style={{background:'none',border:0,cursor:'pointer',padding:'12px 0'}}>View photos ({item.photos.length}) ↗</button>}
+    </article>)}</div>
+    <ProjectPhotoModal project={selected} onClose={()=>setSelected(null)} />
+  </div></section>;
 }
 
 function ByggAbout() {
