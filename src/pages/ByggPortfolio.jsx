@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 const BASE = (import.meta.env.VITE_BYGG_SUPABASE_URL || '').replace(/\/$/, '');
 const KEY = import.meta.env.VITE_BYGG_SUPABASE_PUBLISHABLE_KEY || '';
 const SESSION_KEY = 'hanabygg-portfolio-session';
-const ADMIN_EMAIL = 'info@hanabygg.se';
+const ADMIN_EMAIL = 'camelliahayati@hanatech.se';
 const configured = Boolean(BASE && KEY);
 const headers = (token, json = true) => ({ apikey: KEY, ...(json ? { 'Content-Type': 'application/json' } : {}), ...(token ? { Authorization: 'Bearer ' + token } : {}) });
 async function request(path, options = {}, token) {
@@ -132,7 +132,7 @@ export function PortfolioAdmin() {
     !session?<form onSubmit={login} style={{display:'grid',gap:14,maxWidth:400}}>
       <label>Email<input required type="email" value={email} onChange={e=>setEmail(e.target.value)} /></label>
       <label>Password<input required type="password" value={password} onChange={e=>setPassword(e.target.value)} /></label>
-      <button disabled={busy}>Sign in</button><button type="button" disabled={busy} onClick={register}>Create administrator account</button><small>Registration is limited to info@hanabygg.se. The account can manage projects only after the email is verified.</small></form>:
+      <button disabled={busy}>Sign in</button><button type="button" disabled={busy} onClick={register}>Create administrator account</button><small>Registration is limited to camelliahayati@hanatech.se. The account can manage projects only after the email is verified.</small></form>:
     <>
       <button onClick={()=>{sessionStorage.removeItem(SESSION_KEY);setSession(null)}}>Sign out</button>
       <h2>{editing?'Edit project':'Add photos to an existing project'}</h2>
