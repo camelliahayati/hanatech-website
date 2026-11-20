@@ -24,23 +24,45 @@ async function validSession() {
 }
 async function listProjects() {
   if (!configured) return [];
-  return request('/rest/v1/bygg_projects?select=id,title_en,title_sv,description_en,description_sv,location,category,year,photos,created_at&published=eq.true&order=created_at.desc', { headers: { Accept:'application/json' } });
+  return request('/rest/v1/bygg_projects?select=id,title_en,title_sv,description_en,description_sv,location,category,year,photos,slug,created_at&published=eq.true&order=created_at.desc', { headers: { Accept:'application/json' } });
 }
-export function PortfolioGallery() {
-  const [items, setItems] = useState([]);
-  useEffect(() => { let active = true; listProjects().then(v => { if (active) setItems(v); }).catch(() => {}); return () => {active=false;}; }, []);
-  if (!items.length) return null;
-  return <div style={{marginTop:32}}>
-    <h3 style={{marginBottom:20}}>Our completed projects / Våra projekt</h3>
-    <div className="bygg-project-grid">{items.map(item => <article key={item.id}>
-      {item.photos?.[0] && <img src={item.photos[0]} alt={item.title_en} loading="lazy" style={{width:'100%',height:210,objectFit:'cover',borderRadius:12}} />}
-      <small>{item.location}{item.year ? ' · '+item.year : ''}</small>
-      <h3>{item.title_en}</h3><p>{item.description_en}</p>
-      {item.photos?.length > 1 && <div style={{display:'flex',gap:6,overflowX:'auto',marginTop:12}}>{item.photos.slice(1).map(url=><a key={url} href={url} target="_blank" rel="noreferrer"><img src={url} alt={item.title_en} loading="lazy" style={{height:70,width:90,objectFit:'cover',borderRadius:6}} /></a>)}</div>}
-    </article>)}</div>
+export const EXISTING_BYGG_PROJECTS = [
+  { slug:'residential-renovation', title_en:'Residential renovation', location:'Stockholm', category:'Renovation' },
+  { slug:'dental-clinic-interiors', title_en:'Dental clinic interiors', location:'Solna', category:'Carpentry' },
+  { slug:'wooden-doors-windows', title_en:'Wooden Doors & Windows', location:'Stockholm Area', category:'Doors & Windows' },
+];
+
+export function usePortfolioProjects() {
+  const [items,setItems]=useState([]);
+  useEffect(()=>{let active=true;listProjects().then(rows=>{if(active)setItems(rows)}).catch(()=>{});return()=>{active=false}},[]);
+  return items;
+}
+
+export function ProjectPhotoModal({ project, onClose }) {
+  const [active,setActive]=useState(0);
+  const photos=project?.photos || [];
+  useEffect(()=>{setActive(0)},[project?.slug,project?.id]);
+  useEffect(()=>{
+    if(!project)return;
+    function keys(e){if(e.key==='Escape')onClose();if(e.key==='ArrowRight')setActive(x=>(x+1)%photos.length);if(e.key==='ArrowLeft')setActive(x=>(x-1+photos.length)%photos.length)}
+    document.addEventListener('keydown',keys);
+    return()=>document.removeEventListener('keydown',keys);
+  },[project,onClose,photos.length]);
+  if(!project || !photos.length)return null;
+  return <div role="presentation" onClick={onClose} style={{position:'fixed',inset:0,zIndex:9999,background:'rgba(0,0,0,.88)',display:'grid',placeItems:'center',padding:18}}>
+    <div role="dialog" aria-modal="true" aria-label={project.title_en} onClick={e=>e.stopPropagation()} style={{width:'min(100%,1050px)',color:'white',display:'grid',gap:14}}>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',gap:12}}><h2 style={{fontSize:20}}>{project.title_en}</h2><button type="button" aria-label="Close gallery" onClick={onClose} style={{padding:10}}>✕</button></div>
+      <div style={{display:'flex',gap:10,alignItems:'center',justifyContent:'space-between'}}>
+        <button type="button" aria-label="Previous photo" onClick={()=>setActive(x=>(x-1+photos.length)%photos.length)} disabled={photos.length<2}>❮</button>
+        <img src={photos[active]} alt={project.title_en+' — photo '+(active+1)} style={{maxHeight:'68vh',maxWidth:'calc(100% - 100px)',width:'auto',objectFit:'contain'}} />
+        <button type="button" aria-label="Next photo" onClick={()=>setActive(x=>(x+1)%photos.length)} disabled={photos.length<2}>❯</button>
+      </div>
+      <div style={{textAlign:'center'}}>{active+1} / {photos.length}</div>
+      <div style={{display:'flex',gap:8,overflowX:'auto',justifyContent:'center'}}>{photos.map((photo,i)=><button type="button" key={photo} onClick={()=>setActive(i)} aria-label={'Show photo '+(i+1)} style={{border:i===active?'2px solid white':'2px solid transparent',padding:0,background:'none'}}><img src={photo} alt="" style={{width:75,height:60,objectFit:'cover'}} /></button>)}</div>
+    </div>
   </div>;
 }
-const empty = { title_en:'',title_sv:'',description_en:'',description_sv:'',location:'',category:'Carpentry',year:new Date().getFullYear(),photos:[],published:false };
+const empty = { slug:'',title_en:'',title_sv:'',description_en:'',description_sv:'',location:'',category:'Carpentry',year:new Date().getFullYear(),photos:[],published:false };
 export function PortfolioAdmin() {
   const [session,setSession]=useState(null),[email,setEmail]=useState(''),[password,setPassword]=useState('');
   const [items,setItems]=useState([]),[form,setForm]=useState(empty),[busy,setBusy]=useState(false),[notice,setNotice]=useState(''),[editing,setEditing]=useState(null);
@@ -77,13 +99,20 @@ export function PortfolioAdmin() {
     try {
       const access=await token();
       const data={...form,year:Number(form.year)||null};
-      await request('/rest/v1/bygg_projects'+(editing?'?id=eq.'+encodeURIComponent(editing):''),{method:editing?'PATCH':'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify(data)},access);
+      await request('/rest/v1/bygg_projects'+(editing?'?id=eq.'+encodeURIComponent(editing):(form.slug?'?on_conflict=slug':'')),{method:editing?'PATCH':'POST',headers:{Prefer:!editing&&form.slug?'resolution=merge-duplicates,return=minimal':'return=minimal'},body:JSON.stringify(data)},access);
       await load({access_token:access});setForm(empty);setEditing(null);setNotice('Project saved');
     }catch(err){setNotice(err.message)}finally{setBusy(false)}
   }
   async function remove(id){
     if(!window.confirm('Delete this project? Uploaded photos will remain in storage.'))return;
     setBusy(true);try{const access=await token();await request('/rest/v1/bygg_projects?id=eq.'+encodeURIComponent(id),{method:'DELETE'},access);await load({access_token:access});setNotice('Project deleted')}catch(err){setNotice(err.message)}finally{setBusy(false)}
+  }
+  function chooseExisting(slug) {
+    if(!slug){setEditing(null);setForm(empty);return;}
+    const preset=EXISTING_BYGG_PROJECTS.find(p=>p.slug===slug);
+    const row=items.find(p=>p.slug===slug);
+    if(row){setEditing(row.id);setForm(Object.fromEntries(Object.keys(empty).map(k=>[k,row[k]??empty[k]])));}
+    else {setEditing(null);setForm({...empty,...preset,published:true});}
   }
   const field=(key,label,multi=false)=><label style={{display:'grid',gap:5}}>{label}{multi?<textarea rows="3" value={form[key]||''} onChange={e=>setForm(v=>({...v,[key]:e.target.value}))}/>:<input value={form[key]||''} onChange={e=>setForm(v=>({...v,[key]:e.target.value}))}/>}</label>;
   return <main style={{maxWidth:920,margin:'40px auto',padding:24,fontFamily:'system-ui,sans-serif',color:'#1e293b'}}>
@@ -95,7 +124,13 @@ export function PortfolioAdmin() {
       <button disabled={busy}>Sign in</button></form>:
     <>
       <button onClick={()=>{sessionStorage.removeItem(SESSION_KEY);setSession(null)}}>Sign out</button>
-      <h2>{editing?'Edit project':'Add a project'}</h2>
+      <h2>{editing?'Edit project':'Add photos to an existing project'}</h2>
+      <label style={{display:'grid',gap:5}}>Choose an existing website project
+        <select value={form.slug||''} onChange={e=>chooseExisting(e.target.value)}>
+          <option value="">New project (optional)</option>
+          {EXISTING_BYGG_PROJECTS.map(p=><option key={p.slug} value={p.slug}>{p.title_en}</option>)}
+        </select>
+      </label>
       <form onSubmit={save} style={{display:'grid',gap:14}}>
         {field('title_en','English title *')}{field('title_sv','Swedish title')}
         {field('description_en','English description',true)}{field('description_sv','Swedish description',true)}
