@@ -4,7 +4,7 @@ const BASE = (import.meta.env.VITE_BYGG_SUPABASE_URL || '').replace(/\/$/, '');
 const KEY = import.meta.env.VITE_BYGG_SUPABASE_PUBLISHABLE_KEY || '';
 const SESSION_KEY = 'hanabygg-portfolio-session';
 const configured = Boolean(BASE && KEY);
-const headers = (token, json = true) => ({ apikey: KEY, ...(json ? { 'Content-Type': 'application/json' } : {}), Authorization: 'Bearer ' + (token || KEY) });
+const headers = (token, json = true) => ({ apikey: KEY, ...(json ? { 'Content-Type': 'application/json' } : {}), ...(token ? { Authorization: 'Bearer ' + token } : {}) });
 async function request(path, options = {}, token) {
   const response = await fetch(BASE + path, { ...options, headers: { ...headers(token, !(options.body instanceof File)), ...options.headers } });
   const body = await response.json().catch(() => ({}));
@@ -104,7 +104,7 @@ export function PortfolioAdmin() {
     }catch(err){setNotice(err.message)}finally{setBusy(false)}
   }
   async function remove(id){
-    if(!window.confirm('Delete this project? Uploaded photos will remain in storage.'))return;
+    if(!window.confirm('Delete this project? Previously uploaded files may remain in storage.'))return;
     setBusy(true);try{const access=await token();await request('/rest/v1/bygg_projects?id=eq.'+encodeURIComponent(id),{method:'DELETE'},access);await load({access_token:access});setNotice('Project deleted')}catch(err){setNotice(err.message)}finally{setBusy(false)}
   }
   function chooseExisting(slug) {
