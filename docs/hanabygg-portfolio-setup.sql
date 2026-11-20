@@ -9,6 +9,7 @@ for select to authenticated using (user_id = (select auth.uid()));
 
 create table if not exists public.bygg_projects (
   id uuid primary key default gen_random_uuid(),
+  slug text unique,
   title_en text not null check (length(trim(title_en)) > 0),
   title_sv text not null default '',
   description_en text not null default '',
