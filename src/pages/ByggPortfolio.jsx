@@ -4,7 +4,7 @@ const BASE = (import.meta.env.VITE_BYGG_SUPABASE_URL || '').replace(/\/$/, '');
 const KEY = import.meta.env.VITE_BYGG_SUPABASE_PUBLISHABLE_KEY || '';
 const SESSION_KEY = 'hanabygg-portfolio-session';
 const configured = Boolean(BASE && KEY);
-const headers = (token, json = true) => ({ apikey: KEY, ...(json ? { 'Content-Type': 'application/json' } : {}), ...(token ? { Authorization: 'Bearer ' + token } : {}) });
+const headers = (token, json = true) => ({ apikey: KEY, ...(json ? { 'Content-Type': 'application/json' } : {}), { Authorization: 'Bearer ' + (token || KEY) } });
 async function request(path, options = {}, token) {
   const response = await fetch(BASE + path, { ...options, headers: { ...headers(token, !(options.body instanceof File)), ...options.headers } });
   const body = await response.json().catch(() => ({}));
@@ -98,7 +98,7 @@ export function PortfolioAdmin() {
     e.preventDefault();setBusy(true);setNotice('');
     try {
       const access=await token();
-      const data={...form,year:Number(form.year)||null};
+      const data={...form,slug:form.slug || null,year:Number(form.year)||null};
       await request('/rest/v1/bygg_projects'+(editing?'?id=eq.'+encodeURIComponent(editing):(form.slug?'?on_conflict=slug':'')),{method:editing?'PATCH':'POST',headers:{Prefer:!editing&&form.slug?'resolution=merge-duplicates,return=minimal':'return=minimal'},body:JSON.stringify(data)},access);
       await load({access_token:access});setForm(empty);setEditing(null);setNotice('Project saved');
     }catch(err){setNotice(err.message)}finally{setBusy(false)}
