@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 const BASE = (import.meta.env.VITE_BYGG_SUPABASE_URL || '').replace(/\/$/, '');
 const KEY = import.meta.env.VITE_BYGG_SUPABASE_PUBLISHABLE_KEY || '';
 const SESSION_KEY = 'hanabygg-portfolio-session';
+const ADMIN_EMAIL = 'info@hanabygg.se';
 const configured = Boolean(BASE && KEY);
 const headers = (token, json = true) => ({ apikey: KEY, ...(json ? { 'Content-Type': 'application/json' } : {}), ...(token ? { Authorization: 'Bearer ' + token } : {}) });
 async function request(path, options = {}, token) {
@@ -64,7 +65,7 @@ export function ProjectPhotoModal({ project, onClose }) {
 }
 const empty = { slug:'',title_en:'',title_sv:'',description_en:'',description_sv:'',location:'',category:'Carpentry',year:new Date().getFullYear(),photos:[],published:false };
 export function PortfolioAdmin() {
-  const [session,setSession]=useState(null),[email,setEmail]=useState(''),[password,setPassword]=useState('');
+  const [session,setSession]=useState(null),[email,setEmail]=useState(ADMIN_EMAIL),[password,setPassword]=useState('');
   const [items,setItems]=useState([]),[form,setForm]=useState(empty),[busy,setBusy]=useState(false),[notice,setNotice]=useState(''),[editing,setEditing]=useState(null);
   useEffect(()=>{validSession().then(setSession).catch(()=>{sessionStorage.removeItem(SESSION_KEY);});},[]);
   async function load(s) { const rows=await request('/rest/v1/bygg_projects?select=*&order=created_at.desc',{headers:{Accept:'application/json'}},s.access_token);setItems(rows); }
@@ -75,6 +76,16 @@ export function PortfolioAdmin() {
       const result=await request('/auth/v1/token?grant_type=password',{method:'POST',body:JSON.stringify({email,password})});
       const s={...result,expires_at:Math.floor(Date.now()/1000)+result.expires_in};
       sessionStorage.setItem(SESSION_KEY,JSON.stringify(s));setSession(s);setPassword('');
+    } catch(e){setNotice(e.message)} finally{setBusy(false)}
+  }
+  async function register() {
+    if(email.trim().toLowerCase() !== ADMIN_EMAIL){setNotice('Registration is limited to '+ADMIN_EMAIL);return;}
+    if(password.length < 12){setNotice('Please choose a password with at least 12 characters.');return;}
+    setBusy(true);setNotice('');
+    try {
+      await request('/auth/v1/signup',{method:'POST',body:JSON.stringify({email:ADMIN_EMAIL,password})});
+      setPassword('');
+      setNotice('Check '+ADMIN_EMAIL+' for the confirmation email. After confirming your email address, return here and sign in. If the email does not arrive, check spam and the Supabase Auth email settings.');
     } catch(e){setNotice(e.message)} finally{setBusy(false)}
   }
   async function token() { const s=await validSession(); if(!s) throw new Error('Session expired; sign in again');setSession(s);return s.access_token; }
@@ -121,7 +132,7 @@ export function PortfolioAdmin() {
     !session?<form onSubmit={login} style={{display:'grid',gap:14,maxWidth:400}}>
       <label>Email<input required type="email" value={email} onChange={e=>setEmail(e.target.value)} /></label>
       <label>Password<input required type="password" value={password} onChange={e=>setPassword(e.target.value)} /></label>
-      <button disabled={busy}>Sign in</button></form>:
+      <button disabled={busy}>Sign in</button><button type="button" disabled={busy} onClick={register}>Create administrator account</button><small>Registration is limited to info@hanabygg.se. The account can manage projects only after the email is verified.</small></form>:
     <>
       <button onClick={()=>{sessionStorage.removeItem(SESSION_KEY);setSession(null)}}>Sign out</button>
       <h2>{editing?'Edit project':'Add photos to an existing project'}</h2>
