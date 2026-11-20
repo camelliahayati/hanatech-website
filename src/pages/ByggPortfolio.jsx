@@ -4,7 +4,7 @@ const BASE = (import.meta.env.VITE_BYGG_SUPABASE_URL || '').replace(/\/$/, '');
 const KEY = import.meta.env.VITE_BYGG_SUPABASE_PUBLISHABLE_KEY || '';
 const SESSION_KEY = 'hanabygg-portfolio-session';
 const configured = Boolean(BASE && KEY);
-const headers = (token, json = true) => ({ apikey: KEY, ...(json ? { 'Content-Type': 'application/json' } : {}), { Authorization: 'Bearer ' + (token || KEY) } });
+const headers = (token, json = true) => ({ apikey: KEY, ...(json ? { 'Content-Type': 'application/json' } : {}), Authorization: 'Bearer ' + (token || KEY) });
 async function request(path, options = {}, token) {
   const response = await fetch(BASE + path, { ...options, headers: { ...headers(token, !(options.body instanceof File)), ...options.headers } });
   const body = await response.json().catch(() => ({}));
